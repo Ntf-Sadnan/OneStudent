@@ -52,9 +52,9 @@ function DashboardCard() {
     <div className="dashboard-card">
       <div className="dash-top">
         <div><span>সুপ্রভাত,</span><b>রাফি রহমান</b></div>
-        <div className="avatar">রাফি</div>
+        <div className="avatar">😀</div>
       </div>
-      <div className="progress-ring"><div><b>৭৮%</b><span>সাপ্তাহিক লক্ষ্য</span></div></div>
+      <div className="progress-ring"><div><b>৭৮%</b></div></div>
       <div className="dash-subjects">
         <div><span className="subject-dot green" /><b>গণিত</b><small>১৬টির মধ্যে ১২টি পাঠ</small></div>
         <div><span className="subject-dot yellow" /><b>বিজ্ঞান</b><small>১২টির মধ্যে ৮টি পাঠ</small></div>
@@ -125,7 +125,7 @@ function App() {
       <section className="hero section-pad">
         <div className="hero-copy">
           <div className="hero-kicker"><span>জাতীয় ডিজিটাল লার্নিং প্ল্যাটফর্ম</span><i /> প্রথম–দ্বাদশ শ্রেণি</div>
-          <h1>প্রতিটি শিক্ষার্থীর যাত্রা<br /><em>এক প্ল্যাটফর্মেই</em></h1>
+          <h1><span style={{ whiteSpace: "nowrap", fontSize: "0.75em", display: "inline-block" }}>প্রতিটি শিক্ষার্থীর যাত্রা</span><br /><em>এক প্ল্যাটফর্মেই</em></h1>
           <p>পড়াশোনা, পরীক্ষা, দক্ষতা ও ভবিষ্যৎ পরিকল্পনা — সবকিছু এক জায়গায়।</p>
           <div className="button-row"><Button>পড়াশোনা শুরু করুন</Button><Button secondary href="#features">প্ল্যাটফর্ম দেখুন</Button></div>
           <div className="hero-trust">
@@ -191,7 +191,7 @@ function App() {
           <div className="lesson-ui">
             <aside><Logo /><small>আমার পড়াশোনা</small>{["সারসংক্ষেপ","আমার বিষয়","অনুশীলন","পরীক্ষা","সনদ"].map((x,i)=><div className={i===1?"selected":""} key={x}><i />{x}</div>)}</aside>
             <div className="lesson-main">
-              <div className="lesson-head"><div><small>অষ্টম শ্রেণি · গণিত</small><h3>যেখান থেকে থেমেছিলে, সেখান থেকেই শুরু করো।</h3></div><div className="avatar">রাফি</div></div>
+              <div className="lesson-head"><div><small>অষ্টম শ্রেণি · গণিত</small><h3>যেখান থেকে থেমেছিলে, সেখান থেকেই শুরু করো।</h3></div><div className="avatar">😀</div></div>
               <div className="continue-card"><div><span>অধ্যায় ০৪</span><h4>বীজগাণিতিক রাশি</h4><p>৮টির মধ্যে ৬ষ্ঠ পাঠ · ১৮ মিনিট</p><button>পাঠ চালিয়ে যাও <Arrow /></button></div><div className="geometry"><i/><i/><i/></div></div>
               <div className="course-row">
                 <div><span className="course-no">০১</span><b>সংখ্যা পদ্ধতি</b><small>১০০% সম্পন্ন</small><i className="bar full"/></div>
