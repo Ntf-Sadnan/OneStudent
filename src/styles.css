@@ -107,6 +107,20 @@
 }
 
 @media (max-width: 620px) {
+  html,
+  body,
+  #root {
+    max-width: 100%;
+    overflow-x: hidden;
+  }
+
+  img,
+  svg,
+  video,
+  canvas {
+    max-width: 100%;
+  }
+
   .feature-journey {
     gap: 0;
     padding-left: 8px;
@@ -145,5 +159,21 @@
   .journey-card h3 {
     margin-top: 4px;
     font-size: 19px;
+  }
+}
+
+@media (max-width: 420px) {
+  .journey-card {
+    grid-template-columns: 52px 1fr;
+    gap: 12px;
+  }
+
+  .journey-number {
+    width: 52px;
+    height: 52px;
+  }
+
+  .feature-journey::before {
+    left: 34px;
   }
 }

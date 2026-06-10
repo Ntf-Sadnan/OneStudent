@@ -210,6 +210,9 @@ const StyleOverride: React.FC = () => (
     .dashboard-preview-frame .fixed.inset-0 {
       position: absolute !important;
     }
+    .dashboard-preview-frame .dashboard-calendar-card {
+      display: none !important;
+    }
     .dashboard-preview-frame *::-webkit-scrollbar {
       display: none !important;
     }
@@ -250,15 +253,15 @@ interface LogoProps {
 
 const Logo: React.FC<LogoProps> = ({ light = false, href = "#top" }) => {
   return (
-    <a className={`flex items-center gap-2.5 min-w-[245px] max-[760px]:min-w-0 ${light ? "text-white" : "text-ink"}`} href={href} aria-label="ওয়ানস্টুডেন্ট বাংলাদেশ হোম">
+    <a className={`flex items-center gap-2.5 min-w-[245px] max-[760px]:min-w-0 max-[760px]:gap-2 ${light ? "text-white" : "text-ink"}`} href={href} aria-label="ওয়ানস্টুডেন্ট বাংলাদেশ হোম">
       <span className="relative w-[31px] h-[31px] grid grid-cols-2 gap-[3px] -rotate-7 shrink-0">
         <i className="rounded-[4px] bg-green" />
         <i className="rounded-[4px] bg-yellow" />
         <i className={`rounded-[4px] col-span-2 h-[9px] ${light ? "bg-white" : "bg-ink"}`} />
       </span>
-      <span className="flex flex-col leading-none max-[760px]:hidden">
-        <b className="font-[#111] text-base font-bold">ওয়ানস্টুডেন্ট</b>
-        <small className={`text-[9px] uppercase tracking-[0.14em] mt-1.5 ${light ? "text-gray-300" : "text-muted"}`}>বাংলাদেশ</small>
+      <span className="flex flex-col leading-none">
+        <b className="font-[#111] text-base max-[760px]:text-[15px] font-bold">ওয়ানস্টুডেন্ট</b>
+        <small className={`text-[9px] max-[760px]:text-[8px] uppercase tracking-[0.14em] max-[760px]:tracking-[0.08em]   ${light ? "text-gray-300" : "text-muted"}`}>বাংলাদেশ</small>
       </span>
     </a>
   );
@@ -517,11 +520,42 @@ const LandingApp: React.FC = () => {
   return (
     <main className="flex flex-col min-h-screen bg-paper text-ink font-serif" id="top">
       <StyleOverride />
+      {menuOpen && (
+        <button
+          className="fixed inset-0 z-[80] hidden max-[760px]:block border-0 bg-black/50"
+          onClick={() => setMenuOpen(false)}
+          aria-label="মেনু বন্ধ করুন"
+        />
+      )}
+      <aside className={`fixed top-0 left-0 z-[90] hidden max-[760px]:flex h-dvh w-[282px] bg-ink text-white px-3 py-6 flex-col overflow-y-auto shadow-2xl transition-transform duration-300 ${menuOpen ? "translate-x-0" : "-translate-x-full"}`}>
+        <div className="flex items-center justify-between px-2 pb-[22px] mb-2 border-b border-[#2a2c29]">
+          <Logo light />
+          <button className="grid place-items-center w-9 h-9 rounded-[10px] border border-white/10 bg-white/5 text-white cursor-pointer" onClick={() => setMenuOpen(false)} aria-label="মেনু বন্ধ করুন">
+            <Cancel01Icon size={20} />
+          </button>
+        </div>
+        <nav className="grid gap-1">
+          {[
+            ["শিক্ষার্থী আইডি", "#student-id"],
+            ["পড়াশোনা", "#learning"],
+            ["সহায়তা", "#support"],
+            ["প্রভাব", "#impact"],
+            ["যোগাযোগ", "#contact"]
+          ].map(([text, link]) => (
+            <a className="text-sm font-extrabold text-[#c9cfca] px-[13px] py-[13px] rounded-[11px] hover:bg-[#282b27] hover:text-white transition-colors" href={link} key={link} onClick={() => setMenuOpen(false)}>
+              {text}
+            </a>
+          ))}
+        </nav>
+        <div className="px-3 pt-5 mt-auto">
+          <Button href="/dashboard">শুরু করুন</Button>
+        </div>
+      </aside>
       {/* 0. Header */}
       <header className="fixed top-0 left-0 w-full z-50 px-8 py-4.5 max-[760px]:px-2.5 max-[760px]:py-2.5 transition-all duration-300 header-scroll-bg">
         <div className="h-[72px] max-[760px]:h-[62px] max-w-[1380px] mx-auto bg-white/88 backdrop-blur-[18px] rounded-[20px] flex items-center justify-between px-6 py-0 shadow-sm relative">
           <Logo />
-          <nav className={`${menuOpen ? "flex absolute top-[78px] left-0 right-0 bg-white border border-ink/10 rounded-2xl p-6 flex-col gap-4 shadow-lg" : "hidden"} md:flex md:static md:flex-row md:items-center md:justify-center md:gap-7 md:shadow-none md:p-0 md:bg-transparent md:border-none`}>
+          <nav className="hidden md:flex md:static md:flex-row md:items-center md:justify-center md:gap-7">
             {[
               ["শিক্ষার্থী আইডি", "#student-id"],
               ["পড়াশোনা", "#learning"],
@@ -529,7 +563,7 @@ const LandingApp: React.FC = () => {
               ["প্রভাব", "#impact"],
               ["যোগাযোগ", "#contact"]
             ].map(([text, link]) => (
-              <a className="text-[13px] font-semibold text-[#55574f] hover:text-green transition-colors" href={link} key={link} onClick={() => setMenuOpen(false)}>
+              <a className="text-[13px] font-semibold text-[#55574f] hover:text-green transition-colors" href={link} key={link}>
                 {text}
               </a>
             ))}
@@ -537,24 +571,25 @@ const LandingApp: React.FC = () => {
           <div className="max-[760px]:hidden">
             <Button href="/dashboard">শুরু করুন</Button>
           </div>
-          <button className="hidden max-[760px]:flex items-center justify-center w-10 h-10 border-none bg-transparent cursor-pointer text-ink" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}>
-            {menuOpen ? <Cancel01Icon size={24} /> : <Menu01Icon size={24} />}
+          <button className="hidden max-[760px]:flex items-center justify-center w-10 h-10 border-none bg-transparent cursor-pointer text-ink" onClick={() => setMenuOpen(true)} aria-label="মেনু খুলুন">
+            <Menu01Icon size={24} />
           </button>
         </div>
       </header>
 
       {/* 1. Hero Section */}
-      <section className="pt-[120px] max-[760px]:pt-[110px] pb-16 max-[760px]:pb-8 px-16 max-[760px]:px-5 max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-[0.88fr_1.12fr] gap-6 lg:gap-10 items-center overflow-hidden">
+      <section className="pt-[120px] max-[760px]:pt-[100px] pb-16 max-[760px]:pb-8 px-16 max-[760px]:px-4 max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-[0.88fr_1.12fr] gap-6 lg:gap-10 items-center overflow-hidden">
         <div className="flex flex-col text-left max-[760px]:text-center">
-          <div className="inline-flex items-center gap-2 border border-gray-300 rounded-full p-1.5 max-[760px]:justify-center max-[760px]:mx-auto w-fit text-[12px] tracking-wide mb-6">
-            <span className="bg-yellow px-2.5 py-1.5 rounded-full font-bold text-[12px]">জাতীয় ডিজিটাল লার্নিং প্ল্যাটফর্ম</span>
-            <i className="w-1.5 h-1.5 bg-green rounded-full shrink-0" />
-            <span className="text-muted font-medium">প্রথম থেকে দ্বাদশ শ্রেণি পর্যন্ত</span>
+          <div className="inline-flex items-center gap-2 border border-gray-300 rounded-full p-1.5 max-[760px]:flex-col max-[760px]:items-center max-[760px]:gap-1 max-[760px]:rounded-[18px] max-[760px]:px-2 max-[760px]:py-2 max-[760px]:max-w-[calc(100vw-32px)] max-[760px]:w-fit max-[760px]:mx-auto w-fit text-[12px] tracking-wide mb-6">
+            <span className="bg-yellow px-2.5 py-1.5 rounded-full font-bold text-[12px] max-[760px]:text-[10px] max-[760px]:px-2.5 max-[760px]:max-w-full max-[760px]:whitespace-normal max-[760px]:leading-tight">জাতীয় ডিজিটাল লার্নিং প্ল্যাটফর্ম</span>
+            <span className="flex items-center justify-center gap-1.5 text-muted font-medium max-[760px]:text-[10px] max-[760px]:leading-tight max-[760px]:max-w-full max-[760px]:text-center">
+              <i className="w-1.5 h-1.5 bg-green rounded-full shrink-0" />
+              <span className="min-w-0 break-words">প্রথম থেকে দ্বাদশ শ্রেণি পর্যন্ত</span>
+            </span>
           </div>
-          <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.08] text-ink">
-            <span className="inline-block whitespace-nowrap text-[0.85em]">প্রতিটি শিক্ষার্থীর যাত্রা</span>
-            <br />
-            <em className="text-green not-italic">এক প্ল্যাটফর্মেই</em>
+          <h1 className="text-[clamp(2.35rem,12vw,4.5rem)] md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 max-[760px]:mb-7 leading-[1.08] max-[760px]:leading-[0.95] text-ink">
+            <span className="block text-[0.85em]">প্রতিটি শিক্ষার্থীর যাত্রা</span>
+            <em className="block text-green not-italic max-[760px]:mt-1">এক প্ল্যাটফর্মেই</em>
           </h1>
           <p className="text-lg md:text-xl lg:text-2xl leading-relaxed text-muted mb-9 max-w-[690px] max-[760px]:mx-auto">
             পড়াশোনা, পরীক্ষা, দক্ষতা ও ভবিষ্যৎ পরিকল্পনা — সবকিছু এক জায়গায়।
@@ -577,15 +612,15 @@ const LandingApp: React.FC = () => {
             </p>
           </div>
         </div>
-        <div className="relative h-[670px] max-[760px]:h-[520px] w-full max-w-[780px] mx-auto shrink-0">
+        <div className="relative h-[670px] max-[760px]:h-[min(132vw,520px)] w-full max-w-[780px] mx-auto shrink-0">
           <div className="absolute inset-[60px_30px_30px_90px] max-[760px]:inset-[60px_15px_30px] bg-yellow rounded-[44%_56%_63%_37%_/_44%_40%_60%_56%] rotate-4" />
           <div className="absolute inset-[28px_65px_35px_70px] max-[760px]:inset-[35px_25px] rounded-[47%_53%_46%_54%_/_37%_38%_62%_63%] overflow-hidden filter saturate-90 shadow-lg after:content-[''] after:absolute after:inset-0 after:bg-gradient-to-t after:from-emerald-900/18 after:to-transparent">
             <img className="w-full h-full object-cover" src={photos.hero} alt="শ্রেণিকক্ষে একসঙ্গে পড়ছে শিক্ষার্থীরা" />
           </div>
           <DashboardCard />
-          <div className="absolute right-[-5px] top-[100px] max-[760px]:top-[100px] w-[170px] max-[760px]:w-[155px] h-[200px] max-[760px]:h-[185px] bg-ink text-white rounded-[22px] p-5.5 max-[760px]:p-5 flex flex-col items-center text-center shadow-xl animate-float-2">
+          <div className="absolute right-[-5px] top-[100px] max-[760px]:right-2 max-[760px]:top-[88px] w-[170px] max-[760px]:w-[136px] h-[200px] max-[760px]:h-[164px] bg-ink text-white rounded-[22px] p-5.5 max-[760px]:p-4 flex flex-col items-center text-center shadow-xl animate-float-2">
             <span className="text-[12px] max-[760px]:text-[10px] text-gray-300">সর্বশেষ পরীক্ষা</span>
-            <b className="text-[48px] max-[760px]:text-[42px] font-bold mt-2.5 tracking-tighter">৯২%</b>
+            <b className="text-[48px] max-[760px]:text-[36px] font-bold mt-2.5 tracking-tighter">৯২%</b>
             <small className="text-[12px] max-[760px]:text-[10px] text-gray-300">চমৎকার হয়েছে!</small>
             <div className="flex items-end justify-center gap-[5px] h-[38px] mt-auto w-full">
               <i className="w-[11px] h-[30%] bg-green rounded-t-sm" />
@@ -835,8 +870,8 @@ const LandingApp: React.FC = () => {
             title={<>লার্নিং-এ <br /><em className="text-green not-italic">যা কিছু প্রয়োজন।</em></>}
             text="পাঠ্যক্রমের বিষয়বস্তু, বুদ্ধিদীপ্ত সহায়তা ও কার্যকর অনুশীলন — একটি সহজ অভিজ্ঞতায় সংযুক্ত।"
           />
-          <div className="bg-white border border-gray-300 rounded-[28px] p-3 shadow-[0_30px_80px_rgba(30,32,27,0.1)]">
-            <div className="min-h-[610px] bg-[#f7f7f4] rounded-[20px] overflow-hidden border border-gray-200 shadow-sm flex flex-col">
+          <div className="bg-white border border-gray-300 rounded-[28px] p-3 max-[760px]:p-2.5 shadow-[0_30px_80px_rgba(30,32,27,0.1)]">
+            <div className="min-h-[610px] max-[760px]:min-h-[680px] bg-[#f7f7f4] rounded-[20px] overflow-hidden border border-gray-200 shadow-sm flex flex-col">
               {/* Simulated Browser Bar */}
               <div className="bg-[#e9e9e4] border-b border-gray-300 px-4 py-2 flex items-center gap-2 max-[760px]:px-2">
                 <div className="flex gap-1.5 shrink-0">
@@ -1477,10 +1512,12 @@ const CsPlayerVideo: React.FC<{ videoId: string; playerId: string }> = ({ videoI
   );
 };
 
+type DashboardMode = "course" | "profile" | "learn" | "test" | "result";
+
 const DashboardApp: React.FC = () => {
   const [courseIndex, setCourseIndex] = useState(0);
   const [chapterIndex, setChapterIndex] = useState(0);
-  const [mode, setMode] = useState<"course" | "profile" | "learn" | "test" | "result">("profile");
+  const [mode, setMode] = useState<DashboardMode>("profile");
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [sidebarMounted, setSidebarMounted] = useState(false);
   const [answer, setAnswer] = useState<number | null>(null);
@@ -1659,7 +1696,7 @@ const DashboardApp: React.FC = () => {
   }, [coursesList]);
 
   const CalendarCard = () => (
-    <section className="bg-white border border-line rounded-[20px] p-6">
+    <section className="dashboard-calendar-card bg-white border border-line rounded-[20px] p-6">
       <div className="flex items-end justify-between mb-5">
         <div>
           <span className="text-xs text-deep font-black tracking-[.08em] uppercase">পড়াশোনার ক্যালেন্ডার</span>
