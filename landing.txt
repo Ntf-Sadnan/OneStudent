@@ -1,0 +1,903 @@
+Design a full professional landing page for **OneStudent Bangladesh**, a national all-in-one digital education platform for Bangladeshi students from Class 1 to Class 12.
+
+The landing page must feel:
+- modern
+- premium
+- inspiring
+- educational
+- human-centered
+- hopeful
+- clean
+- image-heavy
+- low-icon
+- highly polished
+- suitable for startup + government-backed education platform
+
+Do not make it childish.  
+Do not make it too corporate or too boring.  
+Make it feel like a high-quality, trustable, modern EdTech platform with soft creativity.
+
+--------------------------------------------------
+1. OVERALL VISUAL STYLE
+--------------------------------------------------
+
+- Clean white / soft warm background
+- Large bold typography
+- Rounded cards
+- Minimal icons
+- More photography / human images / UI screenshots
+- Organic soft shape backgrounds behind people
+- Slight playful educational energy
+- Strong whitespace
+- Elegant section spacing
+- Editorial composition
+- Slight asymmetry for modern look
+- Smooth curved shapes / blobs / underlines / strokes
+- Use image blocks more than icon grids
+
+Visual mood:
+- premium education startup
+- warm, intelligent, welcoming
+- modern learning exploration
+- accessible for students, parents, teachers, government
+
+--------------------------------------------------
+2. COLOR PALETTE
+--------------------------------------------------
+
+Primary:
+- Deep charcoal / near-black text: #111111
+- Soft white background: #FCFCFA
+- Education green: #20C073
+- Warm yellow: #F4C542
+
+Secondary accents:
+- Soft teal: #2FA8A0
+- Light mint: #DDF5EC
+- Light warm gray: #F1F1ED
+- Muted gray text: #6B7280
+
+Use color carefully:
+- Mostly white layout
+- Green and yellow as accents
+- Minimal dark sections
+- Accent blobs behind images
+- Buttons mainly green
+- Highlight strokes / underlines mainly yellow
+
+--------------------------------------------------
+3. TYPOGRAPHY
+--------------------------------------------------
+
+Style:
+- Bold geometric sans-serif
+- Clean modern headline font
+- Friendly but professional
+- Rounded feeling
+
+Headlines:
+- very bold
+- large
+- short lines
+- 2–4 lines max
+
+Body:
+- medium size
+- soft gray
+- readable
+- short paragraphs
+
+Use mixed emphasis:
+- black bold text
+- some highlighted words in green or yellow
+- occasional underline stroke
+
+--------------------------------------------------
+4. LAYOUT RULES
+--------------------------------------------------
+
+- Desktop-first landing page mockup
+- Wide canvas
+- 12-column feel
+- Lots of whitespace
+- Rounded cards
+- Soft shadows
+- Section gap generous
+- More image than decoration
+- Minimal icon usage
+- Every major section should contain:
+  - headline
+  - short description
+  - supporting visual/image
+  - 2–4 key points or cards
+
+Use real people visuals:
+- Bangladeshi / South Asian students, parents, teachers
+- warm, authentic, bright, optimistic
+- mixed age groups from school level
+- use clean cutout photography when helpful
+
+--------------------------------------------------
+5. HEADER / TOP NAVBAR
+--------------------------------------------------
+
+Layout:
+- sticky or clean top bar
+- logo left
+- nav center/right
+- CTA buttons right
+
+Left:
+- Logo: “OneStudent Bangladesh”
+- logo mark simple, modern, education-based
+
+Center nav:
+- Home
+- Features
+- For Students
+- For Teachers
+- For Guardians
+- Health
+- Career
+- Contact
+
+Right:
+- “Sign In”
+- Primary CTA button: “Get Started”
+
+Style:
+- very clean
+- slim nav
+- soft rounded buttons
+- minimal borders
+
+--------------------------------------------------
+6. HERO SECTION
+--------------------------------------------------
+
+Layout:
+- Two-column
+- Left: headline + subtext + CTAs + trust stats
+- Right: large image composition with overlapping cards
+
+Left content:
+Headline:
+“Every Student’s Learning Journey, In One Platform”
+
+Alternative highlighted line:
+“Learn. Grow. Stay on Track.”
+
+Subtext:
+“OneStudent Bangladesh brings together NCTB lessons, AI tutoring, online exams, teacher support, guardian updates, health guidance, and career planning — all in one place.”
+
+Buttons:
+- Primary: “Start Learning”
+- Secondary: “Explore Features”
+
+Mini feature chips under buttons:
+- NCTB Learning
+- AI Study Help
+- Exams & Certificates
+- Health Support
+- Career Guidance
+
+Stats row:
+- 20M+ Students
+- Class 1–12 Coverage
+- 1 Platform
+- Nationwide Vision
+
+Right visual:
+Main image:
+[smiling Bangladeshi school student holding books and a phone, standing confidently]
+Behind image:
+- organic yellow blob
+- green shadow shape
+- soft doodle stroke
+Overlay cards:
+1. [phone UI showing AI tutor chat]
+2. [small dashboard card showing exam score 92%]
+3. [progress badge “Chapter Completed”]
+4. [tiny certificate preview]
+Style:
+- layered
+- floating cards
+- clean
+- modern
+- image-focused
+
+--------------------------------------------------
+7. TRUST / SOCIAL PROOF STRIP
+--------------------------------------------------
+
+Below hero:
+- horizontal strip
+- clean light background
+- logos / labels / trust items
+
+Content:
+- NCTB Curriculum Aligned
+- Designed for Students, Teachers & Guardians
+- AI-Powered Learning Support
+- Inclusive Rural Access
+- Future-Ready Education
+
+Optional:
+small logos / text placeholders:
+- Schools
+- Teachers
+- Students
+- Guardians
+- Government-ready
+
+Keep subtle.
+
+--------------------------------------------------
+8. SECTION: WHY ONESTUDENT
+--------------------------------------------------
+
+Layout:
+- Left text block
+- Right 3 stacked visual cards or one large image with stats
+
+Headline:
+“A Complete Student Support Ecosystem”
+
+Description:
+“Most students need more than books. They need guidance, practice, support, monitoring, health awareness, and a clear future path.”
+
+Right image:
+[three students sitting together using tablet and books]
+Overlay stat cards:
+- “Free Chapter-wise Learning”
+- “AI Help in Bangla & English”
+- “From School to College Pathway”
+
+Below or side:
+3 feature cards:
+- Learn at your own pace
+- Stay supported at every stage
+- Never fall behind unnoticed
+
+--------------------------------------------------
+9. SECTION: NCTB DIGITAL LEARNING HUB
+--------------------------------------------------
+
+Layout:
+- Two columns
+- Left large image / screen
+- Right content
+
+Left image:
+[laptop screen showing chapter-wise lesson dashboard with books, quizzes, and subject cards]
+or
+[student studying from tablet with colorful lesson interface]
+
+Right content:
+Headline:
+“Chapter-wise NCTB Learning, Made Simple”
+
+Description:
+“Students can access lessons, summaries, revision notes, videos, and practice materials in an organized chapter-wise experience.”
+
+Feature bullets:
+- Subject-wise dashboard
+- Chapter summaries
+- Practice questions
+- Revision notes
+- Video lessons
+- Easy navigation by class and subject
+
+Mini cards:
+- Bangla
+- English
+- Math
+- Science
+- ICT
+- Social Science
+
+Button:
+“Explore Learning Hub”
+
+--------------------------------------------------
+10. SECTION: AI STUDY ASSISTANT
+--------------------------------------------------
+
+Layout:
+- Right large phone mockup or chat UI
+- Left text
+
+Left content:
+Headline:
+“AI Study Help, Anytime”
+
+Description:
+“Students can ask questions, get step-by-step explanations, understand difficult lessons, and practice smarter with an AI study assistant.”
+
+Feature bullets:
+- Explains in simple Bangla
+- Gives step-by-step solutions
+- Generates quick quizzes
+- Helps with homework
+- Personalized suggestions
+- Works by chapter/topic
+
+Right visual:
+[phone screen showing AI tutor chat helping with a math problem]
+Supporting image:
+[student smiling while using phone]
+Floating chips:
+- “Explain this chapter”
+- “Generate quiz”
+- “Solve step by step”
+
+--------------------------------------------------
+11. SECTION: SMART EXAMS & CERTIFICATES
+--------------------------------------------------
+
+Layout:
+- Left content
+- Right image cards
+
+Headline:
+“Practice, Test, Improve”
+
+Description:
+“Students can take chapter tests, mock exams, and model tests with instant results and progress tracking.”
+
+Feature bullets:
+- Chapter quizzes
+- Subject tests
+- Full mock exams
+- Instant score analysis
+- Performance insights
+- Digital certificates
+
+Right visuals:
+1. [exam dashboard showing score, accuracy, weak areas]
+2. [certificate card preview]
+3. [student reviewing results on laptop]
+
+Small highlight badges:
+- “92% Score”
+- “Math Improved”
+- “Certified Completion”
+
+--------------------------------------------------
+12. SECTION: STUDENT LEARNING PASSPORT
+--------------------------------------------------
+
+Layout:
+- Centered headline
+- Big visual card in middle
+- 4 smaller support cards around
+
+Headline:
+“One Profile, Lifelong Growth”
+
+Description:
+“A digital student passport that stores progress, achievements, certificates, attendance, strengths, and learning journey.”
+
+Center visual:
+[dashboard showing student profile with progress charts, skill badges, completed lessons, certificates]
+
+Support cards:
+- Academic Progress
+- Certificates
+- Learning Streak
+- Strength Areas
+
+Optional small image:
+[happy student profile photo inside dashboard]
+
+--------------------------------------------------
+13. SECTION: TEACHER COPILOT
+--------------------------------------------------
+
+Layout:
+- Two-column
+- Left image
+- Right content
+
+Left visual:
+[teacher standing with tablet in classroom]
+Overlay UI:
+- lesson plan preview
+- class performance chart
+- homework status card
+
+Right content:
+Headline:
+“Built for Teachers Too”
+
+Description:
+“Teachers get powerful tools to support classes, identify weak students, and manage learning more effectively.”
+
+Feature bullets:
+- Auto lesson support
+- Quiz generation
+- Student performance reports
+- Homework review help
+- Weak student detection
+- Progress dashboards
+
+Button:
+“For Teachers”
+
+--------------------------------------------------
+14. SECTION: GUARDIAN MODE
+--------------------------------------------------
+
+Layout:
+- Right image
+- Left text
+
+Left content:
+Headline:
+“Parents Stay Informed, Simply”
+
+Description:
+“Guardian Mode helps parents understand their child’s progress without complex dashboards.”
+
+Feature bullets:
+- Progress summary
+- Attendance updates
+- Exam alerts
+- Weak topic alerts
+- Study suggestions
+- Health reminders
+
+Right visual:
+[mother sitting with child, checking progress on mobile]
+Overlay card:
+- “Your child completed 3 chapters this week”
+- “Math needs attention”
+- “Upcoming test on Sunday”
+
+--------------------------------------------------
+15. SECTION: EARLY DROPOUT RISK DETECTION
+--------------------------------------------------
+
+Layout:
+- modern horizontal feature section
+- one large text block + one large visual
+
+Headline:
+“Spot Struggles Early”
+
+Description:
+“The platform identifies students who may be falling behind based on inactivity, low scores, attendance gaps, or repeated weak performance.”
+
+Key points:
+- Early alerts
+- Learning gap detection
+- Attendance-based signals
+- Teacher/guardian notification
+- Better student retention
+
+Visual:
+[dashboard with alert cards and trend chart]
+Optional human image:
+[teacher reviewing student risk report]
+
+Keep serious, trustworthy, and clean.
+
+--------------------------------------------------
+16. SECTION: OFFLINE SCHOOLBOX
+--------------------------------------------------
+
+Layout:
+- left visual, right text
+- more rural inclusion feel
+
+Left visual:
+[rural classroom with students gathered around a digital screen/device]
+or
+[a teacher using an offline school hub device with children]
+
+Right content:
+Headline:
+“Learning That Reaches Rural Schools”
+
+Description:
+“Offline SchoolBox enables access to learning materials, quizzes, and student data syncing even with limited internet.”
+
+Feature bullets:
+- Offline content access
+- Local school use
+- Sync when internet returns
+- Rural-friendly deployment
+- Useful for low-connectivity areas
+
+Small label:
+“Inclusive Nationwide Access”
+
+--------------------------------------------------
+17. SECTION: HEALTH & MENTAL WELLNESS
+--------------------------------------------------
+
+Layout:
+- two-column
+- softer visual tone
+
+Left content:
+Headline:
+“Because Student Success Also Needs Wellbeing”
+
+Description:
+“OneStudent Bangladesh includes health awareness and mental wellness support so students can grow stronger in every way.”
+
+Feature bullets:
+- Basic health guidance
+- Nutrition awareness
+- Mental wellness support
+- Stress guidance
+- Period health education
+- Student-safe support information
+
+Right visual:
+[young female student talking with a friendly doctor or counselor through video call]
+Supporting small cards:
+- “Wellbeing Tips”
+- “Talk to Support”
+- “Healthy Study Habits”
+
+Use calming tone.
+
+--------------------------------------------------
+18. SECTION: CAREER GUIDANCE & COLLEGE TRANSITION
+--------------------------------------------------
+
+Layout:
+- Right large image
+- Left text + cards
+
+Left content:
+Headline:
+“From School Learning to Future Direction”
+
+Description:
+“The platform helps students discover interests, explore careers, and prepare for college and beyond.”
+
+Feature bullets:
+- Interest-based career suggestions
+- Subject strength analysis
+- SSC/HSC guidance
+- College selection help
+- Scholarship information
+- Future planning support
+
+Right visual:
+[older student smiling, holding admission papers or laptop]
+Overlay cards:
+- Career Match
+- Scholarship Finder
+- College Guide
+- Subject Recommendation
+
+--------------------------------------------------
+19. SECTION: ALL FEATURES GRID
+--------------------------------------------------
+
+Important:
+Create one clean section that summarizes everything in a visual grid.
+
+Headline:
+“Everything Students Need, In One Place”
+
+Grid style:
+- 3 columns or 4 columns
+- rounded cards
+- mostly text + one supporting image strip
+- minimal icons
+
+Cards:
+1. NCTB Learning Hub
+2. AI Study Assistant
+3. Chapter Quizzes
+4. Mock Exams
+5. Digital Certificates
+6. Student Passport
+7. Teacher Dashboard
+8. Guardian Mode
+9. Dropout Detection
+10. Offline SchoolBox
+11. Health Support
+12. Career Guidance
+13. College Transition
+14. Progress Analytics
+15. Personalized Learning
+16. Rural Inclusion
+
+At least 1–2 cards may contain small image thumbnails:
+[student using laptop]
+[teacher in classroom]
+
+--------------------------------------------------
+20. SECTION: IMPACT / NUMBERS
+--------------------------------------------------
+
+Layout:
+- full-width clean section
+- big stats + one side image
+
+Headline:
+“Designed to Transform Student Support Nationwide”
+
+Stats:
+- 20M+ Potential Students
+- Class 1–12 Unified Coverage
+- 1 Lifelong Learning Journey
+- 100% Future-Ready Vision
+
+Supporting mini-text:
+- Better access
+- Better outcomes
+- Better guidance
+- Better national education support
+
+Visual:
+[group of smiling students in school uniforms]
+
+--------------------------------------------------
+21. SECTION: TESTIMONIALS
+--------------------------------------------------
+
+Layout:
+- 3 large testimonial cards
+- image-heavy
+- clean
+
+Card 1:
+[parent smiling with child]
+Quote:
+“Now I can clearly understand my child’s progress and where support is needed.”
+
+Card 2:
+[teacher in classroom]
+Quote:
+“The platform helps me plan better and identify students who need attention.”
+
+Card 3:
+[student studying with tablet]
+Quote:
+“The AI explanations and mock tests make learning much easier for me.”
+
+Add name / role:
+- Guardian
+- Teacher
+- Student
+
+--------------------------------------------------
+22. SECTION: FINAL CTA
+--------------------------------------------------
+
+Layout:
+- bold, visually strong
+- centered
+- large image + CTA
+
+Headline:
+“Let Every Student Move Forward”
+
+Subtext:
+“OneStudent Bangladesh unites learning, guidance, wellbeing, and future planning in one platform.”
+
+Buttons:
+- Get Started
+- Request Demo
+
+Visual:
+[diverse group of happy Bangladeshi students standing together with books and devices]
+Background:
+- soft green/yellow gradient area
+- rounded container
+- premium feel
+
+--------------------------------------------------
+23. FOOTER
+--------------------------------------------------
+
+Layout:
+- clean multi-column footer
+- logo left
+- links right
+- simple contact/social
+
+Columns:
+1. Brand
+- OneStudent Bangladesh
+- short mission text
+
+2. Platform
+- Learning Hub
+- AI Assistant
+- Exams
+- Certificates
+- Student Passport
+
+3. Support
+- For Teachers
+- For Guardians
+- Health
+- Career
+- Contact
+
+4. Legal
+- Privacy
+- Terms
+- Accessibility
+
+Bottom note:
+“Empowering every student in Bangladesh.”
+
+--------------------------------------------------
+24. IMAGE DIRECTION
+--------------------------------------------------
+
+Use more image, less icon.
+
+Use images like:
+- [Bangladeshi school student smiling, holding books]
+- [student using phone for learning]
+- [teacher with tablet in classroom]
+- [mother helping child study]
+- [student taking online exam on laptop]
+- [doctor or counselor in video consultation]
+- [rural classroom using digital learning]
+- [teen student planning future with laptop]
+- [students collaborating at desk]
+- [group of diverse school children smiling]
+
+Photo feel:
+- bright
+- clean
+- authentic
+- optimistic
+- natural
+- not stock-heavy looking
+- strong cutout quality if needed
+
+--------------------------------------------------
+25. UI COMPONENT STYLE
+--------------------------------------------------
+
+Buttons:
+- rounded pill buttons
+- primary green
+- secondary white with border
+
+Cards:
+- soft rounded corners
+- subtle shadow
+- clean spacing
+
+Badges / chips:
+- small
+- minimal
+- light background
+
+Inputs / forms:
+- minimal if used
+- clean border
+
+Illustrations:
+- very limited
+- use only if subtle
+- human photos preferred
+
+Icons:
+- low usage
+- only supportive
+- do not rely on icon-heavy design
+
+--------------------------------------------------
+26. DESIGN QUALITY RULES
+--------------------------------------------------
+
+Must look:
+- premium
+- dribbble-quality
+- startup-grade
+- polished
+- presentation-ready
+- modern UI/UX
+- balanced
+- not cluttered
+- not too playful
+- not childish
+- not template-looking
+
+Use:
+- strong hierarchy
+- good balance between text and image
+- sections visually different but unified
+- more rounded image blocks
+- soft overlapping cards
+- subtle educational playfulness
+- high-end landing page quality
+
+--------------------------------------------------
+27. FINAL OUTPUT REQUIREMENT
+--------------------------------------------------
+
+Create a full top-to-bottom landing page mockup with all sections included.
+
+Important:
+- all major features must be represented
+- every section should have content + image + layout intention
+- use real, meaningful UI blocks
+- use low icon and more photography
+- make it look unique and professionally designed
+- create a fully polished landing page, not a wireframe
+- make the brand feel trustworthy, modern, human, and nationally impactful
+
+--------------------------------------------------
+28. EXPANDED NATIONAL PLATFORM SCOPE
+--------------------------------------------------
+
+Position the product clearly as:
+“Bangladesh’s National Digital Learning Platform”
+
+The platform should connect formal education, printed books, digital lessons,
+assessments, lifelong academic identity, guardian oversight, practical skills,
+and the wider EdTech ecosystem.
+
+Core additions:
+
+1. Video-based lessons
+- Every chapter can include high-quality video lessons.
+- Videos should support both classroom learning and self-study.
+- Students can continue directly from the relevant chapter or topic.
+
+2. QR-connected books
+- Printed textbooks and learning materials contain QR codes.
+- Scanning a lesson QR opens the exact related video or digital class.
+- Scanning a test QR opens the related quiz, exam, or model test directly.
+- Students can move from a physical book to a lesson or exam with one scan.
+
+3. Lifelong national student ID
+- Every student receives a unique digital student ID.
+- The ID remains with the learner throughout their full education career.
+- School changes, class changes, exams, certificates, and achievements remain
+  connected to the same trusted identity.
+
+4. Unified academic profile
+- Every student has a personal academic profile.
+- Exams, marks, attendance, progress, certificates, strengths, weak topics,
+  skills, and achievements are stored together.
+- The profile becomes a lifelong academic record and learning passport.
+
+5. Guardian device control and monitoring
+- Guardians can monitor learning progress, attendance, exams, and study time.
+- Guardians can manage learning schedules and appropriate app/device access.
+- Controls must be transparent, age-appropriate, privacy-conscious, and focused
+  on healthy digital learning rather than surveillance.
+
+6. Skill-based learning
+- Students can learn beyond the academic curriculum.
+- Include practical pathways such as farming, English speaking, digital skills,
+  entrepreneurship, vocational foundations, and life skills.
+- Skill pathways can include videos, projects, assessments, and certificates.
+
+7. EdTech collaboration ecosystem
+- The platform can bring trusted EdTech companies and education providers
+  together under shared national standards.
+- Partners can contribute approved content, tools, courses, assessments, and
+  specialized learning experiences.
+- Students should access this ecosystem through one trusted identity and profile.
+
+8. National digital learning infrastructure
+- Present the platform as shared digital infrastructure for students, schools,
+  teachers, guardians, government, and education partners.
+- Emphasize interoperability, accessibility, student safety, nationwide reach,
+  trusted records, and continuity across the full education journey.
+
+Required new visual sections:
+- A printed textbook with visible QR codes linked to “Watch lesson” and
+  “Start exam” digital cards.
+- A lifelong student ID card connected to one unified academic profile.
+- A guardian dashboard showing progress plus study-time/device controls.
+- A skill-learning showcase with farming, English speaking, and digital skills.
+- An EdTech partner ecosystem section showing multiple providers connecting
+  through one national platform.
