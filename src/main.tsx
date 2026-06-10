@@ -85,6 +85,16 @@ const StyleOverride: React.FC = () => (
     .node-two { right: 0; top: 7%; }
     .node-three { left: 0; bottom: 7%; }
     .node-four { right: 1%; bottom: 8%; }
+
+    body.scrolled .header-scroll-bg {
+      padding-top: 8px !important;
+      padding-bottom: 8px !important;
+    }
+    body.scrolled .header-scroll-bg > div {
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08) !important;
+      background-color: rgba(255, 255, 255, 0.96) !important;
+      border-color: rgba(0, 0, 0, 0.04) !important;
+    }
   ` }} />
 );
 
@@ -182,7 +192,9 @@ const DashboardCard: React.FC = () => {
           <span className="text-[12px] max-[760px]:text-[9px] text-gray-400">সুপ্রভাত,</span>
           <b className="text-[16px] max-[760px]:text-[13px] text-ink font-bold">রাফি রহমান</b>
         </div>
-        <div className="w-[46px] h-[46px] rounded-full flex items-center justify-center bg-mint font-extrabold text-[26px]">😀</div>
+        <div className="w-[44px] h-[44px] rounded-full overflow-hidden border border-[#1dbf73]/50 shadow-sm bg-mint shrink-0">
+          <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" alt="Rafi" />
+        </div>
       </div>
       <div className="w-[90px] h-[90px] rounded-full mx-auto my-3 bg-[conic-gradient(var(--color-green)_0_78%,#edf0ec_78%)] flex items-center justify-center relative before:content-[''] before:absolute before:w-[66px] before:h-[66px] before:rounded-full before:bg-white">
         <div className="absolute flex flex-col text-center z-10">
@@ -346,18 +358,18 @@ const App: React.FC = () => {
   }, []);
 
   const features = [
-    ["০১", "এনসিটিবি লার্নিং হাব", "প্রথম থেকে দ্বাদশ শ্রেণির অধ্যায়ভিত্তিক পাঠ, নোট ও ভিডিও।", "bg-mint"],
-    ["০২", "এআই পড়াশোনা সহকারী", "সহজ বাংলা ব্যাখ্যা, বাড়ির কাজের সহায়তা ও বুদ্ধিদীপ্ত অনুশীলন।", "bg-yellow"],
-    ["০৩", "পরীক্ষা ও সনদ", "কুইজ, মডেল টেস্ট, তাৎক্ষণিক বিশ্লেষণ ও যাচাইকৃত অর্জন।", "bg-white"],
-    ["০৪", "শিক্ষার্থী পাসপোর্ট", "অগ্রগতি, দক্ষতা ও অর্জনের আজীবন ডিজিটাল পরিচয়।", "bg-green"],
-    ["০৫", "অভিভাবক মোড", "সহজ অগ্রগতি সারাংশ ও সময়মতো গুরুত্বপূর্ণ সতর্কতা।", "bg-white"],
-    ["০৬", "শিক্ষক সহকারী", "পাঠ সহায়তা, শ্রেণির অন্তর্দৃষ্টি ও শেখার ঘাটতি দ্রুত শনাক্তকরণ।", "bg-lavender"],
-    ["০৭", "স্বাস্থ্য ও সুস্থতা", "সুস্থ মন, শরীর ও পড়ার অভ্যাসের জন্য নিরাপদ দিকনির্দেশনা।", "bg-yellow"],
-    ["০৮", "ক্যারিয়ার ও কলেজ", "আগ্রহভিত্তিক দিকনির্দেশনা, বৃত্তি ও উচ্চশিক্ষায় সহায়তা।", "bg-mint"],
-    ["০৯", "কিউআর-সংযুক্ত বই", "বই স্ক্যান করেই সংশ্লিষ্ট ভিডিও পাঠ, ক্লাস অথবা পরীক্ষা শুরু।", "bg-lavender"],
-    ["১০", "আজীবন শিক্ষার্থী আইডি", "শিক্ষাজীবনের শুরু থেকে শেষ পর্যন্ত একটি স্থায়ী ডিজিটাল পরিচয়।", "bg-white"],
-    ["১১", "দক্ষতাভিত্তিক শিক্ষা", "কৃষি, ইংরেজি বলা, ডিজিটাল দক্ষতা ও জীবনমুখী কোর্স।", "bg-yellow"],
-    ["১২", "এডটেক সহযোগিতা", "বিশ্বস্ত শিক্ষা প্রতিষ্ঠান ও এডটেককে এক জাতীয় ব্যবস্থায় যুক্ত করা।", "bg-green"],
+    ["০১", "এনসিটিবি লার্নিং হাব", "প্রথম থেকে দ্বাদশ শ্রেণির অধ্যায়ভিত্তিক পাঠ, নোট ও ভিডিও।"],
+    ["০২", "এআই পড়াশোনা সহকারী", "সহজ বাংলা ব্যাখ্যা, বাড়ির কাজের সহায়তা ও বুদ্ধিদীপ্ত অনুশীলন।"],
+    ["০৩", "পরীক্ষা ও সনদ", "কুইজ, মডেল টেস্ট, তাৎক্ষণিক বিশ্লেষণ ও যাচাইকৃত অর্জন।"],
+    ["০৪", "শিক্ষার্থী পাসপোর্ট", "অগ্রগতি, দক্ষতা ও অর্জনের আজীবন ডিজিটাল পরিচয়।"],
+    ["০৫", "অভিভাবক মোড", "সহজ অগ্রগতি সারাংশ ও সময়মতো গুরুত্বপূর্ণ সতর্কতা।"],
+    ["০৬", "শিক্ষক সহকারী", "পাঠ সহায়তা, শ্রেণির অন্তর্দৃষ্টি ও শেখার ঘাটতি দ্রুত শনাক্তকরণ।"],
+    ["০৭", "স্বাস্থ্য ও সুস্থতা", "সুস্থ মন, শরীর ও পড়ার অভ্যাসের জন্য নিরাপদ দিকনির্দেশনা।"],
+    ["০৮", "ক্যারিয়ার ও কলেজ", "আগ্রহভিত্তিক দিকনির্দেশনা, বৃত্তি ও উচ্চশিক্ষায় সহায়তা।"],
+    ["০৯", "কিউআর-সংযুক্ত বই", "বই স্ক্যান করেই সংশ্লিষ্ট ভিডিও পাঠ, ক্লাস অথবা পরীক্ষা শুরু।"],
+    ["১০", "আজীবন শিক্ষার্থী আইডি", "শিক্ষাজীবনের শুরু থেকে শেষ পর্যন্ত একটি স্থায়ী ডিজিটাল পরিচয়।"],
+    ["১১", "দক্ষতাভিত্তিক শিক্ষা", "কৃষি, ইংরেজি বলা, ডিজিটাল দক্ষতা ও জীবনমুখী কোর্স।"],
+    ["১২", "এডটেক সহযোগিতা", "বিশ্বস্ত শিক্ষা প্রতিষ্ঠান ও এডটেককে এক জাতীয় ব্যবস্থায় যুক্ত করা।"],
   ];
 
   return (
@@ -579,10 +591,10 @@ const App: React.FC = () => {
         <SectionTitle
           center
           eyebrow="আজীবন জাতীয় শিক্ষার্থী আইডি"
-          title={<>একটি পরিচয়।<br /><em className="text-green not-italic">পুরো শিক্ষাজীবনের সঙ্গী।</em></>}
-          text="প্রতিটি শিক্ষার্থী পাবে একটি নিজস্ব স্থায়ী আইডি। স্কুল, শ্রেণি বা প্রতিষ্ঠান বদলালেও পরীক্ষা, অগ্রগতি, উপস্থিতি, সনদ ও দক্ষতা একই Academic প্রোফাইলে থাকবে।"
+          title={<>একটি স্টুডেন্ট আইডি দিয়েই<br /><em className="text-green not-italic">একাডেমিক জীবন।</em></>}
+          text="প্রতিটি শিক্ষার্থী পাবে একটি নিজস্ব স্থায়ী আইডি। স্কুল, শ্রেণি বা প্রতিষ্ঠান বদলালেও পরীক্ষা, অগ্রগতি, উপস্থিতি, সনদ ও দক্ষতা একই একাডেমিক প্রোফাইলে থাকবে।"
         />
-        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.2fr_1fr] gap-6 items-center max-w-[1080px] mx-auto max-[760px]:grid-cols-1">
+        <div className="grid grid-cols-1 lg:grid-cols-[1fr_1.25fr_1fr] gap-6 items-center max-w-[1080px] mx-auto max-[760px]:grid-cols-1">
           <div className="flex flex-col gap-5 max-lg:hidden">
             <div className="bg-[#f6f6f1] border border-line rounded-[20px] p-6 text-left">
               <span className="text-[9px] uppercase tracking-wider text-gray-500">একাডেমিক অগ্রগতি</span>
@@ -598,38 +610,89 @@ const App: React.FC = () => {
             </div>
           </div>
 
-          <div className="bg-[#f6f6f1] border border-line rounded-[28px] min-h-[540px] relative z-10 shadow-lg overflow-hidden flex flex-col">
-            <div className="h-[110px] bg-green p-5 text-left text-ink">
-              <span className="text-[9px] tracking-widest font-bold">জাতীয় শিক্ষার্থী আইডি · ২০৩১-৮৪২৯০১</span>
+          {/* Government-issued Digital Student Passport */}
+          <div className="bg-[#fffefa] border border-[#d7d8cf] rounded-[24px] min-h-[610px] relative z-10 shadow-[0_24px_70px_rgba(20,57,45,0.14)] overflow-hidden flex flex-col">
+            <div className="h-2 bg-gradient-to-r from-green via-yellow to-green" />
+            <div className="px-6 pt-5 pb-4 border-b border-[#e4e4dc] bg-[#f7f8f2]">
+              <div className="flex items-start justify-between gap-4">
+                <div className="flex items-center gap-3 text-left">
+                  <div className="w-11 h-11 rounded-full bg-deep text-yellow border-2 border-yellow flex items-center justify-center text-xl shadow-sm">★</div>
+                  <div>
+                    <b className="block text-[13px] leading-tight text-ink">গণপ্রজাতন্ত্রী বাংলাদেশ সরকার</b>
+                    <span className="block text-[9px] text-muted mt-1">জাতীয় শিক্ষা বোর্ড · ওয়ানস্টুডেন্ট</span>
+                  </div>
+                </div>
+                <div className="text-right shrink-0">
+                  <span className="block text-[9px] font-bold text-deep">ডিজিটাল স্টুডেন্ট পাসপোর্ট</span>
+                  <b className="block text-[11px] text-ink mt-1">ID: ২০৩১-৮৪২৯০১</b>
+                </div>
+              </div>
             </div>
-            <div className="text-center -mt-12 flex-1 flex flex-col justify-between pb-8">
-              <div className="flex flex-col items-center">
-                <div className="w-[95px] h-[95px] rounded-full overflow-hidden border-6 border-[#f6f6f1] shadow-sm bg-gray-200">
-                  <img className="w-full h-full object-cover" src={photos.hero} alt="student profile" />
+
+            <div className="p-6 flex-1 flex flex-col">
+              <div className="grid grid-cols-[112px_1fr] max-[520px]:grid-cols-1 gap-5 text-left">
+                <div className="relative w-fit">
+                  <div className="w-[112px] h-[132px] rounded-xl overflow-hidden border-2 border-white ring-1 ring-[#ced2c8] bg-gray-100 shadow-md">
+                    <img className="w-full h-full object-cover saturate-90" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80" alt="নুসরাত জাহান" />
+                  </div>
+                  <span className="absolute -right-2 -bottom-2 w-8 h-8 rounded-full bg-green text-white border-4 border-[#fffefa] grid place-items-center text-sm font-bold">✓</span>
                 </div>
-                <h3 className="text-2xl font-bold mt-3.5 mb-0.5 text-ink">নুসরাত জাহান</h3>
-                <p className="text-[11px] text-gray-500">নবম শ্রেণি · ঢাকা</p>
+
+                <div>
+                  <span className="text-[9px] text-muted block">শিক্ষার্থীর নাম</span>
+                  <h3 className="text-[25px] font-extrabold text-ink leading-tight mt-1 mb-0">নুসরাত জাহান</h3>
+                  <span className="text-[11px] text-muted block mt-1">Nusrat Jahan</span>
+                  <div className="grid grid-cols-2 gap-x-5 gap-y-3 mt-5">
+                    <div>
+                      <span className="text-[8px] text-muted block">শ্রেণি</span>
+                      <b className="text-[11px] text-ink block mt-0.5">নবম শ্রেণি (বিজ্ঞান)</b>
+                    </div>
+                    <div>
+                      <span className="text-[8px] text-muted block">রক্তের গ্রুপ</span>
+                      <b className="text-[12px] text-red-600 block mt-0.5">O+</b>
+                    </div>
+                    <div className="col-span-2">
+                      <span className="text-[8px] text-muted block">শিক্ষা প্রতিষ্ঠান</span>
+                      <b className="text-[11px] text-ink leading-snug block mt-0.5">ধানমন্ডি সরকারি বালিকা উচ্চ বিদ্যালয়</b>
+                    </div>
+                    <div className="col-span-2">
+                      <span className="text-[8px] text-muted block">জন্ম তারিখ</span>
+                      <b className="text-[11px] text-ink block mt-0.5">১৫ অক্টোবর, ২০১০</b>
+                    </div>
+                  </div>
+                </div>
               </div>
-              <div className="grid grid-cols-3 border-y border-gray-200 mx-7.5 py-5.5 my-6 text-left">
-                <div className="flex flex-col text-center border-r border-gray-200">
-                  <b className="text-xl font-bold text-ink">৪২</b>
-                  <span className="text-[8px] uppercase tracking-wider text-gray-500 mt-1">অধ্যায়</span>
-                </div>
-                <div className="flex flex-col text-center border-r border-gray-200">
-                  <b className="text-xl font-bold text-ink">৮</b>
-                  <span className="text-[8px] uppercase tracking-wider text-gray-500 mt-1">সনদ</span>
-                </div>
-                <div className="flex flex-col text-center">
-                  <b className="text-xl font-bold text-ink">৮৬%</b>
-                  <span className="text-[8px] uppercase tracking-wider text-gray-500 mt-1">গড় নম্বর</span>
-                </div>
-              </div>
-              <div className="flex flex-wrap gap-1.5 justify-center px-4">
-                {["সমস্যা সমাধান", "সৃজনশীল লেখা", "বিজ্ঞান"].map((tag) => (
-                  <span className="text-[9px] px-3 py-2 bg-white border border-gray-200 rounded-full text-ink font-medium" key={tag}>
-                    {tag}
-                  </span>
+
+              <div className="my-5 border-t border-dashed border-[#d8d9d1]" />
+
+              <div className="grid grid-cols-3 rounded-2xl overflow-hidden border border-[#dedfd7] bg-[#f7f8f3]">
+                {[
+                  ["অধ্যায় সম্পন্ন", "৪২টি"],
+                  ["অর্জিত সনদ", "৮টি"],
+                  ["গড় নম্বর", "৮৬%"],
+                ].map(([label, value], index) => (
+                  <div className={`py-4 px-2 text-center ${index < 2 ? "border-r border-[#dedfd7]" : ""}`} key={label}>
+                    <span className="text-[8px] text-muted block">{label}</span>
+                    <b className="text-xl font-extrabold text-ink block mt-1">{value}</b>
+                  </div>
                 ))}
+              </div>
+
+              <div className="mt-5">
+                <span className="text-[8px] text-muted block text-left mb-2">বিশেষ দক্ষতা ও অর্জন</span>
+                <div className="flex flex-wrap gap-2">
+                  {["ক্রিয়েটিভ রাইটিং", "প্রোগ্রামিং", "গণিত অলিম্পিয়াড"].map((tag) => (
+                    <span className="text-[9px] px-3 py-1.5 bg-mint border border-green/20 rounded-full text-deep font-bold" key={tag}>{tag}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="mt-auto pt-5 flex items-end justify-between gap-4">
+                <div className="text-left">
+                  <span className="block text-[7px] text-muted">যাচাইকৃত ডিজিটাল পরিচয়</span>
+                  <span className="block text-[8px] font-bold text-deep mt-1">আজীবন একাডেমিক রেকর্ড</span>
+                </div>
+                <QrCodeIcon size={42} className="text-ink" aria-label="যাচাইকরণ কিউআর কোড" />
               </div>
             </div>
           </div>
@@ -723,57 +786,6 @@ const App: React.FC = () => {
       </section>
 
 
-
-      {/* 8. Early Warning Section */}
-      <section className="bg-ink text-white py-28 px-16 max-[760px]:py-20 max-[760px]:px-5 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-16 lg:gap-[8vw] items-center">
-        <div className="flex flex-col text-left">
-          <span className="text-sm md:text-base font-extrabold text-yellow uppercase tracking-wider block mb-5.5">আগাম সহায়তা সংকেত</span>
-          <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">সমস্যা আগে বুঝুন।<br/><em className="text-yellow not-italic">শিক্ষার্থীর পাশে দাঁড়ান।</em></h2>
-          <p className="text-[17px] leading-relaxed text-[#abb1ad] mb-8">শিক্ষা কার্যক্রম, মূল্যায়ন ও উপস্থিতির সংকেত দায়িত্বশীলভাবে মিলিয়ে ওয়ানস্টুডেন্ট স্কুলকে সময়মতো সহায়তার সুযোগ দেয়।</p>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
-            {["শেখার ঘাটতি শনাক্তকরণ", "উপস্থিতিভিত্তিক সংকেত", "শিক্ষক ও অভিভাবক সতর্কতা", "মানুষের নেতৃত্বে সহায়তা"].map((x) => (
-              <span className="text-sm text-[#d2d8d5] text-left" key={x}>
-                <b className="text-yellow mr-1">✓</b> {x}
-              </span>
-            ))}
-          </div>
-        </div>
-        <div className="bg-paper text-ink rounded-3xl p-7 max-w-[620px] w-full shadow-2xl flex flex-col">
-          <div className="flex justify-between items-center mb-6">
-            <div className="flex flex-col text-left">
-              <span className="text-[9px] text-gray-500">শিক্ষার্থী সহায়তার সারসংক্ষেপ</span>
-              <b className="text-lg font-bold text-ink mt-1">অষ্টম শ্রেণি · জুন</b>
-            </div>
-            <span className="bg-mint text-deep text-xs font-semibold px-3 py-1.5 rounded-full">সরাসরি সংকেত</span>
-          </div>
-          <div className="h-[250px] relative border-b border-gray-200 mb-6 flex items-end">
-            <div className="h-full flex flex-col justify-between text-[8px] text-gray-400 text-left shrink-0 pb-1">
-              <span>100</span><span>75</span><span>50</span><span>25</span>
-            </div>
-            <div className="relative w-full h-[200px] ml-4.5">
-              <svg className="w-full h-full" viewBox="0 0 500 170" preserveAspectRatio="none">
-                <path d="M0 35 C80 40 110 75 170 65 S270 100 325 93 S410 145 500 118" fill="none" stroke="#f4c542" strokeWidth="5" />
-                <path d="M0 35 C80 40 110 75 170 65 S270 100 325 93 S410 145 500 118 L500 170 L0 170Z" fill="url(#fade)" />
-                <defs>
-                  <linearGradient id="fade" x1="0" y1="0" x2="0" y2="1">
-                    <stop offset="0" stopColor="#f4c542" stopOpacity=".25" />
-                    <stop offset="1" stopColor="#f4c542" stopOpacity="0" />
-                  </linearGradient>
-                </defs>
-              </svg>
-            </div>
-          </div>
-          <div className="bg-white border border-gray-200 rounded-2xl p-3.5 flex items-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-yellow text-ink flex items-center justify-center font-bold text-xs">আরিফ</div>
-            <div className="flex flex-col text-left leading-tight">
-              <b className="text-xs text-ink font-bold">আরিফ মাহমুদ</b>
-              <span className="text-[9px] text-gray-500 mt-1">৮ দিন ধরে কার্যক্রম কমেছে</span>
-            </div>
-            <em className="not-italic text-[9px] font-bold bg-ink text-white rounded-full px-3 py-1.5 ml-auto cursor-pointer hover:bg-neutral-800 transition-colors">খোঁজ নিন</em>
-          </div>
-        </div>
-      </section>
-
       {/* 9. Learning Section */}
       <section className="bg-[#f0efe9] py-28 px-16 max-[760px]:py-20 max-[760px]:px-5" id="learning">
         <div className="max-w-[1312px] mx-auto">
@@ -819,7 +831,9 @@ const App: React.FC = () => {
                     <small className="text-[9px] text-green font-bold tracking-wider uppercase mb-1">অষ্টম শ্রেণি · {selectedSubject}</small>
                     <h3 className="text-2xl md:text-3xl font-bold text-ink">যেখান থেকে থেমেছিলে, সেখান থেকেই শুরু করো।</h3>
                   </div>
-                  <div className="w-[46px] h-[46px] rounded-full flex items-center justify-center bg-mint font-extrabold text-[26px] max-[760px]:hidden">😀</div>
+                  <div className="w-[44px] h-[44px] rounded-full overflow-hidden border border-[#1dbf73]/50 shadow-sm bg-mint shrink-0 max-[760px]:hidden">
+                    <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" alt="Rafi" />
+                  </div>
                 </div>
                 <div className="min-h-[255px] bg-yellow rounded-[22px] p-9 max-[760px]:p-6 grid grid-cols-1 md:grid-cols-2 relative overflow-hidden">
                   <div className="flex flex-col z-10 text-left">
@@ -1074,36 +1088,6 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* 14. Offline Box Section */}
-      <section className="py-28 px-16 max-[760px]:py-20 max-[760px]:px-5 max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-[1.05fr_0.95fr] gap-16 lg:gap-[8vw] items-center">
-        <div className="relative h-[650px] max-[760px]:h-[500px] w-full max-w-[550px] mx-auto rounded-[45%_45%_25px_25px] overflow-hidden bg-mint shrink-0">
-          <img className="w-full h-full object-cover filter saturate-60" src={photos.rural} alt="বই ও শেখার পরিবেশ" />
-          <div className="absolute right-6 bottom-6 bg-white rounded-2xl p-[17px_22px] grid grid-cols-[auto_auto] gap-x-2.5 items-center">
-            <span className="w-[37px] h-[37px] rounded-full flex items-center justify-center bg-yellow text-ink shrink-0">
-              <WifiOff01Icon size={18} />
-            </span>
-            <div className="flex flex-col text-left leading-tight">
-              <b className="text-xs text-ink font-bold">অফলাইনে প্রস্তুত</b>
-              <span className="text-[8px] text-gray-500 mt-1">ইন্টারনেট এলে সিঙ্ক হবে</span>
-            </div>
-          </div>
-        </div>
-        <div className="flex flex-col text-left">
-          <SectionTitle
-            eyebrow="অফলাইন স্কুলবক্স"
-            title={<>শিক্ষা পৌঁছে যাবে<br /><em className="text-green not-italic">সবখানে।</em></>}
-            text="সীমিত ইন্টারনেটের স্কুলগুলো স্থানীয়ভাবে পাঠ, কুইজ ও শিক্ষার্থী টুল ব্যবহার করতে পারবে; সংযোগ ফিরলে নিরাপদে সিঙ্ক হবে।"
-          />
-          <div className="flex flex-wrap gap-2 my-7.5">
-            {["অফলাইন কনটেন্ট", "স্কুলজুড়ে ব্যবহার", "কম সংযোগেও প্রস্তুত", "নিরাপদ সিঙ্ক"].map((tag) => (
-              <span className="border border-gray-300 px-3.5 py-2.5 rounded-full text-xs font-semibold text-ink" key={tag}>
-                {tag}
-              </span>
-            ))}
-          </div>
-          <Button>গ্রামীণ প্রবেশাধিকার দেখুন</Button>
-        </div>
-      </section>
 
       {/* 15. Ecosystem Section */}
       <section className="bg-deep text-white py-28 px-16 max-[760px]:py-20 max-[760px]:px-5 max-w-[1440px] mx-auto grid grid-cols-1 lg:grid-cols-[0.85fr_1.15fr] gap-[6vw] items-center">
