@@ -57,10 +57,16 @@ const StyleOverride: React.FC = () => (
       color: var(--color-ink);
       font-family: "Noto Serif Bengali", serif;
       margin: 0;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
     body, button, input, select, textarea, h1, h2, h3, h4, h5, h6, p, a, span, small, b, strong, em {
       font-family: "Noto Serif Bengali", serif !important;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
     }
 
     .bg-paper { background-color: #f9f8f3 !important; }
@@ -109,20 +115,46 @@ const StyleOverride: React.FC = () => (
       background-color: rgba(255, 255, 255, 0.96) !important;
       border-color: rgba(0, 0, 0, 0.04) !important;
     }
+
+    @keyframes float-slow-1 {
+      0% { transform: translateY(0px) rotate(-3deg); }
+      50% { transform: translateY(-12px) rotate(-2deg); }
+      100% { transform: translateY(0px) rotate(-3deg); }
+    }
+    @keyframes float-slow-2 {
+      0% { transform: translateY(0px) rotate(4deg); }
+      50% { transform: translateY(-15px) rotate(5deg); }
+      100% { transform: translateY(0px) rotate(4deg); }
+    }
+    @keyframes float-slow-3 {
+      0% { transform: translateY(0px); }
+      50% { transform: translateY(-10px); }
+      100% { transform: translateY(0px); }
+    }
+
+    .animate-float-1 {
+      animation: float-slow-1 6s ease-in-out infinite;
+    }
+    .animate-float-2 {
+      animation: float-slow-2 7s ease-in-out infinite;
+    }
+    .animate-float-3 {
+      animation: float-slow-3 8s ease-in-out infinite;
+    }
   ` }} />
 );
 
 
 const photos = {
-  hero: "https://images.unsplash.com/photo-1509062522246-3755977927d7?auto=format&fit=crop&w=1200&q=88",
-  students: "https://images.unsplash.com/photo-1523240795612-9a054b0db644?auto=format&fit=crop&w=1200&q=85",
-  tablet: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?auto=format&fit=crop&w=1200&q=85",
-  teacher: "https://images.unsplash.com/photo-1577896851231-70ef18881754?auto=format&fit=crop&w=1200&q=85",
-  family: "https://images.unsplash.com/photo-1602030028438-4cf153cbae9e?auto=format&fit=crop&w=1200&q=85",
-  rural: "https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&fit=crop&w=1200&q=85",
-  wellness: "https://images.unsplash.com/photo-1573497491208-6b1acb260507?auto=format&fit=crop&w=1200&q=85",
-  career: "https://images.unsplash.com/photo-1529390079861-591de354faf5?auto=format&fit=crop&w=1200&q=85",
-  group: "https://images.unsplash.com/photo-1571260899304-425eee4c7efc?auto=format&fit=crop&w=1400&q=88",
+  hero: "/assets/digital-classroom.webp",
+  students: "/assets/collaborative-study.webp",
+  tablet: "/assets/tablet-nctb-books.webp",
+  teacher: "/assets/classroom-teacher.webp",
+  family: "/assets/smiling-student.webp",
+  rural: "/assets/hsc-textbooks.webp",
+  wellness: "/assets/student-counseling.webp",
+  career: "/assets/student-writing.webp",
+  group: "/assets/college-classroom.webp",
 };
 
 interface ArrowProps {
@@ -201,34 +233,34 @@ const SectionTitle: React.FC<SectionTitleProps> = ({ eyebrow, title, text, cente
 
 const DashboardCard: React.FC = () => {
   return (
-    <div className="absolute w-[230px] max-[760px]:w-[250px] bg-white rounded-[22px] p-[15px] max-[760px]:p-4 left-[-52px] max-[760px]:left-5 bottom-[25px] max-[760px]:bottom-0 shadow-[0_24px_60px_rgba(25,52,38,0.18)] -rotate-3 z-10 transition-transform duration-300 hover:scale-105">
+    <div className="absolute w-[245px] max-[760px]:w-[260px] bg-white rounded-[22px] p-[16px] max-[760px]:p-4.5 left-[-52px] max-[760px]:left-5 bottom-[25px] max-[760px]:bottom-0 shadow-[0_24px_60px_rgba(25,52,38,0.18)] z-10 animate-float-1">
       <div className="flex justify-between items-center">
         <div className="flex flex-col text-left">
-          <span className="text-[12px] max-[760px]:text-[9px] text-gray-400">সুপ্রভাত,</span>
-          <b className="text-[16px] max-[760px]:text-[13px] text-ink font-bold">আব্দুল্লাহ আল জাহীন</b>
+          <span className="text-[14px] max-[760px]:text-[11px] text-gray-400">সুপ্রভাত,</span>
+          <b className="text-[18px] max-[760px]:text-[15px] text-ink font-bold leading-tight">আব্দুল্লাহ আল জাহীন</b>
         </div>
-        <div className="w-[44px] h-[44px] rounded-full overflow-hidden border border-[#1dbf73]/50 shadow-sm bg-mint shrink-0">
+        <div className="w-[48px] h-[48px] rounded-full overflow-hidden border border-[#1dbf73]/50 shadow-sm bg-mint shrink-0">
           <img className="w-full h-full object-cover" src={profileImg} alt="Nusrat" />
         </div>
       </div>
-      <div className="w-[90px] h-[90px] rounded-full mx-auto my-3 bg-[conic-gradient(var(--color-green)_0_78%,#edf0ec_78%)] flex items-center justify-center relative before:content-[''] before:absolute before:w-[66px] before:h-[66px] before:rounded-full before:bg-white">
+      <div className="w-[96px] h-[96px] rounded-full mx-auto my-3.5 bg-[conic-gradient(var(--color-green)_0_78%,#edf0ec_78%)] flex items-center justify-center relative before:content-[''] before:absolute before:w-[72px] before:h-[72px] before:rounded-full before:bg-white">
         <div className="absolute flex flex-col text-center z-10">
-          <b className="text-2xl max-[760px]:text-[21px] text-ink font-bold">৭৮%</b>
+          <b className="text-3xl max-[760px]:text-2xl text-ink font-bold">৭৮%</b>
         </div>
       </div>
       <div className="grid grid-cols-2 gap-2 max-[760px]:gap-1">
         <div className="relative flex flex-col pl-3 text-left">
-          <span className="absolute left-0 top-[6px] w-[7px] h-[7px] rounded-full bg-green" />
-          <b className="text-[12px] max-[760px]:text-[9px] text-ink font-bold">গণিত</b>
-          <small className="text-[10px] max-[760px]:text-[7px] text-muted leading-tight">১৬টির মধ্যে ১২টি</small>
+          <span className="absolute left-0 top-[8px] w-[7px] h-[7px] rounded-full bg-green" />
+          <b className="text-[14px] max-[760px]:text-[11px] text-ink font-bold">পদার্থবিজ্ঞান</b>
+          <small className="text-[11px] max-[760px]:text-[9px] text-muted leading-tight">১৬টির মধ্যে ১২টি</small>
         </div>
         <div className="relative flex flex-col pl-3 text-left">
-          <span className="absolute left-0 top-[6px] w-[7px] h-[7px] rounded-full bg-yellow" />
-          <b className="text-[12px] max-[760px]:text-[9px] text-ink font-bold">বিজ্ঞান</b>
-          <small className="text-[10px] max-[760px]:text-[7px] text-muted leading-tight">১২টির মধ্যে ৮টি</small>
+          <span className="absolute left-0 top-[8px] w-[7px] h-[7px] rounded-full bg-yellow" />
+          <b className="text-[14px] max-[760px]:text-[11px] text-ink font-bold">উচ্চতর গণিত</b>
+          <small className="text-[11px] max-[760px]:text-[9px] text-muted leading-tight">১২টির মধ্যে ৮টি</small>
         </div>
       </div>
-      <div className="h-1.5 bg-gray-100 rounded-full mt-3 overflow-hidden">
+      <div className="h-1.5 bg-gray-100 rounded-full mt-3.5 overflow-hidden">
         <div className="h-full bg-green rounded-full" style={{ width: "78%" }} />
       </div>
     </div>
@@ -476,10 +508,10 @@ const LandingApp: React.FC = () => {
             <img className="w-full h-full object-cover" src={photos.hero} alt="শ্রেণিকক্ষে একসঙ্গে পড়ছে শিক্ষার্থীরা" />
           </div>
           <DashboardCard />
-          <div className="absolute right-[-5px] top-[100px] max-[760px]:top-[100px] w-[155px] max-[760px]:w-[142px] h-[180px] max-[760px]:h-[170px] bg-ink text-white rounded-[22px] p-5 max-[760px]:p-4.5 flex flex-col items-center text-center rotate-4 shadow-xl">
-            <span className="text-[10px] max-[760px]:text-[9px] text-gray-300">সর্বশেষ পরীক্ষা</span>
-            <b className="text-[42px] max-[760px]:text-[39px] font-bold mt-2.5 tracking-tighter">৯২%</b>
-            <small className="text-[10px] max-[760px]:text-[9px] text-gray-300">চমৎকার হয়েছে!</small>
+          <div className="absolute right-[-5px] top-[100px] max-[760px]:top-[100px] w-[170px] max-[760px]:w-[155px] h-[200px] max-[760px]:h-[185px] bg-ink text-white rounded-[22px] p-5.5 max-[760px]:p-5 flex flex-col items-center text-center shadow-xl animate-float-2">
+            <span className="text-[12px] max-[760px]:text-[10px] text-gray-300">সর্বশেষ পরীক্ষা</span>
+            <b className="text-[48px] max-[760px]:text-[42px] font-bold mt-2.5 tracking-tighter">৯২%</b>
+            <small className="text-[12px] max-[760px]:text-[10px] text-gray-300">চমৎকার হয়েছে!</small>
             <div className="flex items-end justify-center gap-[5px] h-[38px] mt-auto w-full">
               <i className="w-[11px] h-[30%] bg-green rounded-t-sm" />
               <i className="w-[11px] h-[50%] bg-green rounded-t-sm" />
@@ -488,13 +520,13 @@ const LandingApp: React.FC = () => {
               <i className="w-[11px] h-full bg-green rounded-t-sm" />
             </div>
           </div>
-          <div className="absolute right-[5px] bottom-[88px] max-[760px]:hidden bg-white p-[10px_18px_10px_10px] rounded-full flex items-center gap-2 shadow-md z-10">
-            <span className="w-8 h-8 rounded-full flex items-center justify-center bg-green text-ink shrink-0">
-              <Tick01Icon size={16} className="stroke-[2.5]" />
+          <div className="absolute right-[5px] bottom-[88px] max-[760px]:hidden bg-white p-[12px_20px_12px_12px] rounded-full flex items-center gap-2.5 shadow-md z-10 animate-float-3">
+            <span className="w-9 h-9 rounded-full flex items-center justify-center bg-green text-ink shrink-0">
+              <Tick01Icon size={18} className="stroke-[2.5]" />
             </span>
             <div className="flex flex-col text-left">
-              <b className="text-[13px] text-ink font-bold leading-tight">অধ্যায় সম্পন্ন</b>
-              <small className="text-[11px] text-muted">বীজগণিত · অষ্টম শ্রেণি</small>
+              <b className="text-[15px] text-ink font-bold leading-tight">অধ্যায় সম্পন্ন</b>
+              <small className="text-[13px] text-muted">জৈব রসায়ন · HSC</small>
             </div>
           </div>
           <div className="absolute top-[50px] left-3.5 text-8xl text-green rotate-[60deg] opacity-70 pointer-events-none">↝</div>
