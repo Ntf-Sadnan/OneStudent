@@ -141,8 +141,84 @@ const StyleOverride: React.FC = () => (
     .animate-float-3 {
       animation: float-slow-3 8s ease-in-out infinite;
     }
+    .stats-divider-v {
+      position: absolute;
+      width: 1.5px;
+      background: linear-gradient(to bottom, transparent, rgba(222, 222, 215, 0.95) 20%, rgba(222, 222, 215, 0.95) 80%, transparent);
+      z-index: 5;
+    }
+    .stats-divider-h {
+      position: absolute;
+      height: 1.5px;
+      background: linear-gradient(to right, transparent, rgba(222, 222, 215, 0.95) 20%, rgba(222, 222, 215, 0.95) 80%, transparent);
+      z-index: 5;
+    }
+
+    @keyframes trust-scroll-infinite {
+      to {
+        transform: translateX(-25%);
+      }
+    }
+
+    .animate-trust-scroll {
+      animation: trust-scroll-infinite 40s linear infinite !important;
+    }
+
+    .dashboard-preview-frame {
+      position: relative;
+      isolation: isolate;
+      height: 610px;
+    }
+    .dashboard-preview-frame main {
+      min-height: 610px !important;
+      max-height: 610px !important;
+      height: 610px !important;
+      display: block !important;
+      background-color: #f4f3ee !important;
+      position: relative !important;
+      overflow: hidden !important;
+    }
+    @media (min-width: 1024px) {
+      .dashboard-preview-frame main {
+        display: grid !important;
+        grid-template-cols: 230px minmax(0, 1fr) !important;
+      }
+    }
+    .dashboard-preview-frame aside {
+      position: absolute !important;
+      height: 100% !important;
+      width: 230px !important;
+      top: 0 !important;
+      bottom: 0 !important;
+      z-index: 50 !important;
+    }
+    @media (min-width: 1024px) {
+      .dashboard-preview-frame aside {
+        position: relative !important;
+        transform: none !important;
+      }
+    }
+    .dashboard-preview-frame header {
+      position: sticky !important;
+      top: 0 !important;
+      z-index: 30 !important;
+    }
+    .dashboard-preview-frame main > section {
+      height: 100% !important;
+      overflow-y: auto !important;
+    }
+    .dashboard-preview-frame .fixed.inset-0 {
+      position: absolute !important;
+    }
+    .dashboard-preview-frame *::-webkit-scrollbar {
+      display: none !important;
+    }
+    .dashboard-preview-frame * {
+      scrollbar-width: none !important;
+      -ms-overflow-style: none !important;
+    }
   ` }} />
-);
+  );
 
 
 const photos = {
@@ -425,18 +501,17 @@ const LandingApp: React.FC = () => {
   }, []);
 
   const features = [
-    ["০১", "এনসিটিবি লার্নিং হাব", "প্রথম থেকে দ্বাদশ শ্রেণির অধ্যায়ভিত্তিক পাঠ, নোট ও ভিডিও।"],
-    ["০২", "এআই পড়াশোনা সহকারী", "সহজ বাংলা ব্যাখ্যা, বাড়ির কাজের সহায়তা ও বুদ্ধিদীপ্ত অনুশীলন।"],
-    ["০৩", "পরীক্ষা ও সনদ", "কুইজ, মডেল টেস্ট, তাৎক্ষণিক বিশ্লেষণ ও যাচাইকৃত অর্জন।"],
-    ["০৪", "শিক্ষার্থী পাসপোর্ট", "অগ্রগতি, দক্ষতা ও অর্জনের আজীবন ডিজিটাল পরিচয়।"],
-    ["০৫", "অভিভাবক মোড", "সহজ অগ্রগতি সারাংশ ও সময়মতো গুরুত্বপূর্ণ সতর্কতা।"],
-    ["০৬", "শিক্ষক সহকারী", "পাঠ সহায়তা, শ্রেণির অন্তর্দৃষ্টি ও শেখার ঘাটতি দ্রুত শনাক্তকরণ।"],
-    ["০৭", "স্বাস্থ্য ও সুস্থতা", "সুস্থ মন, শরীর ও পড়ার অভ্যাসের জন্য নিরাপদ দিকনির্দেশনা।"],
-    ["০৮", "ক্যারিয়ার ও কলেজ", "আগ্রহভিত্তিক দিকনির্দেশনা, বৃত্তি ও উচ্চশিক্ষায় সহায়তা।"],
-    ["০৯", "কিউআর-সংযুক্ত বই", "বই স্ক্যান করেই সংশ্লিষ্ট ভিডিও পাঠ, ক্লাস অথবা পরীক্ষা শুরু।"],
-    ["১০", "আজীবন শিক্ষার্থী আইডি", "শিক্ষাজীবনের শুরু থেকে শেষ পর্যন্ত একটি স্থায়ী ডিজিটাল পরিচয়।"],
-    ["১১", "দক্ষতাভিত্তিক শিক্ষা", "কৃষি, ইংরেজি বলা, ডিজিটাল দক্ষতা ও জীবনমুখী কোর্স।"],
-    ["১২", "এডটেক সহযোগিতা", "বিশ্বস্ত শিক্ষা প্রতিষ্ঠান ও এডটেককে এক জাতীয় ব্যবস্থায় যুক্ত করা।"],
+    ["০১", "শিক্ষার্থীদের নিজস্ব প্রোফাইল", "প্রতিটি শিক্ষার্থীর জন্য একটি কেন্দ্রীয় ডিজিটাল প্রোফাইল, যেখানে শ্রেণি, স্কুল, আগ্রহ, অগ্রগতি, দক্ষতা ও অর্জনের তথ্য সংরক্ষিত থাকবে।"],
+    ["০২", "এনসিটিবি লার্নিং হাব", "প্রথম থেকে দ্বাদশ শ্রেণির অধ্যায়ভিত্তিক পাঠ, নোট, ভিডিও ও অনুশীলন শিক্ষার্থীর প্রোফাইল অনুযায়ী সাজানো থাকবে।"],
+    ["০৩", "কিউআর-সংযুক্ত বই", "বইয়ের নির্দিষ্ট অংশ স্ক্যান করলেই শিক্ষার্থী সরাসরি সংশ্লিষ্ট ভিডিও পাঠ, ব্যাখ্যা, কুইজ অথবা মডেল টেস্টে যেতে পারবে।"],
+    ["০৪", "এআই পড়াশোনা সহকারী", "শিক্ষার্থীর শ্রেণি, অধ্যায়, দুর্বলতা ও শেখার ইতিহাস বুঝে সহজ বাংলা ব্যাখ্যা, বাড়ির কাজের সহায়তা ও ব্যক্তিগত অনুশীলন দেবে।"],
+    ["০৫", "পরীক্ষা ও সার্টিফিকেট", "কুইজ, মডেল টেস্ট ও মূল্যায়নের ফল শিক্ষার্থীর প্রোফাইলে যুক্ত হবে এবং যাচাইকৃত অর্জন হিসেবে সংরক্ষিত থাকবে।"],
+    ["০৭", "অভিভাবক তত্ত্বাবধান", "শিক্ষার্থীর প্রোফাইল থেকে সহজ অগ্রগতি সারাংশ, শেখার ঘাটতি, সময় ব্যবহার ও গুরুত্বপূর্ণ সতর্কতা অভিভাবকের কাছে পৌঁছাবে।"],
+    ["০৮", "শিক্ষক ও শিক্ষা প্রতিষ্ঠান সহকারী", "অগ্রগতি ও অর্জনের ভিত্তিতে শিক্ষক ও শিক্ষা প্রতিষ্ঠান শ্রেণির অবস্থা, দুর্বল অধ্যায় ও শেখার ঘাটতি দ্রুত শনাক্ত করে প্রয়োজনীয় সহায়তা দিতে পারবে।"],
+    ["০৯", "দক্ষতাভিত্তিক শিক্ষা", "শিক্ষার্থীর আগ্রহ ও এলাকার প্রয়োজন অনুযায়ী কৃষি, ইংরেজি বলা, ডিজিটাল দক্ষতা, আর্থিক শিক্ষা ও জীবনমুখী কোর্স যুক্ত হবে।"],
+    ["১০", "স্বাস্থ্য ও সুস্থতা", "শিক্ষার্থীর বয়স, পড়ার চাপ ও অভ্যাস অনুযায়ী সুস্থ মন, শরীর, ঘুম, পড়ার রুটিন ও নিরাপদ দিকনির্দেশনা দেওয়া হবে।"],
+    ["১১", "ক্যারিয়ার ও কলেজ", "শিক্ষার্থীর প্রোফাইল, ফলাফল, আগ্রহ, দক্ষতা ও অর্জনের ভিত্তিতে কলেজ, বৃত্তি, উচ্চশিক্ষা ও ক্যারিয়ার দিকনির্দেশনা দেওয়া হবে।"],
+    ["১২", "এডটেক সহযোগিতা", "বিশ্বস্ত শিক্ষা প্রতিষ্ঠান, শিক্ষক, কনটেন্ট নির্মাতা ও এডটেক সেবাগুলোকে শিক্ষার্থীর কেন্দ্রীয় প্রোফাইলভিত্তিক এক জাতীয় ব্যবস্থায় যুক্ত করা হবে।"],
   ];
 
   return (
@@ -448,7 +523,7 @@ const LandingApp: React.FC = () => {
           <Logo />
           <nav className={`${menuOpen ? "flex absolute top-[78px] left-0 right-0 bg-white border border-ink/10 rounded-2xl p-6 flex-col gap-4 shadow-lg" : "hidden"} md:flex md:static md:flex-row md:items-center md:justify-center md:gap-7 md:shadow-none md:p-0 md:bg-transparent md:border-none`}>
             {[
-              ["কেন ওয়ানস্টুডেন্ট", "#why"],
+              ["শিক্ষার্থী আইডি", "#student-id"],
               ["পড়াশোনা", "#learning"],
               ["সহায়তা", "#support"],
               ["প্রভাব", "#impact"],
@@ -533,18 +608,28 @@ const LandingApp: React.FC = () => {
         </div>
 
         {/* Hero stats */}
-        <div className="col-span-1 lg:col-span-2 border-t border-line grid grid-cols-2 lg:grid-cols-4 pt-5.5 mt-8 max-[760px]:gap-y-5">
+        <div className="col-span-1 lg:col-span-2 grid grid-cols-2 lg:grid-cols-4 pt-5.5 mt-8 max-[760px]:gap-y-5 relative">
+          {/* Custom Dividers with Faded Out Edges */}
+          {/* Top Divider */}
+          <div className="stats-divider-h left-0 right-0 top-0" />
+
+          {/* Desktop Dividers */}
+          <div className="stats-divider-v left-1/4 top-[15%] h-[70%] hidden lg:block" />
+          <div className="stats-divider-v left-2/4 top-[15%] h-[70%] hidden lg:block" />
+          <div className="stats-divider-v left-3/4 top-[15%] h-[70%] hidden lg:block" />
+          
+          {/* Mobile/Tablet Dividers */}
+          <div className="stats-divider-h left-[10%] right-[10%] top-1/2 lg:hidden" />
+          <div className="stats-divider-v left-1/2 top-[5%] h-[40%] lg:hidden" />
+          <div className="stats-divider-v left-1/2 top-[55%] h-[40%] lg:hidden" />
+
           {[
             ["২ কোটি+", "সম্ভাব্য শিক্ষার্থী"],
             ["১–১২", "একীভূত শিক্ষা"],
             ["৬৪", "জেলার স্বপ্ন"],
             ["১", "শিক্ষা পরিচয়"]
-          ].map(([val, label], idx) => (
-            <div className={`flex flex-col items-center text-center gap-1.5 relative py-4 ${
-              idx !== 3 ? "lg:after:content-[''] lg:after:absolute lg:after:right-0 lg:after:top-[15%] lg:after:h-[70%] lg:after:w-px lg:after:bg-gradient-to-b lg:after:from-transparent lg:after:via-line lg:after:to-transparent" : ""
-            } max-[760px]:border-r max-[760px]:border-b max-[760px]:border-line max-[760px]:min-h-[130px] max-[760px]:justify-center max-[760px]:px-4 ${
-              idx % 2 === 1 ? "max-[760px]:border-r-0" : ""
-            }`} key={label}>
+          ].map(([val, label]) => (
+            <div className="flex flex-col items-center text-center gap-1.5 relative py-4 max-[760px]:min-h-[130px] max-[760px]:justify-center max-[760px]:px-4" key={label}>
               <b className="font-['Manrope'] text-3xl md:text-[32px] font-bold text-ink leading-tight">{val}</b>
               <span className="text-sm md:text-base text-muted uppercase tracking-wider block">{label}</span>
             </div>
@@ -557,18 +642,18 @@ const LandingApp: React.FC = () => {
         <div className="absolute left-0 top-0 bottom-0 w-[9vw] z-10 pointer-events-none bg-gradient-to-r from-ink to-transparent" />
         <div className="absolute right-0 top-0 bottom-0 w-[9vw] z-10 pointer-events-none bg-gradient-to-l from-ink to-transparent" />
         <div className="flex w-max animate-trust-scroll">
-          {[0, 1].map((loop) => (
-            <div className="flex items-center shrink-0" aria-hidden={loop === 1} key={loop}>
+          {[0, 1, 2, 3].map((loop) => (
+            <div className="flex items-center shrink-0" aria-hidden={loop > 0} key={loop}>
               {[
-                [<BookOpen01Icon size={20} />, "এনসিটিবি পাঠ্যক্রম"],
-                [<DashboardSquare01Icon size={20} />, "অল-ইন-ওয়ান সল্যুশন"],
-                [<Route01Icon size={20} />, "গাইডেড লার্নিং"],
-                [<AiBrain01Icon size={20} />, "ডাউট সল্ভের জন্য এআই"],
-                [<QrCodeIcon size={20} />, "ক্লাস এবং পরীক্ষার কিউআর কোড"],
-                [<UserShield01Icon size={20} />, "অভিভাবক মনিটরিং"],
-              ].map(([icon, text], idx) => (
+                [<BookOpen01Icon size={20} />, "এনসিটিবি পাঠ্যক্রম", "#1dbf73"],
+                [<DashboardSquare01Icon size={20} />, "অল-ইন-ওয়ান সল্যুশন", "#c3b4fc"],
+                [<Route01Icon size={20} />, "গাইডেড লার্নিং", "#f4c542"],
+                [<AiBrain01Icon size={20} />, "ডাউট সল্ভের জন্য এআই", "#60ebc5"],
+                [<QrCodeIcon size={20} />, "ক্লাস এবং পরীক্ষার কিউআর কোড", "#ffa043"],
+                [<UserShield01Icon size={20} />, "অভিভাবক মনিটরিং", "#1dbf73"],
+              ].map(([icon, text, color], idx) => (
                 <div className="flex items-center gap-3 px-9 max-[760px]:px-6 text-sm md:text-base font-semibold whitespace-nowrap" key={`${loop}-${idx}`}>
-                  <span className="flex items-center justify-center w-[35px] h-[35px] max-[760px]:w-[31px] max-[760px]:h-[31px] text-yellow text-xl max-[760px]:text-lg">{icon}</span>
+                  <span className="flex items-center justify-center w-[35px] h-[35px] max-[760px]:w-[31px] max-[760px]:h-[31px] text-xl max-[760px]:text-lg" style={{ color: color as string }}>{icon}</span>
                   {text}
                 </div>
               ))}
@@ -607,45 +692,6 @@ const LandingApp: React.FC = () => {
           })}
         </div>
 
-      </section>
-
-      {/* 4. Why Section */}
-      <section className="py-28 px-16 max-[760px]:py-20 max-[760px]:px-5 max-w-[1440px] mx-auto" id="why">
-        <div className="grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-12 lg:gap-[10vw]">
-          <SectionTitle
-            eyebrow="কেন ওয়ানস্টুডেন্ট"
-            title={<>শুধু পাঠ নয়।<br /><em className="text-green not-italic">একটি পূর্ণাঙ্গ সহায়তা ব্যবস্থা।</em></>}
-            text="পড়াশোনা, দিকনির্দেশনা, যত্ন ও সুযোগ একসঙ্গে কাজ করলেই শিক্ষার্থীরা সবচেয়ে ভালো করে। ওয়ানস্টুডেন্ট পুরো যাত্রাটিকে আনে একটি বিশ্বস্ত জায়গায়।"
-          />
-          <div className="flex flex-col pt-12">
-            {[
-              ["০১", "নিজের গতিতে শেখো", "পরিষ্কার অধ্যায়ভিত্তিক পথ আত্মবিশ্বাস নিয়ে এগোতে সাহায্য করে।"],
-              ["০২", "প্রতিটি ধাপে সহায়তা পাও", "শিক্ষক ও অভিভাবক সঠিক সময়ে প্রয়োজনীয় বিষয়টি দেখতে পান।"],
-              ["০৩", "বাস্তব ভবিষ্যৎ গড়ে তোলো", "ক্যারিয়ার ও কলেজ নির্দেশনায় নিজের শক্তিকে লক্ষ্যে রূপ দাও।"]
-            ].map(([num, heading, desc]) => (
-              <div className="grid grid-cols-[45px_1fr] gap-x-4 border-t border-line py-6 text-left" key={heading}>
-                <b className="text-xs text-green font-bold">{num}</b>
-                <div className="flex flex-col">
-                  <h3 className="text-xl font-bold mb-2 text-ink">{heading}</h3>
-                  <p className="text-sm text-muted leading-relaxed">{desc}</p>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-        <div className="relative h-[570px] max-[760px]:h-[600px] mt-20 rounded-[30px] overflow-hidden">
-          <img className="w-full h-full object-cover filter saturate-75 brightness-[0.82]" src={photos.students} alt="একসঙ্গে কাজ করছে শিক্ষার্থীরা" />
-          <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/87 via-emerald-950/40 to-transparent" />
-          <div className="absolute z-10 text-white left-[55px] max-[760px]:left-6 max-[760px]:right-6 bottom-[52px] max-w-[480px] text-left">
-            <span className="text-[10px] tracking-widest text-yellow uppercase block mb-4">ওয়ানস্টুডেন্টের অঙ্গীকার</span>
-            <h3 className="text-3xl md:text-[42px] font-bold leading-tight mb-4">কোনো শিক্ষার্থী যেন অজান্তে পিছিয়ে না পড়ে।</h3>
-            <p className="text-emerald-100/80 leading-relaxed text-sm md:text-base">Progressive data signals help schools and families support each student at the right moment.</p>
-          </div>
-          <div className="absolute z-10 right-8 top-8 w-[155px] h-[155px] max-[760px]:w-[105px] max-[760px]:h-[105px] rounded-full bg-yellow flex flex-col justify-center items-center rotate-7 shadow-lg">
-            <b className="text-[43px] max-[760px]:text-3xl font-extrabold text-ink leading-none">৩৬০°</b>
-            <span className="text-[11px] max-[760px]:text-[8px] uppercase tracking-wider font-semibold text-ink">শিক্ষার্থী চিত্র</span>
-          </div>
-        </div>
       </section>
 
       {/* 5. Student ID / Passport Section */}
@@ -774,78 +820,10 @@ const LandingApp: React.FC = () => {
         </div>
       </section>
 
-      {/* 6. Model Test Section */}
-      <section className="bg-deep text-white py-28 px-16 max-[760px]:py-20 max-[760px]:px-5 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-[8vw] items-center">
-        <div className="relative h-[600px] max-[760px]:h-[480px] w-full max-w-[650px] mx-auto shrink-0">
-          <div className="absolute left-0 top-5 bg-white text-ink rounded-3xl p-7 max-w-[520px] w-full shadow-2xl z-10">
-            <div className="flex justify-between text-[9px] text-gray-500 font-semibold tracking-wider text-left">
-              <span>মডেল টেস্ট · গণিত</span>
-              <MoreHorizontalIcon size={18} className="text-gray-500 cursor-pointer" />
-            </div>
-            <div className="flex items-center gap-7.5 my-8">
-              <div className="w-[140px] h-[140px] rounded-full bg-[conic-gradient(var(--color-green)_0_92%,#eee_92%)] flex items-center justify-center relative before:content-[''] before:absolute before:inset-3 before:rounded-full before:bg-white shrink-0">
-                <b className="relative z-10 text-[42px] font-extrabold text-ink">৯২</b>
-              </div>
-              <p className="text-sm leading-relaxed text-gray-500 text-left">
-                <strong className="text-xl text-ink font-extrabold block mb-1">চমৎকার!</strong>
-                তোমার ১৪% উন্নতি হয়েছে।
-              </p>
-            </div>
-            <div className="flex flex-col gap-3.5">
-              {[
-                ["বীজগণিত", "96%"],
-                ["জ্যামিতি", "82%"],
-                ["পরিসংখ্যান", "76%"]
-              ].map(([subj, pct]) => (
-                <div className="grid grid-cols-[80px_1fr_35px] gap-2.5 items-center text-[9px] text-ink font-bold" key={subj}>
-                  <span className="text-left">{subj}</span>
-                  <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
-                    <div className="h-full bg-green rounded-full" style={{ width: pct }} />
-                  </div>
-                  <span className="text-right text-muted">{pct}</span>
-                </div>
-              ))}
-            </div>
-          </div>
-          <div className="absolute right-[-10px] bottom-5 bg-[#f5edcf] text-ink w-[300px] max-[760px]:w-[220px] h-[235px] max-[760px]:h-[190px] border-8 border-double border-[#d3b86b] rounded-lg p-6 max-[760px]:p-3.5 text-center rotate-5 shadow-2xl z-10">
-            <span className="text-[7px] tracking-widest text-[#ba8e13] uppercase block mb-1">ওয়ানস্টুডেন্ট বাংলাদেশ</span>
-            <span className="text-xl text-[#ba8e13]">✦</span>
-            <small className="text-[7px] text-gray-500 uppercase tracking-widest block mt-1">সম্পন্নকরণের সনদ</small>
-            <h4 className="font-serif text-xl max-[760px]:text-base font-bold my-3">গণিতের ভিত্তি</h4>
-            <p className="text-[9px] text-muted">প্রদান করা হলো <b className="font-bold text-ink">রাফি রহমানকে</b></p>
-            <div className="flex justify-between border-t border-[#c4ad70] pt-3 mt-4.5 text-[7px] text-gray-500">
-              <span>যাচাইকৃত</span>
-              <span>জুন ২০২৬</span>
-            </div>
-          </div>
-          <div className="absolute right-1 top-0 max-[760px]:hidden bg-yellow text-ink border-2 border-ink rounded-[18px] p-[18px] rotate-5 shadow-md z-20 flex flex-col items-center">
-            <span className="text-[8px] tracking-wider uppercase font-bold">উন্নতি</span>
-            <b className="text-2xl font-bold mt-1 flex items-center gap-1">
-              <ArrowUpRight01Icon size={20} /> ১৪%
-            </b>
-          </div>
-        </div>
-        <div className="flex flex-col text-left">
-          <SectionTitle
-            eyebrow="স্মার্ট পরীক্ষা ও সনদ"
-            title={<>অনুশীলন। পরীক্ষা।<br /><em className="text-yellow not-italic">এরপর কী, জেনে নাও।</em></>}
-            text="অধ্যায় কুইজ, মক পরীক্ষা ও তাৎক্ষণিক বিশ্লেষণ প্রতিটি ফলাফলকে পরবর্তী স্পষ্ট ধাপে রূপ দেয়।"
-          />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-8.5">
-            <div className="border-t border-[#426359] pt-4.5 flex flex-col text-left">
-              <b className="text-[13px] font-bold text-white">তাৎক্ষণিক অন্তর্দৃষ্টি</b>
-              <span className="text-xs text-[#aebfba] mt-2">শক্তি ও দুর্বল বিষয় পরিষ্কারভাবে দেখো।</span>
-            </div>
-            <div className="border-t border-[#426359] pt-4.5 flex flex-col text-left">
-              <b className="text-[13px] font-bold text-white">বাস্তব অর্জন</b>
-              <span className="text-xs text-[#aebfba] mt-2">অগ্রগতির যাচাইকৃত রেকর্ড গড়ে তোলো।</span>
-            </div>
-          </div>
-          <div className="w-fit">
-            <Button secondary>মূল্যায়ন দেখুন</Button>
-          </div>
-        </div>
-      </section>
+
+
+
+
 
 
       {/* 9. Learning Section */}
@@ -854,98 +832,26 @@ const LandingApp: React.FC = () => {
           <SectionTitle
             center
             eyebrow="শেখার মূল কেন্দ্র"
-            title={<>Ultraconfident লার্নিং<br /><em className="text-green not-italic">যা কিছু প্রয়োজন।</em></>}
+            title={<>লার্নিং-এ <br /><em className="text-green not-italic">যা কিছু প্রয়োজন।</em></>}
             text="পাঠ্যক্রমের বিষয়বস্তু, বুদ্ধিদীপ্ত সহায়তা ও কার্যকর অনুশীলন — একটি সহজ অভিজ্ঞতায় সংযুক্ত।"
           />
           <div className="bg-white border border-gray-300 rounded-[28px] p-3 shadow-[0_30px_80px_rgba(30,32,27,0.1)]">
-            <div className="flex gap-2 p-2 pb-4.5 overflow-x-auto whitespace-nowrap scrollbar-none">
-              <span className="bg-[#173d31] text-white px-4 py-2.5 rounded-full text-xs font-bold select-none cursor-default shrink-0">এইচএসসি (বিজ্ঞান)</span>
-              {[
-                ["পদার্থবিজ্ঞান", <PhysicsIcon size={15} />],
-                ["রসায়ন", <Chemistry01Icon size={15} />],
-                ["উচ্চতর গণিত", <MathIcon size={15} />],
-                ["জীববিজ্ঞান", <DnaIcon size={15} />],
-                ["বাংলা", <BookOpen01Icon size={15} />],
-                ["ইংরেজি", <GlobalIcon size={15} />],
-                ["আইসিটি", <ComputerIcon size={15} />]
-              ].map(([x, icon]) => (
-                <span
-                  onClick={() => setSelectedSubject(x as string)}
-                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs cursor-pointer font-semibold border transition-all duration-200 ${
-                    selectedSubject === x
-                      ? "bg-ink text-white border-ink shadow-[0_2px_5px_rgba(0,0,0,0.15)]"
-                      : "bg-white text-ink border-gray-300 hover:bg-gray-50"
-                  }`}
-                  key={x as string}
-                >
-                  {icon}
-                  {x as string}
-                </span>
-              ))}
-            </div>
-            <div className="min-h-[610px] bg-[#f7f7f4] rounded-[20px] grid grid-cols-1 lg:grid-cols-[230px_1fr] overflow-hidden">
-              <aside className="bg-[#173d31] text-white p-[28px_22px] max-lg:hidden flex flex-col justify-between">
-                <div>
-                  <Logo light />
-                  <small className="text-[8px] tracking-[0.14em] uppercase text-[#a8c4ba] mt-12 mb-4 block text-left">আমার পড়াশোনা</small>
-                  <div className="flex flex-col gap-1.5 text-left">
-                    {[
-                      ["প্রোফাইল ও রিপোর্ট", <DashboardSquare01Icon size={16} />],
-                      ["আমার বিষয়", <BookOpen01Icon size={16} />],
-                      ["অনুশীলন", <Route01Icon size={16} />],
-                      ["পরীক্ষা", <Tick01Icon size={16} />],
-                      ["সনদ", <UserShield01Icon size={16} />]
-                    ].map(([x, icon], i) => (
-                      <div className={`flex items-center gap-2.5 text-xs text-[#b2c9c1] p-3 rounded-lg cursor-pointer transition-colors ${i === 0 ? "bg-[#285a4a] text-white" : "hover:bg-emerald-900/40"}`} key={x as string}>
-                        {icon}
-                        {x as string}
-                      </div>
-                    ))}
-                  </div>
+            <div className="min-h-[610px] bg-[#f7f7f4] rounded-[20px] overflow-hidden border border-gray-200 shadow-sm flex flex-col">
+              {/* Simulated Browser Bar */}
+              <div className="bg-[#e9e9e4] border-b border-gray-300 px-4 py-2 flex items-center gap-2 max-[760px]:px-2">
+                <div className="flex gap-1.5 shrink-0">
+                  <span className="w-2.5 h-2.5 rounded-full bg-red-400 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-yellow-400 inline-block" />
+                  <span className="w-2.5 h-2.5 rounded-full bg-green-400 inline-block" />
                 </div>
-              </aside>
-              <div className="p-10 max-[760px]:p-5 flex flex-col">
-                <div className="flex justify-between items-center mb-6">
-                  <div className="flex flex-col text-left">
-                    <small className="text-[9px] text-green font-bold tracking-wider uppercase mb-1">এইচএসসি বিজ্ঞান · {selectedSubject}</small>
-                    <h3 className="text-2xl md:text-3xl font-bold text-ink">যেখান থেকে থেমেছিলে, সেখান থেকেই শুরু করো।</h3>
-                  </div>
-                  <div className="w-[44px] h-[44px] rounded-full overflow-hidden border border-[#1dbf73]/50 shadow-sm bg-mint shrink-0 max-[760px]:hidden">
-                    <img className="w-full h-full object-cover" src={profileImg} alt="আব্দুল্লাহ আল জাহীন" />
-                  </div>
-                </div>
-                <div className="min-h-[255px] bg-yellow rounded-[22px] p-9 max-[760px]:p-6 grid grid-cols-1 md:grid-cols-2 relative overflow-hidden">
-                  <div className="flex flex-col z-10 text-left">
-                    <span className="text-[9px] tracking-wider uppercase font-bold text-ink">{activeData.chapterNum}</span>
-                    <h4 className="font-['Manrope'] text-3xl md:text-[31px] font-extrabold tracking-tight my-6 text-ink">{activeData.currentChapter}</h4>
-                    <p className="text-xs text-[#5e561c] mb-6">{activeData.progressText}</p>
-                    <button className="w-fit bg-ink text-white rounded-full p-[9px_9px_9px_16px] text-xs font-bold flex items-center gap-3 cursor-pointer hover:bg-neutral-800 transition-colors">
-                      পাঠ চালিয়ে যাও
-                      <span className="inline-grid place-items-center w-[25px] h-[25px] bg-white text-ink rounded-full shrink-0">
-                        <ArrowUpRight01Icon size={12} />
-                      </span>
-                    </button>
-                  </div>
-                  <div className="relative max-md:hidden select-none">
-                    <i className="absolute border-2 border-ink w-[125px] h-[125px] rounded-full right-10 top-[25px]" />
-                    <i className="absolute border-2 border-ink w-[105px] h-[105px] rotate-45 right-[90px] top-[60px]" />
-                    <i className="absolute border-2 border-ink w-[90px] h-[90px] rounded-full right-0 -bottom-[45px] bg-green" />
-                  </div>
-                </div>
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-[18px]">
-                  {activeData.subUnits.map(([num, name, status, colorClass, pct]) => (
-                    <div className="bg-white border border-gray-200 rounded-[15px] p-[18px] flex flex-col text-left" key={name}>
-                      <span className="text-[9px] text-green font-bold">{num}</span>
-                      <b className="text-[13px] font-bold text-ink my-4">{name}</b>
-                      <small className="text-[9px] text-gray-500">{status}</small>
-                      <div className="h-1 bg-gray-100 rounded-full mt-4 overflow-hidden">
-                        <div className={`h-full ${colorClass} rounded-full`} style={{ width: pct }} />
-                      </div>
-                    </div>
-                  ))}
+                <div className="bg-white rounded-md text-[11px] text-gray-500 py-0.5 px-3 mx-auto max-w-[400px] w-full text-center border border-gray-200 select-all font-sans">
+                  onestudent.gov.bd/dashboard
                 </div>
               </div>
-            </div>
+              <div className="flex-1 dashboard-preview-frame">
+                <DashboardApp />
+              </div>
+          </div>
           </div>
         </div>
       </section>
@@ -1070,6 +976,79 @@ const LandingApp: React.FC = () => {
           </div>
           <div className="absolute bg-yellow border border-gray-200 rounded-full py-3 px-4.5 text-xs text-ink font-semibold shadow-md right-[60px] bottom-[45px] z-20 -rotate-4 max-[760px]:hidden">
             একটি কুইজ বানাও ✦
+          </div>
+        </div>
+      </section>
+
+      {/* 6. Model Test Section */}
+      <section className="bg-deep text-white py-28 px-16 max-[760px]:py-20 max-[760px]:px-5 grid grid-cols-1 lg:grid-cols-[1.1fr_0.9fr] gap-16 lg:gap-[8vw] items-center">
+        <div className="relative h-[600px] max-[760px]:h-[480px] w-full max-w-[650px] mx-auto shrink-0">
+          <div className="absolute left-0 top-5 bg-white text-ink rounded-3xl p-7 max-w-[520px] w-full shadow-2xl z-10">
+            <div className="flex justify-between text-[9px] text-gray-500 font-semibold tracking-wider text-left">
+              <span>মডেল টেস্ট · গণিত</span>
+              <MoreHorizontalIcon size={18} className="text-gray-500 cursor-pointer" />
+            </div>
+            <div className="flex items-center gap-7.5 my-8">
+              <div className="w-[140px] h-[140px] rounded-full bg-[conic-gradient(var(--color-green)_0_92%,#eee_92%)] flex items-center justify-center relative before:content-[''] before:absolute before:inset-3 before:rounded-full before:bg-white shrink-0">
+                <b className="relative z-10 text-[42px] font-extrabold text-ink">৯২</b>
+              </div>
+              <p className="text-sm leading-relaxed text-gray-500 text-left">
+                <strong className="text-xl text-ink font-extrabold block mb-1">চমৎকার!</strong>
+                তোমার ১৪% উন্নতি হয়েছে।
+              </p>
+            </div>
+            <div className="flex flex-col gap-3.5">
+              {[
+                ["বীজগণিত", "96%"],
+                ["জ্যামিতি", "82%"],
+                ["পরিসংখ্যান", "76%"]
+              ].map(([subj, pct]) => (
+                <div className="grid grid-cols-[80px_1fr_35px] gap-2.5 items-center text-[9px] text-ink font-bold" key={subj}>
+                  <span className="text-left">{subj}</span>
+                  <div className="h-1.5 bg-gray-100 rounded-full overflow-hidden">
+                    <div className="h-full bg-green rounded-full" style={{ width: pct }} />
+                  </div>
+                  <span className="text-right text-muted">{pct}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+          <div className="absolute right-[-10px] bottom-5 bg-[#f5edcf] text-[#ba8e13] w-[300px] max-[760px]:w-[220px] h-[235px] max-[760px]:h-[190px] border-8 border-double border-[#d3b86b] rounded-lg p-6 max-[760px]:p-3.5 text-center rotate-5 shadow-2xl z-10">
+            <span className="text-[7px] tracking-widest text-[#ba8e13] uppercase block mb-1">ওয়ানস্টুডেন্ট বাংলাদেশ</span>
+            <span className="text-xl text-[#ba8e13]">✦</span>
+            <small className="text-[7px] text-gray-500 uppercase tracking-widest block mt-1">সম্পন্নকরণের সনদ</small>
+            <h4 className="font-serif text-xl max-[760px]:text-base font-bold my-3">গণিতের ভিত্তি</h4>
+            <p className="text-[9px] text-muted font-medium">প্রদান করা হলো <b className="font-bold text-ink">রাফি রহমানকে</b></p>
+            <div className="flex justify-between border-t border-[#c4ad70] pt-3 mt-4.5 text-[7px] text-gray-500">
+              <span>যাচাইকৃত</span>
+              <span>জুন ২০২৬</span>
+            </div>
+          </div>
+          <div className="absolute right-1 top-0 max-[760px]:hidden bg-yellow text-ink border-2 border-ink rounded-[18px] p-[18px] rotate-5 shadow-md z-20 flex flex-col items-center">
+            <span className="text-[8px] tracking-wider uppercase font-bold">উন্নতি</span>
+            <b className="text-2xl font-bold mt-1 flex items-center gap-1">
+              <ArrowUpRight01Icon size={20} /> ১৪%
+            </b>
+          </div>
+        </div>
+        <div className="flex flex-col text-left">
+          <SectionTitle
+            eyebrow="স্মার্ট পরীক্ষা ও সনদ"
+            title={<>অনুশীলন। পরীক্ষা।<br /><em className="text-yellow not-italic">এরপর কী, জেনে নাও।</em></>}
+            text="অধ্যায় কুইজ, মক পরীক্ষা ও তাৎক্ষণিক বিশ্লেষণ প্রতিটি ফলাফলকে পরবর্তী স্পষ্ট ধাপে রূপ দেয়।"
+          />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-5 my-8.5">
+            <div className="border-t border-[#426359] pt-4.5 flex flex-col text-left">
+              <b className="text-[13px] font-bold text-white">তাৎক্ষণিক অন্তর্দৃষ্টি</b>
+              <span className="text-xs text-[#aebfba] mt-2">শক্তি ও দুর্বল বিষয় পরিষ্কারভাবে দেখো।</span>
+            </div>
+            <div className="border-t border-[#426359] pt-4.5 flex flex-col text-left">
+              <b className="text-[13px] font-bold text-white">বাস্তব অর্জন</b>
+              <span className="text-xs text-[#aebfba] mt-2">অগ্রগতির যাচাইকৃত রেকর্ড গড়ে তোলো।</span>
+            </div>
+          </div>
+          <div className="w-fit">
+            <Button secondary>মূল্যায়ন দেখুন</Button>
           </div>
         </div>
       </section>
@@ -1300,47 +1279,55 @@ const LandingApp: React.FC = () => {
 
       {/* 19. Footer */}
       <footer className="bg-ink text-white py-16 px-8 max-[760px]:py-12 max-[760px]:px-4">
-        <div className="max-w-[1400px] mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.6fr_0.7fr_0.7fr_0.7fr_1.2fr] gap-11">
-          <div className="flex flex-col text-left max-lg:col-span-full">
+        <div className="max-w-[1400px] mx-auto grid grid-cols-2 min-[550px]:grid-cols-3 md:grid-cols-2 lg:grid-cols-[1.6fr_0.7fr_0.7fr_0.7fr_1.2fr] gap-11 max-[760px]:gap-6 max-[760px]:gap-y-8">
+          <div className="flex flex-col text-left max-md:col-span-2 max-lg:col-span-full">
             <Logo light />
-            <p className="text-[#9ba09d] text-sm leading-relaxed max-w-[280px] my-6">বাংলাদেশের জাতীয় ডিজিটাল লার্নিং প্ল্যাটফর্ম — প্রতিটি শিক্ষার্থীর পড়াশোনা, দক্ষতা, সুস্থতা ও ভবিষ্যতের জন্য।</p>
-            <span className="text-[9px] uppercase tracking-wider text-yellow font-semibold">এক পরিচয় · এক প্রোফাইল · আজীবন শিক্ষা</span>
+            <p className="text-[#9ba09d] text-[15px] leading-relaxed max-w-[320px] my-6">বাংলাদেশের জাতীয় ডিজিটাল লার্নিং প্ল্যাটফর্ম — প্রতিটি শিক্ষার্থীর পড়াশোনা, দক্ষতা, সুস্থতা ও ভবিষ্যতের জন্য।</p>
+            <span className="text-[12px] uppercase tracking-wider text-yellow font-semibold">এক পরিচয় · এক প্রোফাইল · আজীবন শিক্ষা</span>
           </div>
           <div className="flex flex-col gap-3.5 text-left">
-            <b className="text-[11px] uppercase tracking-wider text-white font-bold mb-2 block">প্ল্যাটফর্ম</b>
+            <b className="text-[13px] uppercase tracking-wider text-white font-bold mb-2 block">প্ল্যাটফর্ম</b>
             {["লার্নিং হাব", "এআই সহকারী", "পরীক্ষা", "শিক্ষার্থী পাসপোর্ট"].map((lnk) => (
-              <a className="text-[11px] text-[#a9aeab] hover:text-white transition-colors" href="#" key={lnk}>{lnk}</a>
+              <a className="text-[13px] text-[#a9aeab] hover:text-white transition-colors" href="#" key={lnk}>{lnk}</a>
             ))}
           </div>
           <div className="flex flex-col gap-3.5 text-left">
-            <b className="text-[11px] uppercase tracking-wider text-white font-bold mb-2 block">সহায়তা</b>
+            <b className="text-[13px] uppercase tracking-wider text-white font-bold mb-2 block">সহায়তা</b>
             {["শিক্ষকদের জন্য", "অভিভাবকদের জন্য", "স্বাস্থ্য", "ক্যারিয়ার"].map((lnk) => (
-              <a className="text-[11px] text-[#a9aeab] hover:text-white transition-colors" href="#" key={lnk}>{lnk}</a>
+              <a className="text-[13px] text-[#a9aeab] hover:text-white transition-colors" href="#" key={lnk}>{lnk}</a>
             ))}
           </div>
           <div className="flex flex-col gap-3.5 text-left">
-            <b className="text-[11px] uppercase tracking-wider text-white font-bold mb-2 block">প্রতিষ্ঠান</b>
+            <b className="text-[13px] uppercase tracking-wider text-white font-bold mb-2 block">প্রতিষ্ঠান</b>
             {["আমাদের সম্পর্কে", "প্রভাব", "যোগাযোগ", "প্রবেশগম্যতা"].map((lnk) => (
-              <a className="text-[11px] text-[#a9aeab] hover:text-white transition-colors" href="#" key={lnk}>{lnk}</a>
+              <a className="text-[13px] text-[#a9aeab] hover:text-white transition-colors" href="#" key={lnk}>{lnk}</a>
             ))}
           </div>
           <div className="flex flex-col gap-3.5 text-left max-lg:col-span-full">
-            <b className="text-[11px] uppercase tracking-wider text-white font-bold mb-2 block">সঙ্গে থাকুন</b>
-            <p className="text-[11px] text-gray-400">খবর, অগ্রগতি ও সুযোগের আপডেট পান।</p>
-            <div className="flex border-b border-gray-600 items-center gap-2 mt-2 py-1.5 w-full">
-              <input className="bg-transparent border-none outline-none text-white text-xs py-2 w-full placeholder-gray-500 font-sans" placeholder="আপনার ইমেইল ঠিকানা" />
-              <button className="bg-green text-ink rounded-full w-[34px] h-[34px] flex items-center justify-center cursor-pointer hover:bg-emerald-400 transition-colors shrink-0">
-                <ArrowRight01Icon size={16} />
-              </button>
+            <b className="text-[13px] uppercase tracking-wider text-white font-bold mb-2 block">যোগাযোগ ও পরিচিতি</b>
+            <div className="flex gap-3.5 items-center mb-1">
+              <div className="w-[60px] h-[60px] rounded-lg overflow-hidden border border-gray-700 bg-gray-800 shrink-0">
+                <img className="w-full h-full object-cover" src="https://ggc.edu.bd/wp-content/uploads/2025/02/WhatsApp-Image-2025-02-26-at-3.22.36-PM.jpeg" alt="Gaibandha Government College" />
+              </div>
+              <div className="flex flex-col">
+                <b className="text-[14px] text-white font-bold leading-tight">Gaibandha Government College</b>
+                <span className="text-[11px] text-yellow font-semibold mt-1">Established in 1947</span>
+              </div>
+            </div>
+            <p className="text-[13px] text-gray-400 leading-snug">
+              College Road, Thana Para, Gaibandha, 5700
+            </p>
+            <div className="flex flex-col gap-1 text-[13px] text-[#a9aeab] mt-1">
+              <span>ফোন: +8801770925514, 02588877379</span>
+              <span>ইমেইল: gaibandhagovtcollege@yahoo.com</span>
+              <span className="text-[12px] text-[#a9aeab] mt-3 block">
+                Made with <span className="text-red-500">❤️</span> by{" "}
+                <a href="https://github.com/Ntf-Sadnan" target="_blank" rel="noopener noreferrer" className="text-white hover:text-yellow transition-colors font-semibold">
+                  Ntf Sadnan
+                </a>
+              </span>
             </div>
           </div>
-        </div>
-        <div className="max-w-[1400px] mx-auto border-t border-neutral-800 pt-5.5 mt-16 flex justify-between items-center text-[9px] text-gray-500 flex-wrap gap-4">
-          <span>© ২০২৬ ওয়ানস্টুডেন্ট বাংলাদেশ</span>
-          <span>গোপনীয়তা · শর্তাবলি · শিক্ষার্থী নিরাপত্তা</span>
-          <a className="text-white hover:text-green transition-colors flex items-center gap-1.5" href="#top">
-            উপরে ফিরুন <ArrowUp01Icon size={12} />
-          </a>
         </div>
       </footer>
     </main>
@@ -2281,4 +2268,3 @@ const rootEl = document.getElementById("root");
 if (rootEl) {
   createRoot(rootEl).render(<RootApp />);
 }
-
