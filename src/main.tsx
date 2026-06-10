@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import { createRoot } from "react-dom/client";
 import {
   BookOpen01Icon,
@@ -6,7 +6,17 @@ import {
   Route01Icon,
   AiBrain01Icon,
   QrCodeIcon,
-  UserShield01Icon
+  UserShield01Icon,
+  ArrowUpRight01Icon,
+  ArrowDown01Icon,
+  ArrowUp01Icon,
+  ArrowRight01Icon,
+  Tick01Icon,
+  PlayIcon,
+  MoreHorizontalIcon,
+  WifiOff01Icon,
+  Menu01Icon,
+  Cancel01Icon
 } from "hugeicons-react";
 import "./styles.css";
 
@@ -97,7 +107,7 @@ interface ArrowProps {
 
 const Arrow: React.FC<ArrowProps> = ({ down = false }) => (
   <span className="inline-grid place-items-center w-8 h-8 bg-ink text-white rounded-full text-base transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5">
-    {down ? "↓" : "↗"}
+    {down ? <ArrowDown01Icon size={16} /> : <ArrowUpRight01Icon size={16} />}
   </span>
 );
 
@@ -137,7 +147,7 @@ const Button: React.FC<ButtonProps> = ({ children, secondary = false, href = "#f
     >
       {children}
       <span className={`inline-grid place-items-center w-8 h-8 rounded-full text-base shrink-0 ${secondary ? "bg-yellow text-ink" : "bg-ink text-white"}`}>
-        ↗
+        <ArrowUpRight01Icon size={16} />
       </span>
     </a>
   );
@@ -152,8 +162,8 @@ interface SectionTitleProps {
 
 const SectionTitle: React.FC<SectionTitleProps> = ({ eyebrow, title, text, center = false }) => {
   return (
-    <div className={`flex flex-col mb-10 max-w-[640px] ${center ? "text-center mx-auto" : ""}`}>
-      <span className="inline-flex items-center gap-2 text-xs tracking-wider uppercase font-bold text-deep mb-5.5 before:content-[''] before:w-2 before:h-2 before:rounded-full before:bg-yellow">
+    <div className={`flex flex-col mb-10 max-w-[640px] ${center ? "text-center items-center mx-auto" : ""}`}>
+      <span className="inline-flex items-center gap-2 text-sm md:text-base tracking-wider uppercase font-extrabold text-deep mb-5.5 before:content-[''] before:w-2.5 before:h-2.5 before:rounded-full before:bg-yellow">
         {eyebrow}
       </span>
       <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-[1.12] mb-6 text-ink">
@@ -229,8 +239,8 @@ const PhoneChat: React.FC = () => {
       </div>
       <div className="absolute bottom-[18px] left-[18px] right-[18px] bg-[#f3f3ef] rounded-full p-3 text-gray-400 text-[9px] flex items-center justify-between">
         যেকোনো প্রশ্ন করো…
-        <b className="w-[22px] h-[22px] bg-green flex items-center justify-center text-[#071b12] rounded-full text-xs font-bold cursor-pointer">
-          ↑
+        <b className="w-[22px] h-[22px] bg-green flex items-center justify-center text-[#071b12] rounded-full cursor-pointer shrink-0">
+          <ArrowUp01Icon size={12} className="stroke-[2.5]" />
         </b>
       </div>
     </div>
@@ -239,6 +249,92 @@ const PhoneChat: React.FC = () => {
 
 const App: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
+  const [selectedSubject, setSelectedSubject] = useState("গণিত");
+
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [scrollProgress, setScrollProgress] = useState(0);
+
+  const handleScroll = () => {
+    if (containerRef.current) {
+      const { scrollLeft, scrollWidth, clientWidth } = containerRef.current;
+      const totalScroll = scrollWidth - clientWidth;
+      if (totalScroll > 0) {
+        setScrollProgress((scrollLeft / totalScroll) * 100);
+      }
+    }
+  };
+
+  const scrollNext = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ left: 344, behavior: "smooth" }); // Card width + gap
+    }
+  };
+
+  const scrollPrev = () => {
+    if (containerRef.current) {
+      containerRef.current.scrollBy({ left: -344, behavior: "smooth" });
+    }
+  };
+
+  const subjectsData: Record<string, {
+    currentChapter: string;
+    chapterNum: string;
+    progressText: string;
+    subUnits: [string, string, string, string, string][];
+  }> = {
+    "গণিত": {
+      currentChapter: "বীজগাণিতিক রাশি",
+      chapterNum: "অধ্যায় ০৪",
+      progressText: "৮টির মধ্যে ৬ষ্ঠ পাঠ · ১৮ মিনিট",
+      subUnits: [
+        ["০১", "সংখ্যা পদ্ধতি", "১০০% সম্পন্ন", "bg-green", "100%"],
+        ["০২", "জ্যামিতি", "৭২% সম্পন্ন", "bg-green", "72%"],
+        ["০৩", "উপাত্ত ও সম্ভাবনা", "অধ্যায় শুরু করো", "bg-gray-200", "0%"]
+      ]
+    },
+    "বাংলা": {
+      currentChapter: "প্রমিত ভাষা ব্যবহার করি",
+      chapterNum: "অধ্যায় ০২",
+      progressText: "৫টির মধ্যে ৩য় পাঠ · ১২ মিনিট",
+      subUnits: [
+        ["০১", "প্রয়োজনীয় কথা বলি", "১০০% সম্পন্ন", "bg-green", "100%"],
+        ["০২", "শব্দের উচ্চারণ", "৮০% সম্পন্ন", "bg-green", "80%"],
+        ["০৩", "লিখন ও প্রকাশ", "অধ্যায় শুরু করো", "bg-gray-200", "0%"]
+      ]
+    },
+    "ইংরেজি": {
+      currentChapter: "Writing in Style",
+      chapterNum: "Chapter 03",
+      progressText: "6 lessons out of 4 · 15 mins",
+      subUnits: [
+        ["01", "Beauty in Poetry", "100% completed", "bg-green", "100%"],
+        ["02", "The Art of Writing", "50% completed", "bg-green", "50%"],
+        ["03", "Grammar Essentials", "Start Chapter", "bg-gray-200", "0%"]
+      ]
+    },
+    "বিজ্ঞান": {
+      currentChapter: "সূর্য ও পৃথিবী",
+      chapterNum: "অধ্যায় ০৫",
+      progressText: "১০টির মধ্যে ৮ম পাঠ · ২০ মিনিট",
+      subUnits: [
+        ["০১", "পরমাণুর গঠন", "১০০% সম্পন্ন", "bg-green", "100%"],
+        ["০২", "গতি ও বল", "৯০% সম্পন্ন", "bg-green", "90%"],
+        ["০৩", "পরিবেশ দূষণ", "অধ্যায় শুরু করো", "bg-gray-200", "0%"]
+      ]
+    },
+    "আইসিটি": {
+      currentChapter: "নেটওয়ার্ক ও সাইবার নিরাপত্তা",
+      chapterNum: "অধ্যায় ০৩",
+      progressText: "৪টির মধ্যে ২য় পাঠ · ১৪ মিনিট",
+      subUnits: [
+        ["০১", "ডিজিটাল ডিভাইস", "১০০% সম্পন্ন", "bg-green", "100%"],
+        ["০২", "ইন্টারনেট ও ব্রাউজিং", "৬০% সম্পন্ন", "bg-green", "60%"],
+        ["০৩", "কোডিংয়ের হাতেখড়ি", "অধ্যায় শুরু করো", "bg-gray-200", "0%"]
+      ]
+    }
+  };
+
+  const activeData = subjectsData[selectedSubject] || subjectsData["গণিত"];
 
   useEffect(() => {
     const onScroll = () => {
@@ -258,7 +354,7 @@ const App: React.FC = () => {
     ["০৬", "শিক্ষক সহকারী", "পাঠ সহায়তা, শ্রেণির অন্তর্দৃষ্টি ও শেখার ঘাটতি দ্রুত শনাক্তকরণ।", "bg-lavender"],
     ["০৭", "স্বাস্থ্য ও সুস্থতা", "সুস্থ মন, শরীর ও পড়ার অভ্যাসের জন্য নিরাপদ দিকনির্দেশনা।", "bg-yellow"],
     ["০৮", "ক্যারিয়ার ও কলেজ", "আগ্রহভিত্তিক দিকনির্দেশনা, বৃত্তি ও উচ্চশিক্ষায় সহায়তা।", "bg-mint"],
-    ["০ix", "কিউআর-সংযুক্ত বই", "বই স্ক্যান করেই সংশ্লিষ্ট ভিডিও পাঠ, ক্লাস অথবা পরীক্ষা শুরু।", "bg-lavender"],
+    ["০৯", "কিউআর-সংযুক্ত বই", "বই স্ক্যান করেই সংশ্লিষ্ট ভিডিও পাঠ, ক্লাস অথবা পরীক্ষা শুরু।", "bg-lavender"],
     ["১০", "আজীবন শিক্ষার্থী আইডি", "শিক্ষাজীবনের শুরু থেকে শেষ পর্যন্ত একটি স্থায়ী ডিজিটাল পরিচয়।", "bg-white"],
     ["১১", "দক্ষতাভিত্তিক শিক্ষা", "কৃষি, ইংরেজি বলা, ডিজিটাল দক্ষতা ও জীবনমুখী কোর্স।", "bg-yellow"],
     ["১২", "এডটেক সহযোগিতা", "বিশ্বস্ত শিক্ষা প্রতিষ্ঠান ও এডটেককে এক জাতীয় ব্যবস্থায় যুক্ত করা।", "bg-green"],
@@ -269,7 +365,7 @@ const App: React.FC = () => {
       <StyleOverride />
       {/* 0. Header */}
       <header className="fixed top-0 left-0 w-full z-50 px-8 py-4.5 max-[760px]:px-2.5 max-[760px]:py-2.5 transition-all duration-300 header-scroll-bg">
-        <div className="h-[72px] max-[760px]:h-[62px] max-w-[1380px] mx-auto bg-white/88 backdrop-blur-[18px] border border-ink/10 rounded-[20px] flex items-center justify-between px-6 py-0 shadow-sm relative">
+        <div className="h-[72px] max-[760px]:h-[62px] max-w-[1380px] mx-auto bg-white/88 backdrop-blur-[18px] rounded-[20px] flex items-center justify-between px-6 py-0 shadow-sm relative">
           <Logo />
           <nav className={`${menuOpen ? "flex absolute top-[78px] left-0 right-0 bg-white border border-ink/10 rounded-2xl p-6 flex-col gap-4 shadow-lg" : "hidden"} md:flex md:static md:flex-row md:items-center md:justify-center md:gap-7 md:shadow-none md:p-0 md:bg-transparent md:border-none`}>
             {[
@@ -292,9 +388,8 @@ const App: React.FC = () => {
               <Button href="#contact">শুরু করুন</Button>
             </div>
           </div>
-          <button className="hidden max-[760px]:flex flex-col justify-center gap-1.5 w-10 h-10 border-none bg-transparent cursor-pointer" onClick={() => setMenuOpen(!menuOpen)} aria-label="মেনু খুলুন">
-            <span className="w-5.5 h-0.5 bg-ink rounded-full" />
-            <span className="w-5.5 h-0.5 bg-ink rounded-full" />
+          <button className="hidden max-[760px]:flex items-center justify-center w-10 h-10 border-none bg-transparent cursor-pointer text-ink" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}>
+            {menuOpen ? <Cancel01Icon size={24} /> : <Menu01Icon size={24} />}
           </button>
         </div>
       </header>
@@ -305,7 +400,7 @@ const App: React.FC = () => {
           <div className="inline-flex items-center gap-2 border border-gray-300 rounded-full p-1.5 max-[760px]:justify-center max-[760px]:mx-auto w-fit text-[12px] tracking-wide mb-6">
             <span className="bg-yellow px-2.5 py-1.5 rounded-full font-bold text-[12px]">জাতীয় ডিজিটাল লার্নিং প্ল্যাটফর্ম</span>
             <i className="w-1.5 h-1.5 bg-green rounded-full shrink-0" />
-            <span className="text-muted font-medium">প্রথম–দ্বাদশ শ্রেণি</span>
+            <span className="text-muted font-medium">প্রথম থেকে দ্বাদশ শ্রেণি পর্যন্ত</span>
           </div>
           <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold tracking-tight mb-8 leading-[1.08] text-ink">
             <span className="inline-block whitespace-nowrap text-[0.85em]">প্রতিটি শিক্ষার্থীর যাত্রা</span>
@@ -323,12 +418,12 @@ const App: React.FC = () => {
           </div>
           <div className="flex items-center gap-4 mt-6 max-[760px]:justify-center">
             <div className="flex -space-x-3 shrink-0">
-              <img className="w-[54px] h-[54px] max-[760px]:w-[46px] max-[760px]:h-[46px] rounded-full border-3 border-paper object-cover" src={photos.students} alt="student" />
-              <img className="w-[54px] h-[54px] max-[760px]:w-[46px] max-[760px]:h-[46px] rounded-full border-3 border-paper object-cover" src={photos.teacher} alt="teacher" />
-              <img className="w-[54px] h-[54px] max-[760px]:w-[46px] max-[760px]:h-[46px] rounded-full border-3 border-paper object-cover" src={photos.family} alt="parent" />
+              <img className="w-[54px] h-[54px] max-[760px]:w-[46px] max-[760px]:h-[46px] rounded-full border-3 border-[#f9f8f3] object-cover" src={photos.students} alt="student" />
+              <img className="w-[54px] h-[54px] max-[760px]:w-[46px] max-[760px]:h-[46px] rounded-full border-3 border-[#f9f8f3] object-cover" src={photos.teacher} alt="teacher" />
+              <img className="w-[54px] h-[54px] max-[760px]:w-[46px] max-[760px]:h-[46px] rounded-full border-3 border-[#f9f8f3] object-cover" src={photos.family} alt="parent" />
             </div>
             <p className="text-sm md:text-base text-muted text-left">
-              <b className="font-bold text-ink text-base md:text-lg block">সারাদেশের জন্য এক স্বপ্ন</b>
+              <b className="font-bold text-ink text-base md:text-lg block">সারাদেশের জন্য এক সল্যুশন</b>
               শিক্ষার্থী · শিক্ষক · অভিভাবক
             </p>
           </div>
@@ -352,7 +447,9 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="absolute right-[5px] bottom-[88px] max-[760px]:hidden bg-white p-[10px_18px_10px_10px] rounded-full flex items-center gap-2 shadow-md z-10">
-            <span className="w-8 h-8 rounded-full flex items-center justify-center bg-green text-ink font-bold text-sm">✓</span>
+            <span className="w-8 h-8 rounded-full flex items-center justify-center bg-green text-ink shrink-0">
+              <Tick01Icon size={16} className="stroke-[2.5]" />
+            </span>
             <div className="flex flex-col text-left">
               <b className="text-[13px] text-ink font-bold leading-tight">অধ্যায় সম্পন্ন</b>
               <small className="text-[11px] text-muted">বীজগণিত · অষ্টম শ্রেণি</small>
@@ -408,32 +505,34 @@ const App: React.FC = () => {
 
       {/* 3. Features Section */}
       <section className="py-28 px-16 max-[760px]:py-20 max-[760px]:px-5 max-w-[1440px] mx-auto" id="features">
-        <div className="flex justify-between items-end mb-16 flex-wrap gap-6 text-left">
+        <div className="mb-16 text-center">
           <SectionTitle
+            center
             eyebrow="বাংলাদেশের জাতীয় ডিজিটাল লার্নিং প্ল্যাটফর্ম"
-            title={<>একটি সংযুক্ত প্ল্যাটফর্ম।<br /><em className="text-green not-italic">প্রতিটি প্রয়োজনীয় টুল।</em></>}
+            title={<>সবকিছু <em className="text-green not-italic">এক অ্যাপে</em></>}
           />
-          <p className="max-w-[360px] text-muted text-base leading-relaxed mb-6">বিচ্ছিন্ন কিছু অ্যাপ নয় — শিক্ষার্থী, পরিবার, স্কুল ও শিক্ষা অংশীদারদের জন্য একটি অভিন্ন জাতীয় অবকাঠামো।</p>
         </div>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3.5">
-          {features.map(([n, t, d, c]) => (
-            <article className={`group min-h-[320px] p-7 rounded-[22px] border border-line flex flex-col justify-between transition-transform duration-300 hover:-translate-y-1.5 text-left ${c}`} key={t}>
-              <span className="text-xs text-gray-500 font-bold uppercase tracking-wider block">{n}</span>
-              <h3 className="text-2xl font-bold text-ink leading-tight mt-12 mb-3.5">{t}</h3>
-              <p className="text-xs text-gray-500 leading-relaxed mb-6">{d}</p>
-              <a className="inline-grid place-items-center w-8 h-8 rounded-full border border-ink bg-transparent text-ink text-xs self-end shrink-0 transition-colors group-hover:bg-ink group-hover:text-white" href="#" aria-label={`${t} সম্পর্কে জানুন`}>
-                ↗
-              </a>
-            </article>
-          ))}
+        <div className="feature-journey">
+          {[0, 1, 2].map((rowIndex) => {
+            const rowFeatures = features.slice(rowIndex * 4, rowIndex * 4 + 4);
+            const displayedFeatures = rowIndex === 1 ? [...rowFeatures].reverse() : rowFeatures;
+
+            return (
+              <div className={`journey-row ${rowIndex === 1 ? "journey-row-reverse" : ""}`} key={rowIndex}>
+                {displayedFeatures.map(([n, t, d]) => (
+                  <article className="journey-card" key={t}>
+                    <span className="journey-number">{n}</span>
+                    <div>
+                      <h3>{t}</h3>
+                      <p>{d}</p>
+                    </div>
+                  </article>
+                ))}
+              </div>
+            );
+          })}
         </div>
-        <div className="flex gap-8 mt-16 py-6 border-y border-line overflow-hidden whitespace-nowrap">
-          {["মক পরীক্ষা", "অগ্রগতি বিশ্লেষণ", "কলেজে উত্তরণ", "গ্রামীণ অন্তর্ভুক্তি", "ব্যক্তিগত শিক্ষা", "বৃত্তি সন্ধান"].map((x) => (
-            <span className="text-[10px] tracking-widest uppercase text-ink font-semibold" key={x}>
-              ✦ {x}
-            </span>
-          ))}
-        </div>
+
       </section>
 
       {/* 4. Why Section */}
@@ -556,7 +655,7 @@ const App: React.FC = () => {
           <div className="absolute left-0 top-5 bg-white text-ink rounded-3xl p-7 max-w-[520px] w-full shadow-2xl z-10">
             <div className="flex justify-between text-[9px] text-gray-500 font-semibold tracking-wider text-left">
               <span>মডেল টেস্ট · গণিত</span>
-              <b>•••</b>
+              <MoreHorizontalIcon size={18} className="text-gray-500 cursor-pointer" />
             </div>
             <div className="flex items-center gap-7.5 my-8">
               <div className="w-[140px] h-[140px] rounded-full bg-[conic-gradient(var(--color-green)_0_92%,#eee_92%)] flex items-center justify-center relative before:content-[''] before:absolute before:inset-3 before:rounded-full before:bg-white shrink-0">
@@ -596,7 +695,9 @@ const App: React.FC = () => {
           </div>
           <div className="absolute right-1 top-0 max-[760px]:hidden bg-yellow text-ink border-2 border-ink rounded-[18px] p-[18px] rotate-5 shadow-md z-20 flex flex-col items-center">
             <span className="text-[8px] tracking-wider uppercase font-bold">উন্নতি</span>
-            <b className="text-2xl font-bold mt-1">↗ ১৪%</b>
+            <b className="text-2xl font-bold mt-1 flex items-center gap-1">
+              <ArrowUpRight01Icon size={20} /> ১৪%
+            </b>
           </div>
         </div>
         <div className="flex flex-col text-left">
@@ -621,64 +722,12 @@ const App: React.FC = () => {
         </div>
       </section>
 
-      {/* 7. Support Section */}
-      <section className="py-28 px-16 max-[760px]:py-20 max-[760px]:px-5 max-w-[1440px] mx-auto" id="support">
-        <SectionTitle
-          eyebrow="শিক্ষক ও অভিভাবকের পাশে"
-          title={<>শিক্ষার্থীর অগ্রগতি বুঝুন,<br /><em className="text-green not-italic">সময়মতো পাশে দাঁড়ান।</em></>}
-          text="পড়াশোনার অগ্রগতি, উপস্থিতি ও কোথায় বাড়তি সহায়তা প্রয়োজন—প্রয়োজনীয় তথ্যগুলো শিক্ষক ও অভিভাবকের কাছে থাকবে সহজ ও পরিষ্কারভাবে।"
-        />
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mt-16 max-[760px]:grid-cols-1">
-          <article className="bg-[#efeee8] rounded-[28px] overflow-hidden relative min-h-[670px] max-[760px]:min-h-[700px] flex flex-col justify-between">
-            <div className="h-[360px] overflow-hidden shrink-0">
-              <img className="w-full h-full object-cover" src={photos.teacher} alt="শ্রেণিকক্ষে শিক্ষক" />
-            </div>
-            <div className="p-9 flex-1 flex flex-col justify-between text-left">
-              <div>
-                <span className="text-[9px] tracking-wider uppercase font-bold text-deep">শিক্ষকদের জন্য</span>
-                <h3 className="text-3xl md:text-[42px] font-bold my-4 leading-tight text-ink">প্রতিটি শিক্ষার্থীর প্রয়োজন বুঝে শেখান।</h3>
-                <p className="text-sm md:text-base text-muted leading-relaxed mb-6">সহজে পাঠ পরিকল্পনা ও অনুশীলনী তৈরি করুন। শ্রেণির কার কোন বিষয়ে দুর্বলতা আছে, তা দ্রুত শনাক্ত করে প্রয়োজনীয় সহায়তা দিন।</p>
-              </div>
-              <a className="inline-flex items-center gap-2.5 text-xs font-bold border-b border-ink w-fit pb-1 hover:border-green hover:text-green transition-colors" href="#">
-                শিক্ষকদের সুবিধাগুলো দেখুন
-                <span className="inline-grid place-items-center w-6 h-6 rounded-full bg-ink text-white text-[11px]">↗</span>
-              </a>
-            </div>
-            <div className="absolute right-5.5 top-[315px] bg-white p-4.5 rounded-2xl shadow-lg flex flex-col text-left">
-              <span className="text-[7px] tracking-wider text-gray-400">অষ্টম শ্রেণি · ক</span>
-              <b className="text-sm font-bold text-ink my-1.5">৬ জন শিক্ষার্থী</b>
-              <small className="text-[9px] text-[#e28c22]">সহায়তা প্রয়োজন হতে পারে</small>
-            </div>
-          </article>
 
-          <article className="bg-yellow rounded-[28px] overflow-hidden relative min-h-[670px] max-[760px]:min-h-[700px] flex flex-col justify-between">
-            <div className="p-9 flex-1 flex flex-col justify-between text-left">
-              <div>
-                <span className="text-[9px] tracking-wider uppercase font-bold text-deep">অভিভাবকদের জন্য</span>
-                <h3 className="text-3xl md:text-[42px] font-bold my-4 leading-tight text-ink">সন্তানের পড়াশোনার খবর রাখুন সহজেই।</h3>
-                <p className="text-sm md:text-base text-[#5e561c] leading-relaxed mb-6">পরীক্ষার ফল, উপস্থিতি ও পড়ার অগ্রগতি এক জায়গায় দেখুন। পড়াশোনার সময় ঠিক করুন এবং বয়স অনুযায়ী অ্যাপ ও ডিভাইস ব্যবহারের সীমা নির্ধারণ করুন।</p>
-              </div>
-              <a className="inline-flex items-center gap-2.5 text-xs font-bold border-b border-ink w-fit pb-1 hover:text-emerald-950 transition-colors" href="#">
-                অভিভাবকদের সুবিধাগুলো দেখুন
-                <span className="inline-grid place-items-center w-6 h-6 rounded-full bg-ink text-white text-[11px]">↗</span>
-              </a>
-            </div>
-            <div className="h-[330px] overflow-hidden shrink-0 mt-auto">
-              <img className="w-full h-full object-cover" src={photos.family} alt="শিশুকে পড়তে সাহায্য করছেন অভিভাবক" />
-            </div>
-            <div className="absolute left-6 bottom-[310px] bg-white p-4.5 rounded-2xl shadow-lg flex flex-col text-left">
-              <span className="text-[7px] tracking-wider text-gray-400">আজকের পড়ার সময়</span>
-              <b className="text-sm font-bold text-ink my-1.5">১ ঘণ্টা ২৫ মিনিট</b>
-              <small className="text-[9px] text-[#e28c22]">শিক্ষা মোড রাত ৯টা পর্যন্ত চালু</small>
-            </div>
-          </article>
-        </div>
-      </section>
 
       {/* 8. Early Warning Section */}
       <section className="bg-ink text-white py-28 px-16 max-[760px]:py-20 max-[760px]:px-5 grid grid-cols-1 lg:grid-cols-[0.9fr_1.1fr] gap-16 lg:gap-[8vw] items-center">
         <div className="flex flex-col text-left">
-          <span className="text-xs font-bold text-yellow uppercase tracking-wider block mb-5.5">আগাম সহায়তা সংকেত</span>
+          <span className="text-sm md:text-base font-extrabold text-yellow uppercase tracking-wider block mb-5.5">আগাম সহায়তা সংকেত</span>
           <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">সমস্যা আগে বুঝুন।<br/><em className="text-yellow not-italic">শিক্ষার্থীর পাশে দাঁড়ান।</em></h2>
           <p className="text-[17px] leading-relaxed text-[#abb1ad] mb-8">শিক্ষা কার্যক্রম, মূল্যায়ন ও উপস্থিতির সংকেত দায়িত্বশীলভাবে মিলিয়ে ওয়ানস্টুডেন্ট স্কুলকে সময়মতো সহায়তার সুযোগ দেয়।</p>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5">
@@ -736,9 +785,17 @@ const App: React.FC = () => {
           />
           <div className="bg-white border border-gray-300 rounded-[28px] p-3 shadow-[0_30px_80px_rgba(30,32,27,0.1)]">
             <div className="flex gap-2 p-2 pb-4.5 overflow-x-auto whitespace-nowrap scrollbar-none">
-              <span className="bg-ink text-white px-4 py-2 rounded-full text-xs cursor-pointer font-medium">অষ্টম শ্রেণি</span>
+              <span className="bg-[#173d31] text-white px-4 py-2 rounded-full text-xs font-bold select-none cursor-default">অষ্টম শ্রেণি</span>
               {["বাংলা", "ইংরেজি", "গণিত", "বিজ্ঞান", "আইসিটি"].map((x) => (
-                <span className="border border-gray-300 px-4 py-2 rounded-full text-xs cursor-pointer hover:bg-gray-50 text-ink font-medium" key={x}>
+                <span
+                  onClick={() => setSelectedSubject(x)}
+                  className={`px-4 py-2 rounded-full text-xs cursor-pointer font-medium border transition-colors ${
+                    selectedSubject === x
+                      ? "bg-ink text-white border-ink shadow-[0_2px_4px_rgba(0,0,0,0.1)]"
+                      : "bg-white text-ink border-gray-300 hover:bg-gray-50"
+                  }`}
+                  key={x}
+                >
                   {x}
                 </span>
               ))}
@@ -750,7 +807,7 @@ const App: React.FC = () => {
                 <div className="flex flex-col gap-1.5 text-left">
                   {["সারসংক্ষেপ", "আমার বিষয়", "অনুশীলন", "পরীক্ষা", "সনদ"].map((x, i) => (
                     <div className={`flex items-center gap-2.5 text-xs text-[#b2c9c1] p-3 rounded-lg cursor-pointer transition-colors ${i === 1 ? "bg-[#285a4a] text-white" : "hover:bg-emerald-900/40"}`} key={x}>
-                      <i className="w-2.5 h-2.5 border border-current rounded-sm" />
+                       <i className="w-2.5 h-2.5 border border-current rounded-sm" />
                       {x}
                     </div>
                   ))}
@@ -759,20 +816,20 @@ const App: React.FC = () => {
               <div className="p-10 max-[760px]:p-5 flex flex-col">
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex flex-col text-left">
-                    <small className="text-[9px] text-green font-bold tracking-wider uppercase mb-1">অষ্টম শ্রেণি · গণিত</small>
+                    <small className="text-[9px] text-green font-bold tracking-wider uppercase mb-1">অষ্টম শ্রেণি · {selectedSubject}</small>
                     <h3 className="text-2xl md:text-3xl font-bold text-ink">যেখান থেকে থেমেছিলে, সেখান থেকেই শুরু করো।</h3>
                   </div>
                   <div className="w-[46px] h-[46px] rounded-full flex items-center justify-center bg-mint font-extrabold text-[26px] max-[760px]:hidden">😀</div>
                 </div>
                 <div className="min-h-[255px] bg-yellow rounded-[22px] p-9 max-[760px]:p-6 grid grid-cols-1 md:grid-cols-2 relative overflow-hidden">
                   <div className="flex flex-col z-10 text-left">
-                    <span className="text-[9px] tracking-wider uppercase font-bold text-ink">অধ্যায় ০৪</span>
-                    <h4 className="font-['Manrope'] text-3xl md:text-[31px] font-extrabold tracking-tight my-6 text-ink">বীজগাণিতিক রাশি</h4>
-                    <p className="text-xs text-[#5e561c] mb-6">৮টির মধ্যে ৬ষ্ঠ পাঠ · ১৮ মিনিট</p>
+                    <span className="text-[9px] tracking-wider uppercase font-bold text-ink">{activeData.chapterNum}</span>
+                    <h4 className="font-['Manrope'] text-3xl md:text-[31px] font-extrabold tracking-tight my-6 text-ink">{activeData.currentChapter}</h4>
+                    <p className="text-xs text-[#5e561c] mb-6">{activeData.progressText}</p>
                     <button className="w-fit bg-ink text-white rounded-full p-[9px_9px_9px_16px] text-xs font-bold flex items-center gap-3 cursor-pointer hover:bg-neutral-800 transition-colors">
                       পাঠ চালিয়ে যাও
-                      <span className="inline-grid place-items-center w-[25px] h-[25px] bg-white text-ink rounded-full text-xs font-bold">
-                        ↗
+                      <span className="inline-grid place-items-center w-[25px] h-[25px] bg-white text-ink rounded-full shrink-0">
+                        <ArrowUpRight01Icon size={12} />
                       </span>
                     </button>
                   </div>
@@ -783,17 +840,13 @@ const App: React.FC = () => {
                   </div>
                 </div>
                 <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-[18px]">
-                  {[
-                    ["০১", "সংখ্যা পদ্ধতি", "১০০% সম্পন্ন", "bg-green", "w-full"],
-                    ["০২", "জ্যামিতি", "৭২% সম্পন্ন", "bg-green", "w-[72%]"],
-                    ["০৩", "উপাত্ত ও সম্ভাবনা", "অধ্যায় শুরু করো", "bg-gray-200", "w-0"]
-                  ].map(([num, name, status, colorClass, widthClass]) => (
+                  {activeData.subUnits.map(([num, name, status, colorClass, pct]) => (
                     <div className="bg-white border border-gray-200 rounded-[15px] p-[18px] flex flex-col text-left" key={name}>
                       <span className="text-[9px] text-green font-bold">{num}</span>
                       <b className="text-[13px] font-bold text-ink my-4">{name}</b>
                       <small className="text-[9px] text-gray-500">{status}</small>
                       <div className="h-1 bg-gray-100 rounded-full mt-4 overflow-hidden">
-                        <div className={`h-full ${colorClass} rounded-full`} style={{ width: widthClass === "w-full" ? "100%" : widthClass === "w-[72%]" ? "72%" : "0%" }} />
+                        <div className={`h-full ${colorClass} rounded-full`} style={{ width: pct }} />
                       </div>
                     </div>
                   ))}
@@ -876,14 +929,18 @@ const App: React.FC = () => {
             </div>
           </div>
           <div className="absolute z-10 right-2.5 top-[75px] max-[760px]:right-1 max-[760px]:top-[30px] bg-white border border-ink rounded-2xl p-[14px_18px] max-[760px]:p-2.5 flex items-center gap-3 shadow-[4px_5px_0_#111] rotate-4">
-            <span className="w-[35px] h-[35px] rounded-full flex items-center justify-center bg-green text-ink font-bold text-xs">▶</span>
+            <span className="w-[35px] h-[35px] rounded-full flex items-center justify-center bg-green text-ink shrink-0">
+              <PlayIcon size={16} className="fill-current text-ink" />
+            </span>
             <div className="flex flex-col text-left">
               <small className="text-[7px] text-gray-500 leading-none mb-1">কিউআর সংযুক্ত</small>
               <b className="text-[11px] max-[760px]:text-[9px] text-ink font-bold leading-none">১৮ মিনিটের ভিডিও পাঠ</b>
             </div>
           </div>
           <div className="absolute z-10 left-1.5 bottom-[55px] max-[760px]:left-1 max-[760px]:bottom-[25px] bg-white border border-ink rounded-2xl p-[14px_18px] max-[760px]:p-2.5 flex items-center gap-3 shadow-[4px_5px_0_#111] -rotate-4">
-            <span className="w-[35px] h-[35px] rounded-full flex items-center justify-center bg-yellow text-ink font-bold text-xs">✓</span>
+            <span className="w-[35px] h-[35px] rounded-full flex items-center justify-center bg-yellow text-ink shrink-0">
+              <Tick01Icon size={18} className="stroke-[2.5]" />
+            </span>
             <div className="flex flex-col text-left">
               <small className="text-[7px] text-gray-500 leading-none mb-1">সরাসরি চালু হবে</small>
               <b className="text-[11px] max-[760px]:text-[9px] text-ink font-bold leading-none">১০ প্রশ্নের অধ্যায় পরীক্ষা</b>
@@ -957,7 +1014,9 @@ const App: React.FC = () => {
                   <h3 className="text-xl font-bold my-1.5 text-ink leading-tight">{heading}</h3>
                   <p className="text-[11px] text-muted leading-relaxed mt-1">{desc}</p>
                 </div>
-                <span className="inline-grid place-items-center w-8 h-8 rounded-full bg-ink text-white text-xs shrink-0 self-center">↗</span>
+                <span className="inline-grid place-items-center w-8 h-8 rounded-full bg-ink text-white shrink-0 self-center">
+                  <ArrowUpRight01Icon size={14} />
+                </span>
               </article>
             ))}
           </div>
@@ -986,7 +1045,9 @@ const App: React.FC = () => {
                 </div>
                 <a className="inline-flex items-center gap-2.5 text-xs font-bold border-b border-ink w-fit pb-1 hover:border-green hover:text-green transition-colors" href="#">
                   সুস্থতা সহায়তা দেখুন
-                  <span className="inline-grid place-items-center w-6 h-6 rounded-full bg-ink text-white text-[11px]">↗</span>
+                  <span className="inline-grid place-items-center w-6 h-6 rounded-full bg-ink text-white shrink-0">
+                    <ArrowUpRight01Icon size={10} />
+                  </span>
                 </a>
               </div>
             </article>
@@ -1000,7 +1061,9 @@ const App: React.FC = () => {
                 </div>
                 <a className="inline-flex items-center gap-2.5 text-xs font-bold border-b border-ink w-fit pb-1 hover:text-emerald-950 transition-colors" href="#">
                   ভবিষ্যৎ পরিকল্পনা করো
-                  <span className="inline-grid place-items-center w-6 h-6 rounded-full bg-ink text-white text-[11px]">↗</span>
+                  <span className="inline-grid place-items-center w-6 h-6 rounded-full bg-ink text-white shrink-0">
+                    <ArrowUpRight01Icon size={10} />
+                  </span>
                 </a>
               </div>
               <div className="h-[330px] overflow-hidden shrink-0 mt-auto">
@@ -1016,7 +1079,9 @@ const App: React.FC = () => {
         <div className="relative h-[650px] max-[760px]:h-[500px] w-full max-w-[550px] mx-auto rounded-[45%_45%_25px_25px] overflow-hidden bg-mint shrink-0">
           <img className="w-full h-full object-cover filter saturate-60" src={photos.rural} alt="বই ও শেখার পরিবেশ" />
           <div className="absolute right-6 bottom-6 bg-white rounded-2xl p-[17px_22px] grid grid-cols-[auto_auto] gap-x-2.5 items-center">
-            <i className="not-italic w-[37px] h-[37px] rounded-full flex items-center justify-center bg-yellow text-ink font-bold text-lg">◌</i>
+            <span className="w-[37px] h-[37px] rounded-full flex items-center justify-center bg-yellow text-ink shrink-0">
+              <WifiOff01Icon size={18} />
+            </span>
             <div className="flex flex-col text-left leading-tight">
               <b className="text-xs text-ink font-bold">অফলাইনে প্রস্তুত</b>
               <span className="text-[8px] text-gray-500 mt-1">ইন্টারনেট এলে সিঙ্ক হবে</span>
@@ -1048,14 +1113,15 @@ const App: React.FC = () => {
             title={<>সেরা শিক্ষা উদ্যোগগুলো<br /><em className="text-yellow not-italic">একসঙ্গে কাজ করবে।</em></>}
             text="বিশ্বস্ত এডটেক, স্কুল, প্রশিক্ষণ প্রতিষ্ঠান ও কনটেন্ট নির্মাতারা একটি জাতীয় মানদণ্ডের অধীনে সেবা দিতে পারবে। শিক্ষার্থী পাবে এক পরিচয়ে নিরাপদ ও মানসম্মত অভিজ্ঞতা।"
           />
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-3 my-7.5 max-[760px]:grid-cols-1 text-left">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-3.5 my-7.5 max-[760px]:grid-cols-1 text-left">
             {[
-              "✓ এক শিক্ষার্থী আইডি ও প্রোফাইল",
-              "✓ অনুমোদিত কনটেন্ট ও মূল্যায়ন",
-              "✓ অংশীদারদের জন্য উন্মুক্ত সংযোগ",
-              "✓ তথ্য নিরাপত্তা ও জাতীয় মানদণ্ড"
+              "এক শিক্ষার্থী আইডি ও প্রোফাইল",
+              "অনুমোদিত কনটেন্ট ও মূল্যায়ন",
+              "অংশীদারদের জন্য উন্মুক্ত সংযোগ",
+              "তথ্য নিরাপত্তা ও জাতীয় মানদণ্ড"
             ].map((pt) => (
-              <span className="text-sm font-semibold text-[#d1dfda]" key={pt}>
+              <span className="text-sm font-semibold text-[#d1dfda] flex items-center gap-2" key={pt}>
+                <Tick01Icon size={16} className="text-yellow shrink-0" />
                 {pt}
               </span>
             ))}
@@ -1097,7 +1163,7 @@ const App: React.FC = () => {
           <img className="w-full h-full object-cover filter brightness-[0.55] saturate-75" src={photos.group} alt="একসঙ্গে বিভিন্ন বয়সের শিক্ষার্থীরা" />
           <div className="absolute inset-0 bg-gradient-to-r from-emerald-950/75 via-emerald-950/20 to-transparent" />
           <div className="absolute z-10 left-[65px] max-[760px]:left-6 max-[760px]:right-6 top-[75px] max-[760px]:top-11 max-w-[780px]">
-            <span className="text-xs tracking-wider uppercase font-bold text-white mb-6 block">জাতীয় স্বপ্ন</span>
+            <span className="text-sm md:text-base tracking-wider uppercase font-extrabold text-white mb-6 block">জাতীয় স্বপ্ন</span>
             <h2 className="text-4xl md:text-5xl lg:text-7xl font-bold leading-tight mb-6">
               সারাদেশের শিক্ষার্থী সহায়তা <em className="text-yellow not-italic">বদলে দেওয়ার জন্য নির্মিত।</em>
             </h2>
@@ -1106,7 +1172,7 @@ const App: React.FC = () => {
           <div className="absolute z-10 bottom-0 left-0 right-0 bg-[#0c1813]/72 backdrop-blur-md grid grid-cols-1 md:grid-cols-3 py-9 px-12 max-[760px]:p-6 gap-6 max-[760px]:gap-4.5 text-center">
             {[
               ["২ কোটি+", "সম্ভাব্য শিক্ষার্থী"],
-              ["প্রথম–দ্বাদশ", "একটি একীভূত যাত্রা"],
+              ["প্রথম থেকে দ্বাদশ শ্রেণি পর্যন্ত", "একটি একীভূত যাত্রা"],
               ["৬৪", "জেলা নিয়ে স্বপ্ন"]
             ].map(([val, label], idx) => (
               <div className={`flex flex-col items-center border-r border-white/25 max-md:border-none ${idx === 2 ? "border-none" : ""}`} key={label}>
@@ -1151,7 +1217,7 @@ const App: React.FC = () => {
       <section className="py-28 px-16 max-[760px]:py-20 max-[760px]:px-5 max-w-[1440px] mx-auto" id="contact">
         <div className="bg-mint rounded-[32px] grid grid-cols-1 md:grid-cols-2 min-h-[590px] max-[760px]:min-h-[850px] overflow-hidden">
           <div className="p-16 max-[760px]:p-6 text-left flex flex-col justify-center">
-            <span className="text-xs font-bold text-deep uppercase tracking-wider block mb-5.5">উজ্জ্বল পথের শুরু এখানেই</span>
+            <span className="text-sm md:text-base font-extrabold text-deep uppercase tracking-wider block mb-5.5">উজ্জ্বল পথের শুরু এখানেই</span>
             <h2 className="text-4xl md:text-5xl lg:text-[72px] font-bold leading-tight mb-6 text-ink">প্রতিটি শিক্ষার্থীকে<br /><em className="text-yellow not-italic">এগিয়ে যেতে দিন।</em></h2>
             <p className="text-lg text-[#577067] leading-relaxed mb-9 max-w-[540px]">আপনার শিক্ষার্থীদের জন্য পড়াশোনা, সহায়তা, সুস্থতা ও ভবিষ্যৎ পরিকল্পনা একসঙ্গে আনুন।</p>
             <div className="flex gap-3.5 flex-wrap">
@@ -1200,14 +1266,18 @@ const App: React.FC = () => {
             <p className="text-[11px] text-gray-400">খবর, অগ্রগতি ও সুযোগের আপডেট পান।</p>
             <div className="flex border-b border-gray-600 items-center gap-2 mt-2 py-1.5 w-full">
               <input className="bg-transparent border-none outline-none text-white text-xs py-2 w-full placeholder-gray-500 font-sans" placeholder="আপনার ইমেইল ঠিকানা" />
-              <button className="bg-green text-ink rounded-full w-[34px] h-[34px] flex items-center justify-center font-bold text-lg cursor-pointer hover:bg-emerald-400 transition-colors shrink-0">→</button>
+              <button className="bg-green text-ink rounded-full w-[34px] h-[34px] flex items-center justify-center cursor-pointer hover:bg-emerald-400 transition-colors shrink-0">
+                <ArrowRight01Icon size={16} />
+              </button>
             </div>
           </div>
         </div>
         <div className="max-w-[1400px] mx-auto border-t border-neutral-800 pt-5.5 mt-16 flex justify-between items-center text-[9px] text-gray-500 flex-wrap gap-4">
           <span>© ২০২৬ ওয়ানস্টুডেন্ট বাংলাদেশ</span>
           <span>গোপনীয়তা · শর্তাবলি · শিক্ষার্থী নিরাপত্তা</span>
-          <a className="text-white hover:text-green transition-colors" href="#top">উপরে ফিরুন ↑</a>
+          <a className="text-white hover:text-green transition-colors flex items-center gap-1.5" href="#top">
+            উপরে ফিরুন <ArrowUp01Icon size={12} />
+          </a>
         </div>
       </footer>
     </main>
