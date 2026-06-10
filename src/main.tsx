@@ -137,11 +137,12 @@ const Arrow: React.FC<ArrowProps> = ({ down = false }) => (
 
 interface LogoProps {
   light?: boolean;
+  href?: string;
 }
 
-const Logo: React.FC<LogoProps> = ({ light = false }) => {
+const Logo: React.FC<LogoProps> = ({ light = false, href = "#top" }) => {
   return (
-    <a className={`flex items-center gap-2.5 min-w-[245px] max-[760px]:min-w-0 ${light ? "text-white" : "text-ink"}`} href="#top" aria-label="ওয়ানস্টুডেন্ট বাংলাদেশ হোম">
+    <a className={`flex items-center gap-2.5 min-w-[245px] max-[760px]:min-w-0 ${light ? "text-white" : "text-ink"}`} href={href} aria-label="ওয়ানস্টুডেন্ট বাংলাদেশ হোম">
       <span className="relative w-[31px] h-[31px] grid grid-cols-2 gap-[3px] -rotate-7 shrink-0">
         <i className="rounded-[4px] bg-green" />
         <i className="rounded-[4px] bg-yellow" />
@@ -1527,14 +1528,17 @@ const DashboardApp: React.FC = () => {
     return demoProgress;
   });
 
-  useEffect(() => {
-    if (sidebarOpen) {
-      setSidebarMounted(true);
-      return;
-    }
-    const timer = window.setTimeout(() => setSidebarMounted(false), 300);
-    return () => window.clearTimeout(timer);
-  }, [sidebarOpen]);
+  const openSidebar = () => {
+    setSidebarMounted(true);
+    window.requestAnimationFrame(() => {
+      window.requestAnimationFrame(() => setSidebarOpen(true));
+    });
+  };
+
+  const closeSidebar = () => {
+    setSidebarOpen(false);
+    window.setTimeout(() => setSidebarMounted(false), 500);
+  };
 
   useEffect(() => {
     fetch("/hsc_science_all_chapters_10_mcq.json")
@@ -1715,7 +1719,7 @@ const DashboardApp: React.FC = () => {
     setCourseIndex(index); 
     setChapterIndex(0); 
     setMode("course"); 
-    setSidebarOpen(false); 
+    closeSidebar(); 
   };
 
   const openChapter = (index: number, nextMode: "learn" | "test") => {
@@ -1800,35 +1804,77 @@ const DashboardApp: React.FC = () => {
 
   const Sidebar = () => (
     <aside
-      className={`dashboard-sidebar fixed lg:sticky top-0 left-0 w-[270px] lg:w-auto h-screen bg-[#11120f] text-white px-3 lg:px-[17px] py-6 flex flex-col overflow-y-auto z-50 ${sidebarOpen ? "dashboard-sidebar-open" : ""}`}
+      className={`fixed lg:sticky top-0 left-0 w-[270px] lg:w-auto h-screen bg-[#11120f] text-white px-3 lg:px-[17px] py-6 flex flex-col overflow-y-auto z-50 transform-gpu will-change-transform transition-transform duration-500 ease-in-out ${sidebarOpen ? "translate-x-0" : "-translate-x-full"} lg:translate-x-0 lg:transition-none`}
     >
-      <div className="flex items-center justify-between px-2 pb-[22px]"><Logo light /><button className="lg:hidden bg-transparent border-0 text-white" onClick={() => setSidebarOpen(false)}><Cancel01Icon size={20} strokeWidth={1.5}/></button></div>
+      <div className="flex items-center justify-between px-2 pb-[22px]">
+        <Logo light href="/" />
+        <button className="lg:hidden bg-transparent border-0 text-white" onClick={closeSidebar}><Cancel01Icon size={20} strokeWidth={1.5}/></button>
+      </div>
       <nav className="grid gap-1 border-b border-[#2a2c29] pb-4">
-        <button className={`flex items-center gap-[11px] border-0 px-[13px] py-[11px] rounded-[10px] text-left text-xs font-extrabold cursor-pointer ${mode === "profile" ? "bg-green text-[#071b12]" : "bg-transparent text-[#aeb2ad]"}`} onClick={() => { setMode("profile"); setSidebarOpen(false); }}><DashboardSquare01Icon size={19} strokeWidth={1.5}/> প্রোফাইল ও রিপোর্ট</button>
-        <button className={`flex items-center gap-[11px] border-0 px-[13px] py-[11px] rounded-[10px] text-left text-xs font-extrabold cursor-pointer ${mode !== "profile" ? "bg-green text-[#071b12]" : "bg-transparent text-[#aeb2ad]"}`} onClick={() => { setMode("course"); setSidebarOpen(false); }}><BookOpen01Icon size={19} strokeWidth={1.5}/> আমার কোর্স</button>
+        <button className={`flex items-center gap-[11px] border-0 px-[13px] py-[11px] rounded-[10px] text-left text-xs lg:text-sm font-extrabold cursor-pointer ${mode === "profile" ? "bg-green text-[#071b12]" : "bg-transparent text-[#aeb2ad]"}`} onClick={() => { setMode("profile"); closeSidebar(); }}><DashboardSquare01Icon size={19} strokeWidth={1.5}/> প্রোফাইল ও রিপোর্ট</button>
+        <button className={`flex items-center gap-[11px] border-0 px-[13px] py-[11px] rounded-[10px] text-left text-xs lg:text-sm font-extrabold cursor-pointer ${mode !== "profile" ? "bg-green text-[#071b12]" : "bg-transparent text-[#aeb2ad]"}`} onClick={() => { setMode("course"); closeSidebar(); }}><BookOpen01Icon size={19} strokeWidth={1.5}/> আমার কোর্স</button>
       </nav>
-      <div className="text-[#8e948e] text-[11px] tracking-[.1em] uppercase font-black px-3 pt-5 pb-2.5">এইচএসসি বিজ্ঞান</div>
+      <div className="text-[#8e948e] text-[11px] lg:text-xs tracking-[.1em] uppercase font-black px-3 pt-5 pb-2.5">এইচএসসি বিজ্ঞান</div>
       <div className="grid gap-[3px]">
         {coursesList.map((item, index) => (
           <button className={`flex gap-2.5 items-center p-[9px] border-0 rounded-[11px] text-left cursor-pointer ${courseIndex === index && mode !== "profile" ? "bg-[#282b27] text-white" : "bg-transparent text-[#b7bbb6]"}`} onClick={() => selectCourse(index)} key={item.name}>
             <i className="w-[34px] h-[34px] grid place-items-center text-ink rounded-[9px] not-italic" style={{background:item.color}}>
               {getCourseIcon(item.short)}
             </i>
-            <span className="text-[13px] font-extrabold leading-[1.35]">{item.name}<small className="block text-[#899089] text-[11px] mt-0.5">{bnDigits(item.chapters.length)}টি অধ্যায়</small></span>
+            <span className="text-[13px] lg:text-[15px] font-extrabold leading-[1.35]">{item.name}<small className="block text-[#899089] text-[11px] lg:text-[13px] mt-0.5">{bnDigits(item.chapters.length)}টি অধ্যায়</small></span>
           </button>
         ))}
       </div>
-      <a className="mt-auto px-3 pt-5 pb-1 text-[#a0a6a0] text-xs no-underline" href="#top">← মূল ওয়েবসাইট</a>
+      <a className="mt-auto px-3 pt-5 pb-1 text-[#a0a6a0] text-xs lg:text-sm no-underline" href="/">← মূল ওয়েবসাইট</a>
     </aside>
   );
 
   if (loading) {
     return (
-      <main className="min-h-screen bg-[#f4f3ee] text-ink grid place-items-center px-5">
+      <main className="min-h-screen bg-[#f4f3ee] text-ink">
         <StyleOverride />
-        <div className="bg-white border border-line rounded-[22px] p-8 text-center shadow-sm">
-          <span className="block text-deep text-xs font-black tracking-[.08em] uppercase mb-3">কোর্স লাইব্রেরি</span>
-          <h1 className="text-2xl font-bold m-0">JSON ডেটা লোড হচ্ছে...</h1>
+        <div className="max-w-[1370px] mx-auto px-3.5 lg:px-[34px] pt-5 lg:pt-8 pb-20 animate-pulse">
+          <section className="bg-white border border-line rounded-[22px] p-6 lg:p-7 flex items-center gap-5 mb-6">
+            <div className="w-[78px] h-[78px] rounded-full bg-[#e5e3dc]" />
+            <div className="flex-1 space-y-3">
+              <div className="h-8 w-52 rounded-full bg-[#e5e3dc]" />
+              <div className="h-4 w-full max-w-[520px] rounded-full bg-[#e5e3dc]" />
+            </div>
+            <div className="hidden sm:block h-8 w-32 rounded-full bg-[#e5e3dc]" />
+          </section>
+          <div className="grid grid-cols-2 xl:grid-cols-4 gap-[13px] my-[18px]">
+            {Array.from({ length: 4 }).map((_, index) => (
+              <div className="bg-white border border-line rounded-[18px] p-5 h-[118px]" key={index}>
+                <div className="h-7 w-20 rounded-full bg-[#e5e3dc] mb-4" />
+                <div className="h-4 w-28 rounded-full bg-[#e5e3dc]" />
+              </div>
+            ))}
+          </div>
+          <div className="grid lg:grid-cols-[1.1fr_.9fr] gap-[18px]">
+            <section className="bg-white border border-line rounded-[22px] p-6">
+              <div className="h-5 w-44 rounded-full bg-[#d7efe3] mb-5" />
+              <div className="space-y-3">
+                {Array.from({ length: 5 }).map((_, index) => (
+                  <div className="flex items-center gap-3 border-b border-line last:border-0 pb-3 last:pb-0" key={index}>
+                    <div className="w-12 h-12 rounded-xl bg-[#efede7]" />
+                    <div className="flex-1 space-y-2">
+                      <div className="h-4 w-2/3 rounded-full bg-[#e5e3dc]" />
+                      <div className="h-3 w-32 rounded-full bg-[#e5e3dc]" />
+                    </div>
+                    <div className="h-9 w-24 rounded-full bg-[#d7efe3]" />
+                  </div>
+                ))}
+              </div>
+            </section>
+            <section className="bg-white border border-line rounded-[22px] p-6">
+              <div className="h-5 w-36 rounded-full bg-[#d7efe3] mb-5" />
+              <div className="grid grid-cols-7 gap-2">
+                {Array.from({ length: 35 }).map((_, index) => (
+                  <div className="aspect-square rounded-xl bg-[#efede7]" key={index} />
+                ))}
+              </div>
+            </section>
+          </div>
         </div>
       </main>
     );
@@ -1851,10 +1897,10 @@ const DashboardApp: React.FC = () => {
     <main className="min-h-screen bg-[#f4f3ee] text-ink block lg:grid lg:grid-cols-[282px_minmax(0,1fr)]">
       <StyleOverride />
       <Sidebar />
-      {(sidebarMounted || sidebarOpen) && <button className={`fixed inset-0 border-0 z-40 lg:hidden transition-opacity duration-300 ${sidebarOpen ? "bg-black/50 opacity-100" : "bg-black/50 opacity-0 pointer-events-none"}`} onClick={() => setSidebarOpen(false)} aria-label="মেনু বন্ধ করুন" />}
+      {(sidebarMounted || sidebarOpen) && <button className={`fixed inset-0 border-0 z-40 lg:hidden transition-opacity duration-500 ${sidebarOpen ? "bg-black/50 opacity-100" : "bg-black/50 opacity-0 pointer-events-none"}`} onClick={closeSidebar} aria-label="মেনু বন্ধ করুন" />}
       <section className="min-w-0">
         <header className="h-20 bg-white border-b border-line flex lg:hidden items-center px-3.5 lg:px-[34px] sticky top-0 z-30">
-          <button className="grid lg:hidden place-items-center border-0 bg-ink text-white w-10 h-10 rounded-[11px] mr-[13px]" onClick={() => setSidebarOpen(true)}><Menu01Icon size={22}/></button>
+          <button className="grid lg:hidden place-items-center border-0 bg-ink text-white w-10 h-10 rounded-[11px] mr-[13px]" onClick={openSidebar}><Menu01Icon size={22}/></button>
           <div className="ml-auto flex items-center">
             <div className="flex gap-3 items-center p-[8px_14px] bg-[#f6f6f1] border border-line rounded-2xl text-ink">
               <div className="flex flex-col text-right leading-tight pl-1">
@@ -1877,7 +1923,7 @@ const DashboardApp: React.FC = () => {
               </div>
               <div className="flex-1 text-center sm:text-left">
                 <h1 className="text-2xl lg:text-3xl font-extrabold text-ink mb-1.5">আব্দুল্লাহ আল জাহীন</h1>
-                <p className="m-0 text-[#70756f] text-xs lg:text-sm font-semibold flex flex-wrap gap-x-2 gap-y-1 justify-center sm:justify-start items-center">
+                <p className="m-0 text-[#70756f] text-xs lg:text-base font-semibold flex flex-wrap gap-x-2 gap-y-1 justify-center sm:justify-start items-center">
                   <span>ধানমন্ডি সরকারি বালিকা উচ্চ বিদ্যালয়</span>
                   <span className="text-deep font-extrabold">· এইচএসসি ২০২৭ · বিজ্ঞান বিভাগ</span>
                   <span className="text-[#a0a6a0]">·</span>
@@ -1885,7 +1931,7 @@ const DashboardApp: React.FC = () => {
                 </p>
               </div>
               <div className="flex flex-col items-center sm:items-end gap-1 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l border-[#ecebe6] sm:pl-5 w-full sm:w-auto">
-                <span className="text-[10px] text-[#8e948e] font-bold">ভেরিফাইড প্রোফাইল ✓</span>
+                <span className="text-[10px] lg:text-sm text-[#8e948e] font-bold">ভেরিফাইড প্রোফাইল ✓</span>
               </div>
             </section>
 
@@ -2043,7 +2089,7 @@ const DashboardApp: React.FC = () => {
                   ) : (
                     <div className="bg-mint/40 border border-green/10 rounded-xl p-4 mt-8 flex items-center gap-3">
                       <span className="text-lg">ℹ</span>
-                      <p className="m-0 text-xs text-deep font-bold">{rawChapter?.video_note || "এই অধ্যায়ের জন্য কোনো সরাসরি ইউটিউব ভিডিও লিংক পাওয়া যায়নি।"}</p>
+                      <p className="m-0 text-xs text-deep font-bold">ভিডিও পাওয়া যায়নি।</p>
                     </div>
                   )}
 
