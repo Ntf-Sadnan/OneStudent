@@ -1,5 +1,6 @@
 import React, { useEffect, useState, useRef } from "react";
 import { createRoot } from "react-dom/client";
+import QRCode from "qrcode";
 import {
   BookOpen01Icon,
   DashboardSquare01Icon,
@@ -160,7 +161,7 @@ interface ButtonProps {
   href?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, secondary = false, href = "#dashboard" }) => {
+const Button: React.FC<ButtonProps> = ({ children, secondary = false, href = "/dashboard" }) => {
   return (
     <a
       className={`group inline-flex items-center gap-3 px-[22px] py-2.5 max-[760px]:px-5 border-1.5 border-ink rounded-full font-bold text-sm shadow-[2px_3px_0_#111] transition-all duration-250 hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_5px_0_#111] ${
@@ -426,7 +427,7 @@ const LandingApp: React.FC = () => {
             ))}
           </nav>
           <div className="max-[760px]:hidden">
-            <Button href="#dashboard">শুরু করুন</Button>
+            <Button href="/dashboard">শুরু করুন</Button>
           </div>
           <button className="hidden max-[760px]:flex items-center justify-center w-10 h-10 border-none bg-transparent cursor-pointer text-ink" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}>
             {menuOpen ? <Cancel01Icon size={24} /> : <Menu01Icon size={24} />}
@@ -1430,7 +1431,46 @@ const hscCourses: Course[] = [
 const bnNums = ["প্রথম","দ্বিতীয়","তৃতীয়","চতুর্থ","পঞ্চম","ষষ্ঠ","সপ্তম","অষ্টম","নবম","দশম","একাদশ","দ্বাদশ"];
 const bnDigits = (value: number) => String(value).replace(/\d/g, (digit) => "০১২৩৪৫৬৭৮৯"[Number(digit)]);
 const bnMonthNames = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+const bnOptionLabels = ["ক", "খ", "গ", "ঘ"];
 const progressKey = (courseShort: string, chapterIndex: number) => `${courseShort}:${chapterIndex}`;
+const courseSlugs: Record<string, string> = {
+  "Physics 1": "physics-1",
+  "Physics 2": "physics-2",
+  "Chemistry 1": "chemistry-1",
+  "Chemistry 2": "chemistry-2",
+  "Biology 1": "biology-1",
+  "Biology 2": "biology-2",
+  "Higher Math 1": "higher-math-1",
+  "Higher Math 2": "higher-math-2",
+  "ICT": "ict"
+};
+const chapterSlug = (title: string, index: number) => title === "জৈব রসায়ন" ? "organic-chemistry" : `chapter-${index + 1}`;
+const dashboardShareUrl = (course: Course, chapterIndex: number, mode: "learn" | "test") => {
+  const coursePath = courseSlugs[course.short] || course.short.toLowerCase().replace(/\s+/g, "-");
+  const params = new URLSearchParams({
+    course: coursePath,
+    chapter: chapterSlug(course.chapters[chapterIndex], chapterIndex),
+    mode: mode === "test" ? "exam" : "learn"
+  });
+  return `/dashboard?${params.toString()}`;
+};
+
+const QrLink: React.FC<{ label: string; url: string }> = ({ label, url }) => {
+  const [imageUrl, setImageUrl] = useState("");
+
+  useEffect(() => {
+    QRCode.toDataURL(url, { width: 240, margin: 1, color: { dark: "#11120f", light: "#ffffff" } })
+      .then(setImageUrl)
+      .catch(() => setImageUrl(""));
+  }, [url]);
+
+  return (
+    <a className="bg-white border border-line rounded-xl p-3 text-center no-underline text-ink" href={url}>
+      {imageUrl && <img className="w-full aspect-square block rounded-lg" src={imageUrl} alt={`${label} কিউআর কোড`} />}
+      <b className="block text-xs mt-2">{label}</b>
+    </a>
+  );
+};
 
 const getCourseIcon = (short: string) => {
   if (short.startsWith("Physics")) {
@@ -1465,6 +1505,7 @@ const DashboardApp: React.FC = () => {
   const [chapterIndex, setChapterIndex] = useState(0);
   const [mode, setMode] = useState<"course" | "profile" | "learn" | "test" | "result">("profile");
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [sidebarMounted, setSidebarMounted] = useState(false);
   const [answer, setAnswer] = useState<number | null>(null);
   const [dynamicCourses, setDynamicCourses] = useState<Course[]>([]);
   const [loading, setLoading] = useState(true);
@@ -1485,6 +1526,15 @@ const DashboardApp: React.FC = () => {
     sessionStorage.setItem("onestudent-exam-progress", JSON.stringify(demoProgress));
     return demoProgress;
   });
+
+  useEffect(() => {
+    if (sidebarOpen) {
+      setSidebarMounted(true);
+      return;
+    }
+    const timer = window.setTimeout(() => setSidebarMounted(false), 300);
+    return () => window.clearTimeout(timer);
+  }, [sidebarOpen]);
 
   useEffect(() => {
     fetch("/hsc_science_all_chapters_10_mcq.json")
@@ -1562,6 +1612,9 @@ const DashboardApp: React.FC = () => {
   ];
 
   const currentMcq = mcqs[currentMcqIndex] || mcqs[0];
+  const timerPercent = Math.max(0, (timeLeft / 15) * 100);
+  const timerColor = timeLeft <= 5 ? "#ff5570" : timeLeft <= 10 ? "#f4c542" : "#1dbf73";
+  const timerBackground = timeLeft <= 5 ? "#fff0f2" : timeLeft <= 10 ? "#fff7d6" : "#e4f7ee";
   const today = new Date();
   const calendarYear = today.getFullYear();
   const calendarMonth = today.getMonth();
@@ -1583,6 +1636,47 @@ const DashboardApp: React.FC = () => {
   };
   const currentCourseProgress = courseProgress(course);
   const reportCourses = coursesList;
+  useEffect(() => {
+    if (coursesList.length === 0) return;
+
+    const syncRoute = () => {
+      if (window.location.pathname !== "/dashboard") return;
+      const params = new URLSearchParams(window.location.search);
+      const courseParam = params.get("course");
+      const chapterParam = params.get("chapter");
+      const modeParam = params.get("mode");
+      if (!courseParam) {
+        setMode("profile");
+        return;
+      }
+
+      const matchedCourseIndex = coursesList.findIndex((item) => courseSlugs[item.short] === courseParam);
+      if (matchedCourseIndex < 0) return;
+      const matchedCourse = coursesList[matchedCourseIndex];
+      setCourseIndex(matchedCourseIndex);
+
+      if (!chapterParam) {
+        setMode("course");
+        return;
+      }
+
+      const matchedChapterIndex = matchedCourse.chapters.findIndex((title, index) => chapterSlug(title, index) === chapterParam);
+      if (matchedChapterIndex < 0) return;
+      setChapterIndex(matchedChapterIndex);
+      setCurrentMcqIndex(0);
+      setAnswer(null);
+      setAnswerChecked(false);
+      setAnswerHistory([]);
+      setScoreCount(0);
+      setTimeLeft(15);
+      setMode(modeParam === "exam" ? "test" : "learn");
+      window.history.replaceState({}, "", "/dashboard");
+    };
+
+    syncRoute();
+    window.addEventListener("popstate", syncRoute);
+    return () => window.removeEventListener("popstate", syncRoute);
+  }, [coursesList]);
 
   const CalendarCard = () => (
     <section className="bg-white border border-line rounded-[20px] p-6">
@@ -1705,7 +1799,9 @@ const DashboardApp: React.FC = () => {
   }, [mode, answerChecked, timeLeft, currentMcqIndex]);
 
   const Sidebar = () => (
-    <aside className={`fixed lg:sticky top-0 ${sidebarOpen ? "left-0" : "-left-[290px]"} lg:left-0 w-[270px] lg:w-auto h-screen bg-[#11120f] text-white px-3 lg:px-[17px] py-6 flex flex-col overflow-y-auto z-50 transition-[left] duration-250`}>
+    <aside
+      className={`dashboard-sidebar fixed lg:sticky top-0 left-0 w-[270px] lg:w-auto h-screen bg-[#11120f] text-white px-3 lg:px-[17px] py-6 flex flex-col overflow-y-auto z-50 ${sidebarOpen ? "dashboard-sidebar-open" : ""}`}
+    >
       <div className="flex items-center justify-between px-2 pb-[22px]"><Logo light /><button className="lg:hidden bg-transparent border-0 text-white" onClick={() => setSidebarOpen(false)}><Cancel01Icon size={20} strokeWidth={1.5}/></button></div>
       <nav className="grid gap-1 border-b border-[#2a2c29] pb-4">
         <button className={`flex items-center gap-[11px] border-0 px-[13px] py-[11px] rounded-[10px] text-left text-xs font-extrabold cursor-pointer ${mode === "profile" ? "bg-green text-[#071b12]" : "bg-transparent text-[#aeb2ad]"}`} onClick={() => { setMode("profile"); setSidebarOpen(false); }}><DashboardSquare01Icon size={19} strokeWidth={1.5}/> প্রোফাইল ও রিপোর্ট</button>
@@ -1755,11 +1851,10 @@ const DashboardApp: React.FC = () => {
     <main className="min-h-screen bg-[#f4f3ee] text-ink block lg:grid lg:grid-cols-[282px_minmax(0,1fr)]">
       <StyleOverride />
       <Sidebar />
-      {sidebarOpen && <button className="fixed inset-0 bg-black/50 border-0 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} aria-label="মেনু বন্ধ করুন" />}
+      {(sidebarMounted || sidebarOpen) && <button className={`fixed inset-0 border-0 z-40 lg:hidden transition-opacity duration-300 ${sidebarOpen ? "bg-black/50 opacity-100" : "bg-black/50 opacity-0 pointer-events-none"}`} onClick={() => setSidebarOpen(false)} aria-label="মেনু বন্ধ করুন" />}
       <section className="min-w-0">
         <header className="h-20 bg-white border-b border-line flex lg:hidden items-center px-3.5 lg:px-[34px] sticky top-0 z-30">
           <button className="grid lg:hidden place-items-center border-0 bg-ink text-white w-10 h-10 rounded-[11px] mr-[13px]" onClick={() => setSidebarOpen(true)}><Menu01Icon size={22}/></button>
-          <div><span className="hidden lg:block text-[11px] text-deep font-black tracking-[.08em] uppercase">ওয়ানস্টুডেন্ট লার্নিং স্পেস</span><b className="block text-base mt-1">{mode === "profile" ? "আমার প্রোফাইল" : course.name}</b></div>
           <div className="ml-auto flex items-center">
             <div className="flex gap-3 items-center p-[8px_14px] bg-[#f6f6f1] border border-line rounded-2xl text-ink">
               <div className="flex flex-col text-right leading-tight pl-1">
@@ -1863,7 +1958,7 @@ const DashboardApp: React.FC = () => {
                         }}
                       >
                         <button className="flex gap-3.5 items-center border-0 bg-transparent text-left cursor-pointer min-w-0" onClick={(event)=>{event.stopPropagation(); openChapter(index,"learn");}}>
-                          <i className={`w-[45px] h-[45px] grid place-items-center rounded-xl not-italic text-xs font-black ${completed ? "bg-green text-ink" : "bg-[#f1f0ea]"}`}>
+                          <i className={`w-9 h-9 sm:w-[45px] sm:h-[45px] grid place-items-center rounded-[10px] sm:rounded-xl not-italic text-[10px] sm:text-xs font-black shrink-0 ${completed ? "bg-green text-ink" : "bg-[#f1f0ea]"}`}>
                             {completed ? <Tick01Icon size={18} strokeWidth={2.2}/> : bnDigits(Number(String(index + 1).padStart(2, "0"))).padStart(2, "০")}
                           </i>
                           <span>
@@ -1873,9 +1968,9 @@ const DashboardApp: React.FC = () => {
                             </em>
                           </span>
                         </button>
-                        <div className="flex gap-1.5 pt-2 pl-[59px] lg:p-0">
-                          <button className="flex items-center gap-1.5 border border-[#d9d9d3] bg-white rounded-full px-3 py-2.5 text-xs font-extrabold cursor-pointer" onClick={(event)=>{event.stopPropagation(); openChapter(index,"learn");}}><PlayIcon size={14}/> শিখুন</button>
-                          <button className={`flex items-center gap-1.5 border rounded-full px-3 py-2.5 text-xs font-extrabold cursor-pointer ${completed ? "border-green bg-green text-ink" : "border-ink bg-ink text-white"}`} onClick={(event)=>{event.stopPropagation(); openChapter(index,"test");}}>{completed && <Tick01Icon size={14}/>} {completed ? "আবার দিন" : "পরীক্ষা"}</button>
+                        <div className="flex gap-2 pt-3 pl-0 lg:p-0 w-full lg:w-auto">
+                          <button className="flex-1 lg:flex-none flex items-center justify-center gap-1.5 border border-[#d9d9d3] bg-white rounded-full px-4 py-3 lg:px-3 lg:py-2.5 text-xs font-extrabold cursor-pointer" onClick={(event)=>{event.stopPropagation(); openChapter(index,"learn");}}><PlayIcon size={14}/> শিখুন</button>
+                          <button className={`flex-1 lg:flex-none flex items-center justify-center gap-1.5 border rounded-full px-4 py-3 lg:px-3 lg:py-2.5 text-xs font-extrabold cursor-pointer ${completed ? "border-green bg-green text-ink" : "border-ink bg-ink text-white"}`} onClick={(event)=>{event.stopPropagation(); openChapter(index,"test");}}>{completed && <Tick01Icon size={14}/>} {completed ? "আবার দিন" : "পরীক্ষা"}</button>
                         </div>
                       </article>
                     );
@@ -1961,6 +2056,13 @@ const DashboardApp: React.FC = () => {
                   {["ধারণা ও সংজ্ঞা", "ইউটিউব ক্লাস ভিডিও", "অনুশীলনী কুইজ", "অধ্যায় পরীক্ষা"].map((item, i) => (
                     <div className={`flex items-center gap-2.5 px-2.5 py-[13px] rounded-[10px] text-sm font-bold ${i === 0 ? "bg-mint" : ""}`} key={item}><span className="text-deep text-xs">০{i + 1}</span>{item}</div>
                   ))}
+                  <div className="border-t border-line mt-4 pt-4">
+                    <b className="block text-sm mb-3">কিউআর দিয়ে খুলুন</b>
+                    <div className="grid grid-cols-2 gap-2">
+                      <QrLink label="শিখুন" url={`${window.location.origin}${dashboardShareUrl(course, chapterIndex, "learn")}`} />
+                      <QrLink label="পরীক্ষা" url={`${window.location.origin}${dashboardShareUrl(course, chapterIndex, "test")}`} />
+                    </div>
+                  </div>
                 </aside>
               </div>
             </>)}
@@ -1971,8 +2073,9 @@ const DashboardApp: React.FC = () => {
                 <span>অধ্যায় পরীক্ষা ({chapter})</span>
                 <div className="flex items-center gap-3">
                   <b>প্রশ্ন {bnDigits(currentMcqIndex + 1)} / {bnDigits(mcqs.length)}</b>
-                  <span className={`w-10 h-10 rounded-full grid place-items-center font-black text-sm ${timeLeft <= 5 && !answerChecked ? "bg-[#ffe1e6] text-[#c42f47]" : "bg-mint text-deep"}`}>
-                    {bnDigits(timeLeft)}
+                  <span className="relative w-12 h-12 rounded-full grid place-items-center shrink-0" style={{background:`conic-gradient(${timerColor} ${timerPercent}%, #e6e7e2 ${timerPercent}% 100%)`}}>
+                    <span className="absolute inset-[4px] rounded-full" style={{background:timerBackground}} />
+                    <b className="relative z-10 font-black text-sm" style={{color:timerColor}}>{bnDigits(timeLeft)}</b>
                   </span>
                 </div>
               </div>
@@ -1998,17 +2101,12 @@ const DashboardApp: React.FC = () => {
                       disabled={answerChecked}
                       key={opt.key}
                     >
-                      <span className={`w-[30px] h-[30px] grid place-items-center rounded-full font-extrabold shrink-0 ${answerChecked && isCorrectOption ? "bg-green text-ink" : answerChecked && isSelected ? "bg-[#ff6278] text-white" : "bg-[#efeee8]"}`}>{opt.key}</span>
+                      <span className={`w-[30px] h-[30px] grid place-items-center rounded-full font-extrabold shrink-0 ${answerChecked && isCorrectOption ? "bg-green text-ink" : answerChecked && isSelected ? "bg-[#ff6278] text-white" : "bg-[#efeee8]"}`}>{bnOptionLabels[i]}</span>
                       {opt.text}
                     </button>
                   );
                 })}
               </div>
-              {answerChecked && (
-                <div className={`mt-4 rounded-xl px-4 py-3 text-sm font-bold ${answer !== null && currentMcq.options[answer]?.key === currentMcq.answer ? "bg-mint text-deep" : "bg-[#fff0f2] text-[#a9283d]"}`}>
-                  {answer === null ? "সময় শেষ। সঠিক উত্তরটি সবুজ রঙে দেখানো হয়েছে।" : currentMcq.options[answer]?.key === currentMcq.answer ? "সঠিক উত্তর!" : "উত্তরটি সঠিক নয়। সঠিক উত্তরটি সবুজ রঙে দেখানো হয়েছে।"}
-                </div>
-              )}
               <div className="flex justify-center">
                 <button className="inline-flex items-center justify-center gap-2.5 border border-ink bg-green shadow-[3px_4px_0_#111] rounded-full px-5 py-[13px] font-black cursor-pointer mt-[22px] disabled:opacity-40 disabled:cursor-not-allowed" disabled={!answerChecked} onClick={finishQuestion}>
                   {currentMcqIndex + 1 < mcqs.length ? "পরবর্তী" : "ফলাফল দেখুন"} <ArrowRight01Icon size={18} />
@@ -2017,22 +2115,22 @@ const DashboardApp: React.FC = () => {
             </div></>)}
             {mode === "result" && (
             <div className="max-w-[900px] mx-auto my-[25px]">
-              <section className="bg-ink text-white rounded-[24px] overflow-hidden border border-white/10">
+              <section className="bg-white text-ink rounded-[24px] overflow-hidden border border-line">
                 <div className="text-center px-5 py-8">
-                  <span className="text-green text-[11px] font-black uppercase">পরীক্ষার ফলাফল</span>
+                  <span className="text-deep text-[11px] font-black uppercase">পরীক্ষার ফলাফল</span>
                   <h1 className="text-xl font-bold mt-1 mb-6">{chapter}</h1>
-                  <b className="block text-[48px] leading-none text-yellow">{bnDigits(scores[0]?.score || 0)}%</b>
-                  <span className="block text-sm text-[#c9cec9] mt-3">{bnDigits(scoreCount)} / {bnDigits(mcqs.length)} সঠিক</span>
+                  <b className="block text-[48px] leading-none text-deep">{bnDigits(scores[0]?.score || 0)}%</b>
+                  <span className="block text-sm text-[#666] mt-3">{bnDigits(scoreCount)} / {bnDigits(mcqs.length)} সঠিক</span>
                 </div>
-                <div className="grid grid-cols-3 border-t border-white/15">
+                <div className="grid grid-cols-3 border-t border-line bg-[#fafaf7]">
                   {[
                     [scoreCount, "সঠিক", "text-green"],
                     [answerHistory.filter((item) => item.selectedKey !== null && !item.correct).length, "ভুল", "text-[#ff6278]"],
-                    [answerHistory.filter((item) => item.selectedKey === null).length, "স্কিপ", "text-[#b5bab5]"]
+                    [answerHistory.filter((item) => item.selectedKey === null).length, "স্কিপ", "text-[#777]"]
                   ].map(([value, label, color], index) => (
-                    <div className={`text-center py-5 ${index < 2 ? "border-r border-white/15" : ""}`} key={label as string}>
+                    <div className={`text-center py-5 ${index < 2 ? "border-r border-line" : ""}`} key={label as string}>
                       <b className={`block text-2xl ${color}`}>{bnDigits(value as number)}</b>
-                      <span className="block text-xs text-[#b5bab5] mt-1">{label}</span>
+                      <span className="block text-xs text-[#777] mt-1">{label}</span>
                     </div>
                   ))}
                 </div>
@@ -2054,31 +2152,31 @@ const DashboardApp: React.FC = () => {
                         </span>
                         <h2 className="text-base lg:text-lg leading-relaxed m-0">{mcq.question}</h2>
                       </div>
-                      <div className="grid sm:grid-cols-2 gap-2 mt-4">
+                      <div className="grid gap-2.5 mt-4">
                         {mcq.options.map((option) => {
                           const isCorrectOption = option.key === mcq.answer;
                           const isSelected = option.key === response?.selectedKey;
                           return (
                             <div
-                              className={`rounded-xl border px-3 py-3 text-sm font-bold ${
+                              className={`flex items-center gap-[15px] p-3.5 rounded-[13px] border text-sm font-bold ${
                                 isCorrectOption
                                   ? "border-green bg-mint text-deep"
                                   : isSelected
                                     ? "border-[#ff6278] bg-[#fff0f2] text-[#a9283d]"
-                                    : "border-line bg-[#fafaf7] text-[#666]"
+                                    : "border-line bg-white text-ink"
                               }`}
                               key={option.key}
                             >
-                              <span className="mr-2">{option.key}</span>{option.text}
+                              <span className={`w-[30px] h-[30px] grid place-items-center rounded-full font-extrabold shrink-0 ${
+                                isCorrectOption ? "bg-green text-ink" : isSelected ? "bg-[#ff6278] text-white" : "bg-[#efeee8]"
+                              }`}>
+                                {bnOptionLabels[mcq.options.indexOf(option)]}
+                              </span>
+                              {option.text}
                             </div>
                           );
                         })}
                       </div>
-                      {mcq.explanation && (
-                        <p className="mt-4 mb-0 rounded-xl bg-mint/60 border border-green/15 px-4 py-3 text-sm text-deep leading-relaxed">
-                          {mcq.explanation}
-                        </p>
-                      )}
                     </article>
                   );
                 })}
@@ -2092,11 +2190,11 @@ const DashboardApp: React.FC = () => {
 };
 
 const RootApp: React.FC = () => {
-  const [dashboard, setDashboard] = useState(window.location.hash === "#dashboard");
+  const [dashboard, setDashboard] = useState(window.location.pathname.startsWith("/dashboard"));
   useEffect(() => {
-    const sync = () => setDashboard(window.location.hash === "#dashboard");
-    window.addEventListener("hashchange", sync);
-    return () => window.removeEventListener("hashchange", sync);
+    const sync = () => setDashboard(window.location.pathname.startsWith("/dashboard"));
+    window.addEventListener("popstate", sync);
+    return () => window.removeEventListener("popstate", sync);
   }, []);
   return dashboard ? <DashboardApp /> : <LandingApp />;
 };
