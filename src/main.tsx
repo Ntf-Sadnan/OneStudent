@@ -851,7 +851,7 @@ const LandingApp: React.FC = () => {
               <div className="flex-1 dashboard-preview-frame">
                 <DashboardApp />
               </div>
-          </div>
+            </div>
           </div>
         </div>
       </section>
@@ -878,55 +878,12 @@ const LandingApp: React.FC = () => {
           </div>
           <Button>কিউআর শেখার অভিজ্ঞতা দেখুন</Button>
         </div>
-        <div className="relative h-[620px] max-[760px]:h-[520px] bg-mint rounded-[35%_35%_25px_25px] flex items-center justify-center overflow-hidden">
-          <div className="w-[78%] max-[760px]:w-[92%] h-[390px] max-[760px]:h-[350px] bg-[#f4ead0] border-8 border-[#2c2419] rounded-[12px_18px_18px_12px] grid grid-cols-2 -rotate-5 shadow-2xl relative after:content-[''] after:absolute after:left-1/2 after:top-0 after:bottom-0 after:w-0.5 after:bg-[#b6a98c]">
-            <div className="p-7.5 max-[760px]:p-3.5 flex flex-col text-left justify-between relative">
-              <div>
-                <span className="text-[8px] text-[#756b55] uppercase tracking-wider block">অধ্যায় ০৪</span>
-                <h3 className="text-2xl max-[760px]:text-[18px] font-bold text-ink mt-5 mb-2.5">বীজগাণিতিক রাশি</h3>
-                <p className="text-[10px] leading-relaxed text-[#756b55]">চলক, সহগ ও রাশির ধারণা উদাহরণসহ শিখি।</p>
-                <div className="flex flex-col gap-2 mt-6">
-                  <i className="h-0.5 bg-[#c8bda4] rounded-full w-full" />
-                  <i className="h-0.5 bg-[#c8bda4] rounded-full w-[86%]" />
-                  <i className="h-0.5 bg-[#c8bda4] rounded-full w-[70%]" />
-                  <i className="h-0.5 bg-[#c8bda4] rounded-full w-[90%]" />
-                </div>
-              </div>
-              <div className="bg-white border border-[#cfc4a9] rounded-xl p-2.5 grid grid-cols-[54px_1fr] gap-x-2.5 items-center">
-                <div className="w-[54px] h-[54px] max-[760px]:w-[42px] max-[760px]:h-[42px] bg-white border border-ink p-1 grid grid-cols-6 gap-[2px] shrink-0">
-                  {Array.from({ length: 36 }).map((_, i) => (
-                    <i className={`rounded-[1px] ${i % 3 === 0 ? "bg-ink" : "bg-white"}`} key={i} />
-                  ))}
-                </div>
-                <div className="flex flex-col text-left leading-tight">
-                  <b className="text-[10px] text-ink font-bold">ভিডিও পাঠ দেখো</b>
-                  <small className="text-[7px] text-gray-500 mt-1">স্ক্যান করো</small>
-                </div>
-              </div>
-            </div>
-            <div className="p-7.5 max-[760px]:p-3.5 flex flex-col text-left justify-between relative">
-              <div>
-                <span className="text-[8px] text-[#756b55] uppercase tracking-wider block">অধ্যায় অনুশীলন</span>
-                <div className="text-[37px] text-center font-bold text-deep py-7 max-[760px]:py-4">x + 3y</div>
-                <div className="flex flex-col gap-2">
-                  <i className="h-0.5 bg-[#c8bda4] rounded-full w-full" />
-                  <i className="h-0.5 bg-[#c8bda4] rounded-full w-[86%]" />
-                  <i className="h-0.5 bg-[#c8bda4] rounded-full w-[70%]" />
-                </div>
-              </div>
-              <div className="bg-yellow border border-[#cfc4a9] rounded-xl p-2.5 grid grid-cols-[54px_1fr] gap-x-2.5 items-center">
-                <div className="w-[54px] h-[54px] max-[760px]:w-[42px] max-[760px]:h-[42px] bg-white border border-ink p-1 grid grid-cols-6 gap-[2px] shrink-0">
-                  {Array.from({ length: 36 }).map((_, i) => (
-                    <i className={`rounded-[1px] ${i % 4 === 0 ? "bg-ink" : "bg-white"}`} key={i} />
-                  ))}
-                </div>
-                <div className="flex flex-col text-left leading-tight">
-                  <b className="text-[10px] text-ink font-bold">অধ্যায় পরীক্ষা</b>
-                  <small className="text-[7px] text-gray-700 mt-1">এখনই শুরু করো</small>
-                </div>
-              </div>
-            </div>
-          </div>
+        <div className="relative flex items-center justify-center w-full">
+          <img 
+            className="w-full max-w-[500px] h-auto object-contain rounded-2xl select-none"
+            src="/assets/organic test.webp" 
+            alt="Organic chemistry practice test interface" 
+          />
           <div className="absolute z-10 right-2.5 top-[75px] max-[760px]:right-1 max-[760px]:top-[30px] bg-white border border-ink rounded-2xl p-[14px_18px] max-[760px]:p-2.5 flex items-center gap-3 shadow-[4px_5px_0_#111] rotate-4">
             <span className="w-[35px] h-[35px] rounded-full flex items-center justify-center bg-green text-ink shrink-0">
               <PlayIcon size={16} className="fill-current text-ink" />
@@ -2066,18 +2023,19 @@ const DashboardApp: React.FC = () => {
                     ))}
                   </div>
                   
+                  {mappedChapterTopics.length > 0 && (
+                    <div className="flex flex-wrap gap-2 mt-6">
+                      {mappedChapterTopics.map((item) => (
+                        <span className="bg-mint border border-green/15 rounded-full px-3 py-1.5 text-xs font-bold text-deep" key={item._id}>
+                          {item.name.trim()}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+
                   {/* YouTube Video Resource Integration */}
                   {rawChapter?.video_resources && rawChapter.video_resources.length > 0 ? (
                     <div className="mt-6 border-t border-[#ecebe6] pt-5">
-                      {mappedChapterTopics.length > 0 && (
-                        <div className="flex flex-wrap gap-2 mb-5">
-                          {mappedChapterTopics.map((item) => (
-                            <span className="bg-mint border border-green/15 rounded-full px-3 py-1.5 text-xs font-bold text-deep" key={item._id}>
-                              {item.name.trim()}
-                            </span>
-                          ))}
-                        </div>
-                      )}
                       <h4 className="text-lg font-bold text-ink mb-3">অধ্যায় ভিত্তিক ভিডিও ক্লাস:</h4>
                       <div className="grid gap-3">
                         {rawChapter.video_resources.map((vid, vIdx) => {
