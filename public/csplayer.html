@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="bn">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="referrer" content="strict-origin-when-cross-origin" />
+    <link rel="stylesheet" href="/vendor/csplayer/csPlayer.css" />
+    <style>
+      html,
+      body,
+      #video {
+        width: 100%;
+        height: 100%;
+        margin: 0;
+        overflow: hidden;
+        background: #000;
+      }
+
+      .csPlayer {
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .csPlayer .csPlayer-controls-box {
+        z-index: 10;
+        pointer-events: auto;
+      }
+
+      .csPlayer .csPlayer-controls-box main,
+      .csPlayer .csPlayer-controls-box main i,
+      .csPlayer .csPlayer-controls {
+        pointer-events: auto;
+        cursor: pointer;
+      }
+
+      .csPlayer .csPlayer-container span {
+        pointer-events: auto;
+        cursor: pointer;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="video"></div>
+    <script src="/vendor/csplayer/csPlayer.js"></script>
+    <script>
+      const videoId = new URLSearchParams(window.location.search).get("video");
+
+      function onYouTubeIframeAPIReady() {
+        if (!videoId) return;
+        csPlayer.init("video", {
+          defaultId: videoId,
+          thumbnail: true,
+          theme: "youtube",
+          loop: false
+        });
+      }
+    </script>
+    <script src="https://www.youtube.com/iframe_api"></script>
+  </body>
+</html>

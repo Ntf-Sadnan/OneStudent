@@ -16,9 +16,22 @@ import {
   MoreHorizontalIcon,
   WifiOff01Icon,
   Menu01Icon,
-  Cancel01Icon
+  Cancel01Icon,
+  PhysicsIcon,
+  Chemistry01Icon,
+  MathIcon,
+  DnaIcon,
+  ComputerIcon,
+  GlobalIcon,
+  LanguageCircleIcon,
+  UserIcon,
+  StarAward01Icon,
+  Books01Icon,
+  CheckmarkCircle02Icon,
+  Fire02Icon
 } from "hugeicons-react";
 import "./styles.css";
+import profileImg from "./profile.webp";
 
 const StyleOverride: React.FC = () => (
   <style dangerouslySetInnerHTML={{ __html: `
@@ -147,7 +160,7 @@ interface ButtonProps {
   href?: string;
 }
 
-const Button: React.FC<ButtonProps> = ({ children, secondary = false, href = "#features" }) => {
+const Button: React.FC<ButtonProps> = ({ children, secondary = false, href = "#dashboard" }) => {
   return (
     <a
       className={`group inline-flex items-center gap-3 px-[22px] py-2.5 max-[760px]:px-5 border-1.5 border-ink rounded-full font-bold text-sm shadow-[2px_3px_0_#111] transition-all duration-250 hover:-translate-y-0.5 hover:-translate-x-0.5 hover:shadow-[4px_5px_0_#111] ${
@@ -190,10 +203,10 @@ const DashboardCard: React.FC = () => {
       <div className="flex justify-between items-center">
         <div className="flex flex-col text-left">
           <span className="text-[12px] max-[760px]:text-[9px] text-gray-400">সুপ্রভাত,</span>
-          <b className="text-[16px] max-[760px]:text-[13px] text-ink font-bold">রাফি রহমান</b>
+          <b className="text-[16px] max-[760px]:text-[13px] text-ink font-bold">আব্দুল্লাহ আল জাহীন</b>
         </div>
         <div className="w-[44px] h-[44px] rounded-full overflow-hidden border border-[#1dbf73]/50 shadow-sm bg-mint shrink-0">
-          <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" alt="Rafi" />
+          <img className="w-full h-full object-cover" src={profileImg} alt="Nusrat" />
         </div>
       </div>
       <div className="w-[90px] h-[90px] rounded-full mx-auto my-3 bg-[conic-gradient(var(--color-green)_0_78%,#edf0ec_78%)] flex items-center justify-center relative before:content-[''] before:absolute before:w-[66px] before:h-[66px] before:rounded-full before:bg-white">
@@ -259,9 +272,9 @@ const PhoneChat: React.FC = () => {
   );
 };
 
-const App: React.FC = () => {
+const LandingApp: React.FC = () => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const [selectedSubject, setSelectedSubject] = useState("গণিত");
+  const [selectedSubject, setSelectedSubject] = useState("পদার্থবিজ্ঞান");
 
   const containerRef = useRef<HTMLDivElement>(null);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -294,14 +307,44 @@ const App: React.FC = () => {
     progressText: string;
     subUnits: [string, string, string, string, string][];
   }> = {
-    "গণিত": {
-      currentChapter: "বীজগাণিতিক রাশি",
-      chapterNum: "অধ্যায় ০৪",
-      progressText: "৮টির মধ্যে ৬ষ্ঠ পাঠ · ১৮ মিনিট",
+    "পদার্থবিজ্ঞান": {
+      currentChapter: "ভৌত রাশি এবং পরিমাপ",
+      chapterNum: "অধ্যায় ০১",
+      progressText: "১০টির মধ্যে ৬ষ্ঠ পাঠ · ১৫ মিনিট",
       subUnits: [
-        ["০১", "সংখ্যা পদ্ধতি", "১০০% সম্পন্ন", "bg-green", "100%"],
-        ["০২", "জ্যামিতি", "৭২% সম্পন্ন", "bg-green", "72%"],
-        ["০৩", "উপাত্ত ও সম্ভাবনা", "অধ্যায় শুরু করো", "bg-gray-200", "0%"]
+        ["০১", "পরিমাপের যন্ত্রপাতি", "১০০% সম্পন্ন", "bg-green", "100%"],
+        ["০২", "ত্রুটি ও নির্ভুলতা", "৮০% সম্পন্ন", "bg-green", "80%"],
+        ["০৩", "মাত্রা বিশ্লেষণ", "অধ্যায় শুরু করো", "bg-gray-200", "0%"]
+      ]
+    },
+    "রসায়ন": {
+      currentChapter: "পদার্থের অবস্থা ও পরমাণুর গঠন",
+      chapterNum: "অধ্যায় ০৩",
+      progressText: "৮টির মধ্যে ৪র্থ পাঠ · ২০ মিনিট",
+      subUnits: [
+        ["০১", "রাদারফোর্ড মডেল", "১০০% সম্পন্ন", "bg-green", "100%"],
+        ["০২", "বোর পরমাণু মডেল", "৫০% সম্পন্ন", "bg-green", "50%"],
+        ["০৩", "কোয়ান্টাম সংখ্যা", "অধ্যায় শুরু করো", "bg-gray-200", "0%"]
+      ]
+    },
+    "উচ্চতর গণিত": {
+      currentChapter: "ত্রিকোণমিতি",
+      chapterNum: "অধ্যায় ০৮",
+      progressText: "১২টির মধ্যে ৮ম পাঠ · ২৫ মিনিট",
+      subUnits: [
+        ["০১", "রেডিয়ান ও ডিগ্রি", "১০০% সম্পন্ন", "bg-green", "100%"],
+        ["০২", "ত্রিকোণমিতিক অনুপাত", "৭৫% সম্পন্ন", "bg-green", "75%"],
+        ["০৩", "বৃত্তকলা ক্ষেত্রফল", "অধ্যায় শুরু করো", "bg-gray-200", "0%"]
+      ]
+    },
+    "জীববিজ্ঞান": {
+      currentChapter: "কোষ ও টিস্যু",
+      chapterNum: "অধ্যায় ০২",
+      progressText: "৯টির মধ্যে ৫ম পাঠ · ১৮ মিনিট",
+      subUnits: [
+        ["০১", "উদ্ভিদ কোষের গঠন", "১০০% সম্পন্ন", "bg-green", "100%"],
+        ["০২", "কোষ অঙ্গাণু", "৬০% সম্পন্ন", "bg-green", "60%"],
+        ["০৩", "টিস্যুতন্ত্র ও কাজ", "অধ্যায় শুরু করো", "bg-gray-200", "0%"]
       ]
     },
     "বাংলা": {
@@ -324,16 +367,6 @@ const App: React.FC = () => {
         ["03", "Grammar Essentials", "Start Chapter", "bg-gray-200", "0%"]
       ]
     },
-    "বিজ্ঞান": {
-      currentChapter: "সূর্য ও পৃথিবী",
-      chapterNum: "অধ্যায় ০৫",
-      progressText: "১০টির মধ্যে ৮ম পাঠ · ২০ মিনিট",
-      subUnits: [
-        ["০১", "পরমাণুর গঠন", "১০০% সম্পন্ন", "bg-green", "100%"],
-        ["০২", "গতি ও বল", "৯০% সম্পন্ন", "bg-green", "90%"],
-        ["০৩", "পরিবেশ দূষণ", "অধ্যায় শুরু করো", "bg-gray-200", "0%"]
-      ]
-    },
     "আইসিটি": {
       currentChapter: "নেটওয়ার্ক ও সাইবার নিরাপত্তা",
       chapterNum: "অধ্যায় ০৩",
@@ -346,7 +379,7 @@ const App: React.FC = () => {
     }
   };
 
-  const activeData = subjectsData[selectedSubject] || subjectsData["গণিত"];
+  const activeData = subjectsData[selectedSubject] || subjectsData["পদার্থবিজ্ঞান"];
 
   useEffect(() => {
     const onScroll = () => {
@@ -392,13 +425,8 @@ const App: React.FC = () => {
               </a>
             ))}
           </nav>
-          <div className="flex items-center gap-5">
-            <a className="text-[13px] font-bold text-ink max-[1100px]:hidden hover:text-green transition-colors" href="#signin">
-              সাইন ইন
-            </a>
-            <div className="max-[760px]:hidden">
-              <Button href="#contact">শুরু করুন</Button>
-            </div>
+          <div className="max-[760px]:hidden">
+            <Button href="#dashboard">শুরু করুন</Button>
           </div>
           <button className="hidden max-[760px]:flex items-center justify-center w-10 h-10 border-none bg-transparent cursor-pointer text-ink" onClick={() => setMenuOpen(!menuOpen)} aria-label={menuOpen ? "মেনু বন্ধ করুন" : "মেনু খুলুন"}>
             {menuOpen ? <Cancel01Icon size={24} /> : <Menu01Icon size={24} />}
@@ -633,14 +661,14 @@ const App: React.FC = () => {
               <div className="grid grid-cols-[112px_1fr] max-[520px]:grid-cols-1 gap-5 text-left">
                 <div className="relative w-fit">
                   <div className="w-[112px] h-[132px] rounded-xl overflow-hidden border-2 border-white ring-1 ring-[#ced2c8] bg-gray-100 shadow-md">
-                    <img className="w-full h-full object-cover saturate-90" src="https://images.unsplash.com/photo-1544005313-94ddf0286df2?auto=format&fit=crop&w=300&q=80" alt="নুসরাত জাহান" />
+                    <img className="w-full h-full object-cover saturate-90" src={profileImg} alt="আব্দুল্লাহ আল জাহীন" />
                   </div>
                   <span className="absolute -right-2 -bottom-2 w-8 h-8 rounded-full bg-green text-white border-4 border-[#fffefa] grid place-items-center text-sm font-bold">✓</span>
                 </div>
 
                 <div>
                   <span className="text-[9px] text-muted block">শিক্ষার্থীর নাম</span>
-                  <h3 className="text-[25px] font-extrabold text-ink leading-tight mt-1 mb-0">নুসরাত জাহান</h3>
+                  <h3 className="text-[25px] font-extrabold text-ink leading-tight mt-1 mb-0">আব্দুল্লাহ আল জাহীন</h3>
                   <span className="text-[11px] text-muted block mt-1">Nusrat Jahan</span>
                   <div className="grid grid-cols-2 gap-x-5 gap-y-3 mt-5">
                     <div>
@@ -797,42 +825,59 @@ const App: React.FC = () => {
           />
           <div className="bg-white border border-gray-300 rounded-[28px] p-3 shadow-[0_30px_80px_rgba(30,32,27,0.1)]">
             <div className="flex gap-2 p-2 pb-4.5 overflow-x-auto whitespace-nowrap scrollbar-none">
-              <span className="bg-[#173d31] text-white px-4 py-2 rounded-full text-xs font-bold select-none cursor-default">অষ্টম শ্রেণি</span>
-              {["বাংলা", "ইংরেজি", "গণিত", "বিজ্ঞান", "আইসিটি"].map((x) => (
+              <span className="bg-[#173d31] text-white px-4 py-2.5 rounded-full text-xs font-bold select-none cursor-default shrink-0">এইচএসসি (বিজ্ঞান)</span>
+              {[
+                ["পদার্থবিজ্ঞান", <PhysicsIcon size={15} />],
+                ["রসায়ন", <Chemistry01Icon size={15} />],
+                ["উচ্চতর গণিত", <MathIcon size={15} />],
+                ["জীববিজ্ঞান", <DnaIcon size={15} />],
+                ["বাংলা", <BookOpen01Icon size={15} />],
+                ["ইংরেজি", <GlobalIcon size={15} />],
+                ["আইসিটি", <ComputerIcon size={15} />]
+              ].map(([x, icon]) => (
                 <span
-                  onClick={() => setSelectedSubject(x)}
-                  className={`px-4 py-2 rounded-full text-xs cursor-pointer font-medium border transition-colors ${
+                  onClick={() => setSelectedSubject(x as string)}
+                  className={`flex items-center gap-2 px-4 py-2.5 rounded-full text-xs cursor-pointer font-semibold border transition-all duration-200 ${
                     selectedSubject === x
-                      ? "bg-ink text-white border-ink shadow-[0_2px_4px_rgba(0,0,0,0.1)]"
+                      ? "bg-ink text-white border-ink shadow-[0_2px_5px_rgba(0,0,0,0.15)]"
                       : "bg-white text-ink border-gray-300 hover:bg-gray-50"
                   }`}
-                  key={x}
+                  key={x as string}
                 >
-                  {x}
+                  {icon}
+                  {x as string}
                 </span>
               ))}
             </div>
-            <div className="min-h-[610px] bg-[#f7f7f4] rounded-[20px] grid grid-cols-1 lg:grid-cols-[210px_1fr] overflow-hidden">
-              <aside className="bg-[#173d31] text-white p-[28px_22px] max-lg:hidden flex flex-col">
-                <Logo light />
-                <small className="text-[8px] tracking-[0.14em] uppercase text-[#a8c4ba] mt-12 mb-4 block text-left">আমার পড়াশোনা</small>
-                <div className="flex flex-col gap-1.5 text-left">
-                  {["সারসংক্ষেপ", "আমার বিষয়", "অনুশীলন", "পরীক্ষা", "সনদ"].map((x, i) => (
-                    <div className={`flex items-center gap-2.5 text-xs text-[#b2c9c1] p-3 rounded-lg cursor-pointer transition-colors ${i === 1 ? "bg-[#285a4a] text-white" : "hover:bg-emerald-900/40"}`} key={x}>
-                       <i className="w-2.5 h-2.5 border border-current rounded-sm" />
-                      {x}
-                    </div>
-                  ))}
+            <div className="min-h-[610px] bg-[#f7f7f4] rounded-[20px] grid grid-cols-1 lg:grid-cols-[230px_1fr] overflow-hidden">
+              <aside className="bg-[#173d31] text-white p-[28px_22px] max-lg:hidden flex flex-col justify-between">
+                <div>
+                  <Logo light />
+                  <small className="text-[8px] tracking-[0.14em] uppercase text-[#a8c4ba] mt-12 mb-4 block text-left">আমার পড়াশোনা</small>
+                  <div className="flex flex-col gap-1.5 text-left">
+                    {[
+                      ["প্রোফাইল ও রিপোর্ট", <DashboardSquare01Icon size={16} />],
+                      ["আমার বিষয়", <BookOpen01Icon size={16} />],
+                      ["অনুশীলন", <Route01Icon size={16} />],
+                      ["পরীক্ষা", <Tick01Icon size={16} />],
+                      ["সনদ", <UserShield01Icon size={16} />]
+                    ].map(([x, icon], i) => (
+                      <div className={`flex items-center gap-2.5 text-xs text-[#b2c9c1] p-3 rounded-lg cursor-pointer transition-colors ${i === 0 ? "bg-[#285a4a] text-white" : "hover:bg-emerald-900/40"}`} key={x as string}>
+                        {icon}
+                        {x as string}
+                      </div>
+                    ))}
+                  </div>
                 </div>
               </aside>
               <div className="p-10 max-[760px]:p-5 flex flex-col">
                 <div className="flex justify-between items-center mb-6">
                   <div className="flex flex-col text-left">
-                    <small className="text-[9px] text-green font-bold tracking-wider uppercase mb-1">অষ্টম শ্রেণি · {selectedSubject}</small>
+                    <small className="text-[9px] text-green font-bold tracking-wider uppercase mb-1">এইচএসসি বিজ্ঞান · {selectedSubject}</small>
                     <h3 className="text-2xl md:text-3xl font-bold text-ink">যেখান থেকে থেমেছিলে, সেখান থেকেই শুরু করো।</h3>
                   </div>
                   <div className="w-[44px] h-[44px] rounded-full overflow-hidden border border-[#1dbf73]/50 shadow-sm bg-mint shrink-0 max-[760px]:hidden">
-                    <img className="w-full h-full object-cover" src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?auto=format&fit=crop&w=150&q=80" alt="Rafi" />
+                    <img className="w-full h-full object-cover" src={profileImg} alt="আব্দুল্লাহ আল জাহীন" />
                   </div>
                 </div>
                 <div className="min-h-[255px] bg-yellow rounded-[22px] p-9 max-[760px]:p-6 grid grid-cols-1 md:grid-cols-2 relative overflow-hidden">
@@ -1268,7 +1313,796 @@ const App: React.FC = () => {
   );
 };
 
+
+type VideoResource = {
+  provider?: string;
+  title: string;
+  url: string;
+  type?: string;
+};
+
+type ChapterMcq = {
+  id?: string;
+  question: string;
+  options: { key: string; text: string }[];
+  answer: string;
+  explanation?: string;
+  difficulty?: string;
+};
+
+type ChapterData = {
+  chapter_no: number;
+  chapter_label_bn: string;
+  chapter_title: string;
+  mcqs: ChapterMcq[];
+  video_resources: VideoResource[];
+  video_status?: string;
+  video_note?: string;
+  main_concept_bn: {
+    title: string;
+    short_points: string[];
+  };
+};
+
+type Course = {
+  name: string;
+  short: string;
+  color: string;
+  chapters: string[];
+  rawChapters?: ChapterData[];
+};
+
+type CourseJson = {
+  subjects: {
+    subject: string;
+    chapters: ChapterData[];
+  }[];
+};
+
+type ChapterMapItem = {
+  _id: string;
+  name: string;
+  order: number | null;
+  visibility?: string;
+};
+
+type MappingJson = {
+  data: {
+    tree: Record<string, ChapterMapItem[]>;
+  };
+};
+
+type ExamProgress = Record<string, {
+  score: number;
+  completedAt: string;
+}>;
+
+type ExamAnswer = {
+  questionIndex: number;
+  selectedKey: string | null;
+  correct: boolean;
+};
+
+const createDemoExamProgress = (): ExamProgress => {
+  const now = new Date();
+  const completedAt = (daysAgo: number) => {
+    const date = new Date(now);
+    date.setDate(now.getDate() - daysAgo);
+    return date.toISOString();
+  };
+
+  return {
+    [progressKey("Physics 1", 0)]: { score: 80, completedAt: completedAt(1) },
+    [progressKey("Physics 1", 1)]: { score: 70, completedAt: completedAt(3) },
+    [progressKey("Chemistry 1", 0)]: { score: 90, completedAt: completedAt(5) },
+    [progressKey("Chemistry 1", 1)]: { score: 60, completedAt: completedAt(7) },
+    [progressKey("Biology 1", 0)]: { score: 80, completedAt: completedAt(9) },
+    [progressKey("Biology 1", 1)]: { score: 70, completedAt: completedAt(11) },
+    [progressKey("Higher Math 1", 0)]: { score: 90, completedAt: completedAt(13) },
+    [progressKey("ICT", 0)]: { score: 80, completedAt: completedAt(15) }
+  };
+};
+
+const subjectNames: Record<string, { name: string; short: string }> = {
+  "HSC Physics 1st Paper": { name: "পদার্থবিজ্ঞান ১ম পত্র", short: "Physics 1" },
+  "HSC Physics 2nd Paper": { name: "পদার্থবিজ্ঞান ২য় পত্র", short: "Physics 2" },
+  "HSC Chemistry 1st Paper": { name: "রসায়ন ১ম পত্র", short: "Chemistry 1" },
+  "HSC Chemistry 2nd Paper": { name: "রসায়ন ২য় পত্র", short: "Chemistry 2" },
+  "HSC Biology 1st Paper": { name: "জীববিজ্ঞান ১ম পত্র", short: "Biology 1" },
+  "HSC Biology 2nd Paper": { name: "জীববিজ্ঞান ২য় পত্র", short: "Biology 2" },
+  "HSC Higher Math 1st Paper": { name: "উচ্চতর গণিত ১ম পত্র", short: "Higher Math 1" },
+  "HSC Higher Math 2nd Paper": { name: "উচ্চতর গণিত ২য় পত্র", short: "Higher Math 2" },
+  "HSC ICT": { name: "তথ্য ও যোগাযোগ প্রযুক্তি", short: "ICT" }
+};
+
+const hscCourses: Course[] = [
+  { name: "পদার্থবিজ্ঞান ১ম পত্র", short: "Physics 1", color: "#dff5ec", chapters: ["ভৌতজগৎ ও পরিমাপ","ভেক্টর","গতিবিদ্যা","নিউটনিয়ান বলবিদ্যা","কাজ, শক্তি ও ক্ষমতা","মহাকর্ষ ও অভিকর্ষ","পদার্থের গাঠনিক ধর্ম","পর্যাবৃত্ত গতি","তরঙ্গ","আদর্শ গ্যাস ও গ্যাসের গতিতত্ত্ব"] },
+  { name: "পদার্থবিজ্ঞান ২য় পত্র", short: "Physics 2", color: "#dcecff", chapters: ["তাপগতিবিদ্যা","স্থির তড়িৎ","চল তড়িৎ","তড়িৎ প্রবাহের চৌম্বক ক্রিয়া","তড়িতচৌম্বকীয় আবেশ","জ্যামিতিক আলোকবিজ্ঞান","ভৌত আলোকবিজ্ঞান","আধুনিক পদার্থবিজ্ঞানের সূচনা","পরমাণুর মডেল ও নিউক্লিয়া","সেমিকন্ডাকটর ও ইলেকট্রনিকস","জ্যোতির্বিজ্ঞান"] },
+  { name: "রসায়ন ১ম পত্র", short: "Chemistry 1", color: "#fff0b8", chapters: ["ল্যাবরেটরির নিরাপদ ব্যবহার","गुणগত রসায়ন","মৌলের পর্যায়বৃত্ত ধর্ম ও রাসায়নিক বন্ধন","রাসায়নিক পরিবর্তন","কর্মমুখী রসায়ন"] },
+  { name: "রসায়ন ২য় পত্র", short: "Chemistry 2", color: "#ffe3cf", chapters: ["পরিবেশ রসায়ন","জৈব রসায়ন","পরিমাণগত রসায়ন","তড়িৎ রাসায়ন","অর্থনৈতিক রসায়ন"] },
+  { name: "জীববিজ্ঞান ১ম পত্র", short: "Biology 1", color: "#e7f5d6", chapters: ["কোষ ও এর গঠন","কোষ বিভাজন","কোষ রসায়ন","অণুজীব","শৈবাল ও ছত্রাক","ব্রায়োফাইটা ও টেরিডোফাইটা","নগ্নবীজী ও আবৃতবীজী উদ্ভিদ","টিস্যু ও টিস্যুতন্ত্র","উদ্ভিদ শরীরতত্ত্ব","উদ্ভিদ প্রজনন","জীবপ্রযুক্তি","জীবের পরিবেশ, বিস্তার ও সংরক্ষণ"] },
+  { name: "জীববিজ্ঞান ২য় পত্র", short: "Biology 2", color: "#e2f0dc", chapters: ["প্রাণীর বিভিন্নতা ও শ্রেণিবিন্যাস","প্রাণীর পরিচিতি","মানব শরীরতত্ত্ব: পরিপাক ও শোষণ","মানব শরীরতত্ত্ব: রক্ত ও সংবহন","মানব শরীরতত্ত্ব: শ্বসন ও শ্বাসক্রিয়া","মানব শরীরতত্ত্ব: বর্জ্য ও নিষ্কাশন","মানব শরীরতত্ত্ব: চলন ও অঙ্গচালনা","মানব শরীরতত্ত্ব: সমন্বয় ও নিয়ন্ত্রণ","মানব জীবনের ধারাবাহিকতা","মানবদেহের প্রতিরক্ষা","জিনতত্ত্ব ও বিবর্তন","প্রাণীর আচরণ"] },
+  { name: "উচ্চতর গণিত ১ম পত্র", short: "Higher Math 1", color: "#eee8ff", chapters: ["ম্যাট্রিক্স ও নির্ণায়ক","ভেক্টর","সরলরেখা","বৃত্ত","বিন্যাস ও সমাবেশ","ত্রিকোণমিতিক অনুপাত","সংযুক্ত কোণের ত্রিকোণমিতিক অনুপাত","ফাংশন ও ফাংশনের লেখচিত্র","অন্তরীকরণ","যোগজীকরণ"] },
+  { name: "উচ্চতর গণিত ২য় পত্র", short: "Higher Math 2", color: "#eadfff", chapters: ["বাস্তব সংখ্যা ও অসমতা","যোগাশ্রয়ী প্রোগ্রাম","জটিল সংখ্যা","বহুপদী ও বহুপদী সমীকরণ","দ্বিপদী বিস্তৃতি","কণিক","ত্রিকোণমিতিক ফাংশন","স্থিতিবিদ্যা","সমতলে বস্তুকণার গতি","বিস্তার পরিমাপ ও সম্ভাবনা"] },
+  { name: "তথ্য ও যোগাযোগ প্রযুক্তি", short: "ICT", color: "#d9f4f2", chapters: ["তথ্য ও যোগাযোগ প্রযুক্তি - বিশ্ব ও বাংলাদেশ প্রেক্ষিত","কমিউনিকেশন সিস্টেমস ও নেটওয়ার্কিং","সংখ্যা পদ্ধতি ও ডিজিটাল ডিভাইস","ওয়েব ডিজাইন পরিচিতি এবং HTML","প্রোগ্রামিং ভাষা","ডেটাবেজ ম্যানেজমেন্ট সিস্টেম"] },
+];
+
+const bnNums = ["প্রথম","দ্বিতীয়","তৃতীয়","চতুর্থ","পঞ্চম","ষষ্ঠ","সপ্তম","অষ্টম","নবম","দশম","একাদশ","দ্বাদশ"];
+const bnDigits = (value: number) => String(value).replace(/\d/g, (digit) => "০১২৩৪৫৬৭৮৯"[Number(digit)]);
+const bnMonthNames = ["জানুয়ারি", "ফেব্রুয়ারি", "মার্চ", "এপ্রিল", "মে", "জুন", "জুলাই", "আগস্ট", "সেপ্টেম্বর", "অক্টোবর", "নভেম্বর", "ডিসেম্বর"];
+const progressKey = (courseShort: string, chapterIndex: number) => `${courseShort}:${chapterIndex}`;
+
+const getCourseIcon = (short: string) => {
+  if (short.startsWith("Physics")) {
+    return <PhysicsIcon size={20} strokeWidth={1.5} />;
+  }
+  if (short.startsWith("Chemistry")) {
+    return <Chemistry01Icon size={20} strokeWidth={1.5} />;
+  }
+  if (short.startsWith("Biology")) {
+    return <DnaIcon size={20} strokeWidth={1.5} />;
+  }
+  if (short.startsWith("Higher Math")) {
+    return <MathIcon size={20} strokeWidth={1.5} />;
+  }
+  return <ComputerIcon size={20} strokeWidth={1.5} />;
+};
+
+const CsPlayerVideo: React.FC<{ videoId: string; playerId: string }> = ({ videoId, playerId }) => {
+  return (
+    <iframe
+      className="w-full aspect-video border-0 rounded-lg bg-black"
+      src={`/csplayer.html?video=${encodeURIComponent(videoId)}`}
+      title={`ভিডিও প্লেয়ার ${playerId}`}
+      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; fullscreen"
+      allowFullScreen
+    />
+  );
+};
+
+const DashboardApp: React.FC = () => {
+  const [courseIndex, setCourseIndex] = useState(0);
+  const [chapterIndex, setChapterIndex] = useState(0);
+  const [mode, setMode] = useState<"course" | "profile" | "learn" | "test" | "result">("profile");
+  const [sidebarOpen, setSidebarOpen] = useState(false);
+  const [answer, setAnswer] = useState<number | null>(null);
+  const [dynamicCourses, setDynamicCourses] = useState<Course[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [loadError, setLoadError] = useState("");
+  const [chapterMapTree, setChapterMapTree] = useState<Record<string, ChapterMapItem[]>>({});
+  const [currentMcqIndex, setCurrentMcqIndex] = useState(0);
+  const [scoreCount, setScoreCount] = useState(0);
+  const [answerHistory, setAnswerHistory] = useState<ExamAnswer[]>([]);
+  const [answerChecked, setAnswerChecked] = useState(false);
+  const [timeLeft, setTimeLeft] = useState(15);
+  const [examProgress, setExamProgress] = useState<ExamProgress>(() => {
+    const saved = sessionStorage.getItem("onestudent-exam-progress");
+    if (saved) {
+      const parsed = JSON.parse(saved) as ExamProgress;
+      if (Object.keys(parsed).length > 0) return parsed;
+    }
+    const demoProgress = createDemoExamProgress();
+    sessionStorage.setItem("onestudent-exam-progress", JSON.stringify(demoProgress));
+    return demoProgress;
+  });
+
+  useEffect(() => {
+    fetch("/hsc_science_all_chapters_10_mcq.json")
+      .then((res) => {
+        if (!res.ok) throw new Error(`Course data request failed (${res.status})`);
+        return res.json() as Promise<CourseJson>;
+      })
+      .then((data) => {
+        const colors = ["#dff5ec", "#dcecff", "#fff0b8", "#ffe3cf", "#e7f5d6", "#e2f0dc", "#eee8ff", "#eadfff", "#d9f4f2"];
+        const mapped = data.subjects.map((sub, i) => {
+          const labels = subjectNames[sub.subject] || {
+            name: sub.subject,
+            short: sub.subject.replace("HSC ", "")
+          };
+          return {
+            name: labels.name,
+            short: labels.short,
+            color: colors[i % colors.length],
+            chapters: sub.chapters.map((ch) => ch.chapter_title),
+            rawChapters: sub.chapters
+          };
+        });
+        setDynamicCourses(mapped);
+      })
+      .catch((err: Error) => {
+        console.error("Error loading JSON course data:", err);
+        setLoadError("কোর্সের JSON ডেটা লোড করা যায়নি। পেজটি রিফ্রেশ করে আবার চেষ্টা করুন।");
+      })
+      .finally(() => setLoading(false));
+  }, []);
+
+  useEffect(() => {
+    fetch("/truemap.json")
+      .then((res) => {
+        if (!res.ok) throw new Error(`Chapter mapping request failed (${res.status})`);
+        return res.json() as Promise<MappingJson>;
+      })
+      .then((data) => setChapterMapTree(data.data?.tree || {}))
+      .catch((err: Error) => console.error("Error loading chapter mapping:", err));
+  }, []);
+
+  const [scores, setScores] = useState<{ subject: string; score: number; date: string }[]>(() => {
+    const saved = sessionStorage.getItem("onestudent-demo-scores");
+    return saved ? JSON.parse(saved) : [];
+  });
+
+  const coursesList = dynamicCourses;
+  const course = coursesList[courseIndex] || hscCourses[0];
+  const chaptersList = course.chapters || [];
+  const chapter = chaptersList[chapterIndex] || "";
+  const rawChapter = course.rawChapters ? course.rawChapters[chapterIndex] : null;
+  const courseMapKey = (() => {
+    if (course.short.startsWith("Physics")) return `phys_${course.short.endsWith("2") ? "2" : "1"}_${chapterIndex + 1}`;
+    if (course.short.startsWith("Chemistry")) return `chem_${course.short.endsWith("2") ? "2" : "1"}_${chapterIndex + 1}`;
+    if (course.short.startsWith("Biology")) return `bio_${course.short.endsWith("2") ? "2" : "1"}_${chapterIndex + 1}`;
+    if (course.short.startsWith("Higher Math")) return `math_${course.short.endsWith("2") ? "2" : "1"}_${chapterIndex + 1}`;
+    return "";
+  })();
+  const mappedChapterTopics = (chapterMapTree[courseMapKey] || [])
+    .filter((item) => item.visibility !== "private")
+    .sort((a, b) => (a.order ?? Number.MAX_SAFE_INTEGER) - (b.order ?? Number.MAX_SAFE_INTEGER));
+
+  const mcqs: ChapterMcq[] = rawChapter?.mcqs || [
+    {
+      question: "F = ma সূত্রে a কী নির্দেশ করে?",
+      options: [
+        { key: "A", text: "ক্ষেত্রফল" },
+        { key: "B", text: "ত্বরণ" },
+        { key: "C", text: "কৌণিক ভরবেগ" },
+        { key: "D", text: "কাজ" }
+      ],
+      answer: "B",
+      explanation: "F = ma সমীকরণে a হলো ত্বরণ (acceleration)."
+    }
+  ];
+
+  const currentMcq = mcqs[currentMcqIndex] || mcqs[0];
+  const today = new Date();
+  const calendarYear = today.getFullYear();
+  const calendarMonth = today.getMonth();
+  const calendarDays = Array.from(
+    { length: new Date(calendarYear, calendarMonth + 1, 0).getDate() },
+    (_, index) => index + 1
+  );
+  const calendarOffset = new Date(calendarYear, calendarMonth, 1).getDay();
+  const activeStudyDays = new Set(
+    Object.values(examProgress)
+      .map((entry) => new Date(entry.completedAt))
+      .filter((date) => date.getFullYear() === calendarYear && date.getMonth() === calendarMonth)
+      .map((date) => date.getDate())
+  );
+  const completedExamCount = Object.keys(examProgress).length;
+  const courseProgress = (item: Course) => {
+    const completed = item.chapters.filter((_, index) => examProgress[progressKey(item.short, index)]).length;
+    return item.chapters.length ? Math.round((completed / item.chapters.length) * 100) : 0;
+  };
+  const currentCourseProgress = courseProgress(course);
+  const reportCourses = coursesList;
+
+  const CalendarCard = () => (
+    <section className="bg-white border border-line rounded-[20px] p-6">
+      <div className="flex items-end justify-between mb-5">
+        <div>
+          <span className="text-xs text-deep font-black tracking-[.08em] uppercase">পড়াশোনার ক্যালেন্ডার</span>
+          <h2 className="mt-1 mb-0 text-[23px]">{bnMonthNames[calendarMonth]} {bnDigits(calendarYear)}</h2>
+        </div>
+        <span className="text-[10px] text-[#777] font-bold"><i className="inline-block w-2 h-2 rounded-full bg-green mr-1" />পরীক্ষা</span>
+      </div>
+      <div className="grid grid-cols-7 gap-1.5 text-center">
+        {["রবি", "সোম", "মঙ্গল", "বুধ", "বৃহ", "শুক্র", "শনি"].map((day) => (
+          <span className="text-[9px] text-[#8b908b] font-black py-1" key={day}>{day}</span>
+        ))}
+        {Array.from({ length: calendarOffset }, (_, index) => <span key={`empty-${index}`} />)}
+        {calendarDays.map((day) => {
+          const isToday = day === today.getDate();
+          const isActive = activeStudyDays.has(day);
+          return (
+            <span
+              className={`relative aspect-square grid place-items-center rounded-[10px] text-xs font-bold ${
+                isToday ? "bg-ink text-white" : isActive ? "bg-mint text-deep" : "bg-[#f6f5f0] text-[#676c67]"
+              }`}
+              key={day}
+            >
+              {bnDigits(day)}
+              {isActive && !isToday && <i className="absolute bottom-1 w-1 h-1 rounded-full bg-green" />}
+            </span>
+          );
+        })}
+      </div>
+    </section>
+  );
+
+  const selectCourse = (index: number) => { 
+    setCourseIndex(index); 
+    setChapterIndex(0); 
+    setMode("course"); 
+    setSidebarOpen(false); 
+  };
+
+  const openChapter = (index: number, nextMode: "learn" | "test") => {
+    setChapterIndex(index);
+    setMode(nextMode);
+    setCurrentMcqIndex(0);
+    setScoreCount(0);
+    setAnswer(null);
+    setAnswerHistory([]);
+    setAnswerChecked(false);
+    setTimeLeft(15);
+    window.scrollTo({ top: 0, behavior: "smooth" });
+  };
+
+  const playAnswerSound = (correct: boolean) => {
+    const audio = new Audio(correct ? "/duolingo-right.wav" : "/duolingo-wrong.wav");
+    audio.play().catch(() => {});
+  };
+
+  const checkAnswer = (selectedIndex: number) => {
+    if (answerChecked) return;
+    const selectedOptionKey = currentMcq.options[selectedIndex]?.key;
+    const isCorrect = selectedOptionKey === currentMcq.answer;
+    setAnswer(selectedIndex);
+    setAnswerChecked(true);
+    playAnswerSound(isCorrect);
+    const nextHistory = [
+      ...answerHistory,
+      { questionIndex: currentMcqIndex, selectedKey: selectedOptionKey, correct: isCorrect }
+    ];
+    setAnswerHistory(nextHistory);
+    if (isCorrect) {
+      setScoreCount((prev) => prev + 1);
+    }
+  };
+
+  const finishQuestion = () => {
+    if (!answerChecked) return;
+
+    if (currentMcqIndex + 1 < mcqs.length) {
+      setCurrentMcqIndex((prev) => prev + 1);
+      setAnswer(null);
+      setAnswerChecked(false);
+      setTimeLeft(15);
+    } else {
+      const finalCorrects = scoreCount;
+      const pct = Math.round((finalCorrects / mcqs.length) * 100);
+      const next = [{ subject: course.short, score: pct, date: "এইমাত্র" }, ...scores].slice(0, 6);
+      const nextProgress = {
+        ...examProgress,
+        [progressKey(course.short, chapterIndex)]: {
+          score: pct,
+          completedAt: new Date().toISOString()
+        }
+      };
+      setScores(next);
+      setScoreCount(finalCorrects);
+      setExamProgress(nextProgress);
+      sessionStorage.setItem("onestudent-demo-scores", JSON.stringify(next));
+      sessionStorage.setItem("onestudent-exam-progress", JSON.stringify(nextProgress));
+      setAnswer(null);
+      setMode("result");
+    }
+  };
+
+  useEffect(() => {
+    if (mode !== "test" || answerChecked) return;
+    if (timeLeft <= 0) {
+      const nextHistory = [
+        ...answerHistory,
+        { questionIndex: currentMcqIndex, selectedKey: null, correct: false }
+      ];
+      setAnswerHistory(nextHistory);
+      setAnswerChecked(true);
+      playAnswerSound(false);
+      return;
+    }
+
+    const timer = window.setTimeout(() => setTimeLeft((value) => value - 1), 1000);
+    return () => window.clearTimeout(timer);
+  }, [mode, answerChecked, timeLeft, currentMcqIndex]);
+
+  const Sidebar = () => (
+    <aside className={`fixed lg:sticky top-0 ${sidebarOpen ? "left-0" : "-left-[290px]"} lg:left-0 w-[270px] lg:w-auto h-screen bg-[#11120f] text-white px-3 lg:px-[17px] py-6 flex flex-col overflow-y-auto z-50 transition-[left] duration-250`}>
+      <div className="flex items-center justify-between px-2 pb-[22px]"><Logo light /><button className="lg:hidden bg-transparent border-0 text-white" onClick={() => setSidebarOpen(false)}><Cancel01Icon size={20} strokeWidth={1.5}/></button></div>
+      <nav className="grid gap-1 border-b border-[#2a2c29] pb-4">
+        <button className={`flex items-center gap-[11px] border-0 px-[13px] py-[11px] rounded-[10px] text-left text-xs font-extrabold cursor-pointer ${mode === "profile" ? "bg-green text-[#071b12]" : "bg-transparent text-[#aeb2ad]"}`} onClick={() => { setMode("profile"); setSidebarOpen(false); }}><DashboardSquare01Icon size={19} strokeWidth={1.5}/> প্রোফাইল ও রিপোর্ট</button>
+        <button className={`flex items-center gap-[11px] border-0 px-[13px] py-[11px] rounded-[10px] text-left text-xs font-extrabold cursor-pointer ${mode !== "profile" ? "bg-green text-[#071b12]" : "bg-transparent text-[#aeb2ad]"}`} onClick={() => { setMode("course"); setSidebarOpen(false); }}><BookOpen01Icon size={19} strokeWidth={1.5}/> আমার কোর্স</button>
+      </nav>
+      <div className="text-[#8e948e] text-[11px] tracking-[.1em] uppercase font-black px-3 pt-5 pb-2.5">এইচএসসি বিজ্ঞান</div>
+      <div className="grid gap-[3px]">
+        {coursesList.map((item, index) => (
+          <button className={`flex gap-2.5 items-center p-[9px] border-0 rounded-[11px] text-left cursor-pointer ${courseIndex === index && mode !== "profile" ? "bg-[#282b27] text-white" : "bg-transparent text-[#b7bbb6]"}`} onClick={() => selectCourse(index)} key={item.name}>
+            <i className="w-[34px] h-[34px] grid place-items-center text-ink rounded-[9px] not-italic" style={{background:item.color}}>
+              {getCourseIcon(item.short)}
+            </i>
+            <span className="text-[13px] font-extrabold leading-[1.35]">{item.name}<small className="block text-[#899089] text-[11px] mt-0.5">{bnDigits(item.chapters.length)}টি অধ্যায়</small></span>
+          </button>
+        ))}
+      </div>
+      <a className="mt-auto px-3 pt-5 pb-1 text-[#a0a6a0] text-xs no-underline" href="#top">← মূল ওয়েবসাইট</a>
+    </aside>
+  );
+
+  if (loading) {
+    return (
+      <main className="min-h-screen bg-[#f4f3ee] text-ink grid place-items-center px-5">
+        <StyleOverride />
+        <div className="bg-white border border-line rounded-[22px] p-8 text-center shadow-sm">
+          <span className="block text-deep text-xs font-black tracking-[.08em] uppercase mb-3">কোর্স লাইব্রেরি</span>
+          <h1 className="text-2xl font-bold m-0">JSON ডেটা লোড হচ্ছে...</h1>
+        </div>
+      </main>
+    );
+  }
+
+  if (loadError || dynamicCourses.length === 0) {
+    return (
+      <main className="min-h-screen bg-[#f4f3ee] text-ink grid place-items-center px-5">
+        <StyleOverride />
+        <div className="max-w-[520px] bg-white border border-line rounded-[22px] p-8 text-center shadow-sm">
+          <span className="block text-[#c43b4f] text-xs font-black tracking-[.08em] uppercase mb-3">ডেটা লোড ব্যর্থ</span>
+          <h1 className="text-2xl font-bold mt-0 mb-3">ড্যাশবোর্ড খোলা যাচ্ছে না</h1>
+          <p className="text-sm text-[#666] leading-relaxed mb-0">{loadError || "JSON ফাইলে কোনো কোর্স পাওয়া যায়নি।"}</p>
+        </div>
+      </main>
+    );
+  }
+
+  return (
+    <main className="min-h-screen bg-[#f4f3ee] text-ink block lg:grid lg:grid-cols-[282px_minmax(0,1fr)]">
+      <StyleOverride />
+      <Sidebar />
+      {sidebarOpen && <button className="fixed inset-0 bg-black/50 border-0 z-40 lg:hidden" onClick={() => setSidebarOpen(false)} aria-label="মেনু বন্ধ করুন" />}
+      <section className="min-w-0">
+        <header className="h-20 bg-white border-b border-line flex lg:hidden items-center px-3.5 lg:px-[34px] sticky top-0 z-30">
+          <button className="grid lg:hidden place-items-center border-0 bg-ink text-white w-10 h-10 rounded-[11px] mr-[13px]" onClick={() => setSidebarOpen(true)}><Menu01Icon size={22}/></button>
+          <div><span className="hidden lg:block text-[11px] text-deep font-black tracking-[.08em] uppercase">ওয়ানস্টুডেন্ট লার্নিং স্পেস</span><b className="block text-base mt-1">{mode === "profile" ? "আমার প্রোফাইল" : course.name}</b></div>
+          <div className="ml-auto flex items-center">
+            <div className="flex gap-3 items-center p-[8px_14px] bg-[#f6f6f1] border border-line rounded-2xl text-ink">
+              <div className="flex flex-col text-right leading-tight pl-1">
+                <b className="block text-xs font-bold text-ink font-sans">আব্দুল্লাহ আল জাহীন</b>
+                <span className="block text-deep text-[9px] mt-0.5 font-bold uppercase tracking-wider">এইচএসসি · বিজ্ঞান</span>
+              </div>
+              <div className="w-[42px] h-[42px] rounded-full overflow-hidden border border-line bg-white shrink-0 shadow-sm">
+                <img className="w-full h-full object-cover" src={profileImg} alt="আব্দুল্লাহ আল জাহীন" />
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {mode === "profile" ? (
+          <div className="max-w-[1370px] mx-auto px-3.5 lg:px-[34px] pt-5 lg:pt-8 pb-20">
+            {/* Student Profile Card */}
+            <section className="bg-white border border-line rounded-[22px] p-6 lg:p-7 flex flex-col sm:flex-row items-center gap-5 shadow-[0_4px_20px_rgba(0,0,0,0.02)] mb-6">
+              <div className="w-[78px] h-[78px] rounded-full overflow-hidden bg-white shrink-0 shadow-sm">
+                <img className="w-full h-full object-cover" src={profileImg} alt="আব্দুল্লাহ আল জাহীন" />
+              </div>
+              <div className="flex-1 text-center sm:text-left">
+                <h1 className="text-2xl lg:text-3xl font-extrabold text-ink mb-1.5">আব্দুল্লাহ আল জাহীন</h1>
+                <p className="m-0 text-[#70756f] text-xs lg:text-sm font-semibold flex flex-wrap gap-x-2 gap-y-1 justify-center sm:justify-start items-center">
+                  <span>ধানমন্ডি সরকারি বালিকা উচ্চ বিদ্যালয়</span>
+                  <span className="text-deep font-extrabold">· এইচএসসি ২০২৭ · বিজ্ঞান বিভাগ</span>
+                  <span className="text-[#a0a6a0]">·</span>
+                  <span>আইডি: ২০৩১-৮৪২৯০১</span>
+                </p>
+              </div>
+              <div className="flex flex-col items-center sm:items-end gap-1 shrink-0 pt-2 sm:pt-0 border-t sm:border-t-0 sm:border-l border-[#ecebe6] sm:pl-5 w-full sm:w-auto">
+                <span className="text-[10px] text-[#8e948e] font-bold">ভেরিফাইড প্রোফাইল ✓</span>
+              </div>
+            </section>
+
+            <div className="grid grid-cols-2 xl:grid-cols-4 gap-[13px] my-[18px]">
+              {[
+                ["১,৮২৬", "অর্জিত পয়েন্ট", <StarAward01Icon size={20} strokeWidth={1.5} />],
+                [bnDigits(coursesList.length), "চলমান কোর্স", <Books01Icon size={20} strokeWidth={1.5} />],
+                [bnDigits(completedExamCount), "পরীক্ষা দেওয়া", <CheckmarkCircle02Icon size={20} strokeWidth={1.5} />],
+                ["১০", "দিনের স্ট্রিক", <Fire02Icon size={20} strokeWidth={1.5} />]
+              ].map(([n,l,icon],i)=><article className="bg-white border border-line rounded-[17px] p-[15px] lg:p-5 grid grid-cols-[35px_1fr_auto] gap-x-3 items-center" key={l as string}><i className={`w-[35px] lg:w-[42px] h-[35px] lg:h-[42px] grid place-items-center rounded-xl not-italic ${["bg-[#fff0b8]","bg-lavender","bg-[#ffe1e6]","bg-mint"][i]}`}>{icon}</i><div><b className="text-[22px] block font-bold">{n}</b><span className="text-xs text-[#666] block">{l}</span></div></article>)}
+            </div>
+            <div className="grid xl:grid-cols-[minmax(0,1.35fr)_minmax(300px,.65fr)] gap-[18px]">
+              <section className="bg-white border border-line rounded-[20px] p-6">
+                <div className="mb-[17px]"><span className="text-xs text-deep font-black tracking-[.08em] uppercase">সাবজেক্টভিত্তিক রিপোর্ট</span><h2 className="mt-1 mb-0 text-[23px]">সামগ্রিক পারফরম্যান্স</h2></div>
+                {reportCourses.map((item) => {
+                  const value = courseProgress(item);
+                  return (
+                    <button
+                      className="w-full grid grid-cols-[1fr_48px] lg:grid-cols-[minmax(200px,.7fr)_1fr_48px] gap-4 items-center border-0 border-t border-solid border-[#ecebe6] py-[17px] px-0 bg-transparent text-left cursor-pointer hover:bg-[#fafaf7] transition-colors"
+                      onClick={() => selectCourse(coursesList.indexOf(item))}
+                      key={item.name}
+                    >
+                      <div>
+                        <b className="block text-[15px]">{item.name}</b>
+                        <span className="block text-[13px] text-[#70756f] mt-1">{bnDigits(value)}% সম্পন্ন</span>
+                      </div>
+                      <div className="col-span-2 row-start-2 lg:col-span-1 lg:row-auto h-2 bg-[#eee] rounded-lg overflow-hidden">
+                        <i className="block h-full bg-green" style={{width:`${value}%`}}/>
+                      </div>
+                      <strong className="text-sm text-deep text-right">{bnDigits(value)}%</strong>
+                    </button>
+                  );
+                })}
+              </section>
+              <aside className="grid gap-[18px] content-start mt-[15px] xl:mt-0">
+                <CalendarCard />
+              </aside>
+            </div>
+          </div>
+        ) : (
+          <div className="max-w-[1370px] mx-auto px-3.5 lg:px-[34px] pt-5 lg:pt-8 pb-20">
+            {mode === "course" && <>
+              <section className="rounded-[18px] px-5 lg:px-7 py-5 flex flex-col sm:flex-row justify-between sm:items-center gap-5" style={{background:course.color}}>
+                <div>
+                  <h1 className="text-[26px] lg:text-[32px] leading-tight m-0">{course.name}</h1>
+                  <p className="text-xs text-[#59615b] mt-2 mb-0">{bnDigits(chaptersList.length)}টি অধ্যায়</p>
+                </div>
+                <div className="w-full sm:w-[150px] shrink-0">
+                  <b className="block text-xl mb-2">{bnDigits(currentCourseProgress)}%</b>
+                  <div className="h-[5px] bg-black/10 rounded-full overflow-hidden"><i className="block h-full bg-green" style={{width:`${currentCourseProgress}%`}}/></div>
+                </div>
+              </section>
+              <div className="grid xl:grid-cols-[minmax(0,1fr)_280px] gap-[22px] mt-[22px] items-start">
+                <section className="bg-white border border-line rounded-[20px] p-[17px] lg:p-[25px]">
+                  <div className="flex justify-between items-end mb-[17px]"><div><span className="text-xs text-deep font-black tracking-[.08em] uppercase">কোর্স কনটেন্ট</span><h2 className="mt-1 mb-0 text-[23px]">সকল অধ্যায়</h2></div><b className="text-xs text-[#666]">{bnDigits(chaptersList.length)}টি অধ্যায়</b></div>
+                  {chaptersList.map((item,index) => {
+                    const completed = examProgress[progressKey(course.short, index)];
+                    return (
+                      <article
+                        className="grid lg:grid-cols-[minmax(0,1fr)_auto] items-center border-t border-[#ecebe6] py-[13px] cursor-pointer"
+                        key={item}
+                        role="link"
+                        tabIndex={0}
+                        onClick={()=>openChapter(index,"learn")}
+                        onKeyDown={(event) => {
+                          if (event.key === "Enter" || event.key === " ") {
+                            event.preventDefault();
+                            openChapter(index, "learn");
+                          }
+                        }}
+                      >
+                        <button className="flex gap-3.5 items-center border-0 bg-transparent text-left cursor-pointer min-w-0" onClick={(event)=>{event.stopPropagation(); openChapter(index,"learn");}}>
+                          <i className={`w-[45px] h-[45px] grid place-items-center rounded-xl not-italic text-xs font-black ${completed ? "bg-green text-ink" : "bg-[#f1f0ea]"}`}>
+                            {completed ? <Tick01Icon size={18} strokeWidth={2.2}/> : bnDigits(Number(String(index + 1).padStart(2, "0"))).padStart(2, "০")}
+                          </i>
+                          <span>
+                            <b className="block text-base mb-0.5">{item}</b>
+                            <em className={`block text-xs not-italic ${completed ? "text-deep font-bold" : "text-[#777]"}`}>
+                              {completed ? `পরীক্ষা দেওয়া · ${bnDigits(completed.score)}%` : `${bnDigits(course.rawChapters?.[index]?.mcqs.length || 0)}টি কুইজ প্রশ্ন`}
+                            </em>
+                          </span>
+                        </button>
+                        <div className="flex gap-1.5 pt-2 pl-[59px] lg:p-0">
+                          <button className="flex items-center gap-1.5 border border-[#d9d9d3] bg-white rounded-full px-3 py-2.5 text-xs font-extrabold cursor-pointer" onClick={(event)=>{event.stopPropagation(); openChapter(index,"learn");}}><PlayIcon size={14}/> শিখুন</button>
+                          <button className={`flex items-center gap-1.5 border rounded-full px-3 py-2.5 text-xs font-extrabold cursor-pointer ${completed ? "border-green bg-green text-ink" : "border-ink bg-ink text-white"}`} onClick={(event)=>{event.stopPropagation(); openChapter(index,"test");}}>{completed && <Tick01Icon size={14}/>} {completed ? "আবার দিন" : "পরীক্ষা"}</button>
+                        </div>
+                      </article>
+                    );
+                  })}
+                </section>
+                <aside className="xl:sticky xl:top-[102px] mt-[15px] xl:mt-0">
+                  <CalendarCard />
+                </aside>
+              </div>
+            </>}
+            {mode === "learn" && (
+            <>
+              <button className="border-0 bg-transparent text-deep text-sm font-black mb-4 cursor-pointer" onClick={()=>setMode("course")}>← {course.name}</button>
+              <div className="grid lg:grid-cols-[minmax(0,1fr)_320px] gap-6 items-start">
+                <article className="bg-white border border-line rounded-[22px] p-5 lg:p-7">
+                  <div className="pb-4 mb-4 border-b border-[#ecebe6]">
+                    <span className="text-sm text-deep font-extrabold">{bnDigits(chapterIndex + 1)} অধ্যায়</span>
+                    <h1 className="text-[22px] lg:text-[26px] leading-tight mt-2 mb-0">
+                      {chapter} <span className="text-[#718078] font-normal">•</span> {rawChapter?.main_concept_bn.title || "চলো মূল ধারণাটি বুঝি"}
+                    </h1>
+                  </div>
+                  <div className="grid gap-3">
+                    {(rawChapter?.main_concept_bn.short_points || []).map((point, index) => (
+                      <div className="grid grid-cols-[32px_1fr] gap-3 items-start" key={point}>
+                        <span className="w-8 h-8 rounded-full bg-mint text-deep grid place-items-center text-xs font-black">{bnDigits(index + 1)}</span>
+                        <p className="text-[#61655f] leading-[1.9] text-base m-0">{point}</p>
+                      </div>
+                    ))}
+                  </div>
+                  
+                  {/* YouTube Video Resource Integration */}
+                  {rawChapter?.video_resources && rawChapter.video_resources.length > 0 ? (
+                    <div className="mt-6 border-t border-[#ecebe6] pt-5">
+                      {mappedChapterTopics.length > 0 && (
+                        <div className="flex flex-wrap gap-2 mb-5">
+                          {mappedChapterTopics.map((item) => (
+                            <span className="bg-mint border border-green/15 rounded-full px-3 py-1.5 text-xs font-bold text-deep" key={item._id}>
+                              {item.name.trim()}
+                            </span>
+                          ))}
+                        </div>
+                      )}
+                      <h4 className="text-lg font-bold text-ink mb-3">অধ্যায় ভিত্তিক ভিডিও ক্লাস:</h4>
+                      <div className="grid gap-3">
+                        {rawChapter.video_resources.map((vid, vIdx) => {
+                          const getYoutubeId = (url: string) => {
+                            const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                            const match = url.match(regExp);
+                            return (match && match[2].length === 11) ? match[2] : null;
+                          };
+                          const ytId = getYoutubeId(vid.url);
+                          return (
+                            <div className="bg-[#fcfcfa] border border-line rounded-xl p-3 flex flex-col gap-3" key={vIdx}>
+                              {ytId ? (
+                                <CsPlayerVideo videoId={ytId} playerId={`cs-player-${courseIndex}-${chapterIndex}-${vIdx}`} />
+                              ) : (
+                                <div className="w-full h-[100px] bg-ink/5 rounded-lg flex items-center justify-center">
+                                  <PlayIcon size={24} className="text-muted" />
+                                </div>
+                              )}
+                              <div className="flex-1">
+                                <h5 className="text-[15px] font-bold text-ink mt-0 mb-1">{vid.title}</h5>
+                                <a className="text-xs text-green font-bold hover:underline" href={vid.url} target="_blank" rel="noopener noreferrer">ইউটিউবে দেখুন ↗</a>
+                              </div>
+                            </div>
+                          );
+                        })}
+                      </div>
+                    </div>
+                  ) : (
+                    <div className="bg-mint/40 border border-green/10 rounded-xl p-4 mt-8 flex items-center gap-3">
+                      <span className="text-lg">ℹ</span>
+                      <p className="m-0 text-xs text-deep font-bold">{rawChapter?.video_note || "এই অধ্যায়ের জন্য কোনো সরাসরি ইউটিউব ভিডিও লিংক পাওয়া যায়নি।"}</p>
+                    </div>
+                  )}
+
+                  <div className="flex justify-center">
+                    <button className="inline-flex items-center justify-center gap-2.5 border border-ink bg-green shadow-[3px_4px_0_#111] rounded-full px-5 py-[13px] font-black cursor-pointer mt-7" onClick={() => openChapter(chapterIndex, "test")}>অনুশীলনী পরীক্ষা দিন <ArrowRight01Icon size={18} /></button>
+                  </div>
+                </article>
+                <aside className="bg-white border border-line rounded-[22px] p-5">
+                  <b className="block px-2.5 pt-2 pb-4">এই অধ্যায়ে</b>
+                  {["ধারণা ও সংজ্ঞা", "ইউটিউব ক্লাস ভিডিও", "অনুশীলনী কুইজ", "অধ্যায় পরীক্ষা"].map((item, i) => (
+                    <div className={`flex items-center gap-2.5 px-2.5 py-[13px] rounded-[10px] text-sm font-bold ${i === 0 ? "bg-mint" : ""}`} key={item}><span className="text-deep text-xs">০{i + 1}</span>{item}</div>
+                  ))}
+                </aside>
+              </div>
+            </>)}
+            {mode === "test" && (
+            <><button className="border-0 bg-transparent text-deep text-[10px] font-black mb-4 cursor-pointer" onClick={()=>setMode("course")}>← {course.name}</button>
+            <div className="max-w-[760px] mx-auto my-[25px] bg-white border border-line rounded-[22px] p-5 lg:p-7">
+              <div className="flex justify-between items-center text-[11px] text-deep">
+                <span>অধ্যায় পরীক্ষা ({chapter})</span>
+                <div className="flex items-center gap-3">
+                  <b>প্রশ্ন {bnDigits(currentMcqIndex + 1)} / {bnDigits(mcqs.length)}</b>
+                  <span className={`w-10 h-10 rounded-full grid place-items-center font-black text-sm ${timeLeft <= 5 && !answerChecked ? "bg-[#ffe1e6] text-[#c42f47]" : "bg-mint text-deep"}`}>
+                    {bnDigits(timeLeft)}
+                  </span>
+                </div>
+              </div>
+              <div className="h-[5px] bg-[#eee] rounded-lg my-[18px] mb-[45px]"><i className="block h-full bg-green" style={{ width: `${((currentMcqIndex + 1) / mcqs.length) * 100}%` }} /></div>
+              
+              <h1 className="text-[20px] lg:text-[24px] mb-6 leading-relaxed">{currentMcq.question}</h1>
+              
+              <div className="grid gap-2.5 mt-6">
+                {currentMcq.options.map((opt, i) => {
+                  const isCorrectOption = opt.key === currentMcq.answer;
+                  const isSelected = answer === i;
+                  const feedbackClass = answerChecked
+                    ? isCorrectOption
+                      ? "border-green bg-mint text-deep"
+                      : isSelected
+                        ? "border-[#ff6278] bg-[#fff0f2] text-[#a9283d]"
+                        : "border-line bg-white text-[#777]"
+                    : "border-line bg-white hover:border-ink";
+                  return (
+                    <button
+                      className={`flex items-center gap-[15px] p-3.5 text-left border rounded-[13px] text-sm font-bold transition-colors ${feedbackClass} ${answerChecked ? "cursor-default" : "cursor-pointer"}`}
+                      onClick={() => checkAnswer(i)}
+                      disabled={answerChecked}
+                      key={opt.key}
+                    >
+                      <span className={`w-[30px] h-[30px] grid place-items-center rounded-full font-extrabold shrink-0 ${answerChecked && isCorrectOption ? "bg-green text-ink" : answerChecked && isSelected ? "bg-[#ff6278] text-white" : "bg-[#efeee8]"}`}>{opt.key}</span>
+                      {opt.text}
+                    </button>
+                  );
+                })}
+              </div>
+              {answerChecked && (
+                <div className={`mt-4 rounded-xl px-4 py-3 text-sm font-bold ${answer !== null && currentMcq.options[answer]?.key === currentMcq.answer ? "bg-mint text-deep" : "bg-[#fff0f2] text-[#a9283d]"}`}>
+                  {answer === null ? "সময় শেষ। সঠিক উত্তরটি সবুজ রঙে দেখানো হয়েছে।" : currentMcq.options[answer]?.key === currentMcq.answer ? "সঠিক উত্তর!" : "উত্তরটি সঠিক নয়। সঠিক উত্তরটি সবুজ রঙে দেখানো হয়েছে।"}
+                </div>
+              )}
+              <div className="flex justify-center">
+                <button className="inline-flex items-center justify-center gap-2.5 border border-ink bg-green shadow-[3px_4px_0_#111] rounded-full px-5 py-[13px] font-black cursor-pointer mt-[22px] disabled:opacity-40 disabled:cursor-not-allowed" disabled={!answerChecked} onClick={finishQuestion}>
+                  {currentMcqIndex + 1 < mcqs.length ? "পরবর্তী" : "ফলাফল দেখুন"} <ArrowRight01Icon size={18} />
+                </button>
+              </div>
+            </div></>)}
+            {mode === "result" && (
+            <div className="max-w-[900px] mx-auto my-[25px]">
+              <section className="bg-ink text-white rounded-[24px] overflow-hidden border border-white/10">
+                <div className="text-center px-5 py-8">
+                  <span className="text-green text-[11px] font-black uppercase">পরীক্ষার ফলাফল</span>
+                  <h1 className="text-xl font-bold mt-1 mb-6">{chapter}</h1>
+                  <b className="block text-[48px] leading-none text-yellow">{bnDigits(scores[0]?.score || 0)}%</b>
+                  <span className="block text-sm text-[#c9cec9] mt-3">{bnDigits(scoreCount)} / {bnDigits(mcqs.length)} সঠিক</span>
+                </div>
+                <div className="grid grid-cols-3 border-t border-white/15">
+                  {[
+                    [scoreCount, "সঠিক", "text-green"],
+                    [answerHistory.filter((item) => item.selectedKey !== null && !item.correct).length, "ভুল", "text-[#ff6278]"],
+                    [answerHistory.filter((item) => item.selectedKey === null).length, "স্কিপ", "text-[#b5bab5]"]
+                  ].map(([value, label, color], index) => (
+                    <div className={`text-center py-5 ${index < 2 ? "border-r border-white/15" : ""}`} key={label as string}>
+                      <b className={`block text-2xl ${color}`}>{bnDigits(value as number)}</b>
+                      <span className="block text-xs text-[#b5bab5] mt-1">{label}</span>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+              <div className="flex justify-center gap-3 my-6">
+                <button className="inline-flex items-center justify-center border border-ink bg-green shadow-[3px_4px_0_#111] rounded-full px-5 py-[12px] font-black cursor-pointer" onClick={() => setMode("profile")}>প্রোফাইলে ফল দেখুন</button>
+                <button className="inline-flex items-center justify-center border border-line bg-white rounded-full px-5 py-[12px] font-black cursor-pointer" onClick={() => openChapter(chapterIndex, "test")}>আবার পরীক্ষা দিন</button>
+              </div>
+
+              <section className="grid gap-4">
+                {mcqs.map((mcq, index) => {
+                  const response = answerHistory.find((item) => item.questionIndex === index);
+                  return (
+                    <article className="bg-white border border-line rounded-[20px] p-5 lg:p-6" key={mcq.id || index}>
+                      <div className="flex gap-3 items-start">
+                        <span className={`w-8 h-8 rounded-full grid place-items-center shrink-0 text-sm font-black ${response?.correct ? "bg-green text-ink" : "bg-[#ffe1e6] text-[#c42f47]"}`}>
+                          {bnDigits(index + 1)}
+                        </span>
+                        <h2 className="text-base lg:text-lg leading-relaxed m-0">{mcq.question}</h2>
+                      </div>
+                      <div className="grid sm:grid-cols-2 gap-2 mt-4">
+                        {mcq.options.map((option) => {
+                          const isCorrectOption = option.key === mcq.answer;
+                          const isSelected = option.key === response?.selectedKey;
+                          return (
+                            <div
+                              className={`rounded-xl border px-3 py-3 text-sm font-bold ${
+                                isCorrectOption
+                                  ? "border-green bg-mint text-deep"
+                                  : isSelected
+                                    ? "border-[#ff6278] bg-[#fff0f2] text-[#a9283d]"
+                                    : "border-line bg-[#fafaf7] text-[#666]"
+                              }`}
+                              key={option.key}
+                            >
+                              <span className="mr-2">{option.key}</span>{option.text}
+                            </div>
+                          );
+                        })}
+                      </div>
+                      {mcq.explanation && (
+                        <p className="mt-4 mb-0 rounded-xl bg-mint/60 border border-green/15 px-4 py-3 text-sm text-deep leading-relaxed">
+                          {mcq.explanation}
+                        </p>
+                      )}
+                    </article>
+                  );
+                })}
+              </section>
+            </div>)}
+          </div>
+        )}
+      </section>
+    </main>
+  );
+};
+
+const RootApp: React.FC = () => {
+  const [dashboard, setDashboard] = useState(window.location.hash === "#dashboard");
+  useEffect(() => {
+    const sync = () => setDashboard(window.location.hash === "#dashboard");
+    window.addEventListener("hashchange", sync);
+    return () => window.removeEventListener("hashchange", sync);
+  }, []);
+  return dashboard ? <DashboardApp /> : <LandingApp />;
+};
+
 const rootEl = document.getElementById("root");
 if (rootEl) {
-  createRoot(rootEl).render(<App />);
+  createRoot(rootEl).render(<RootApp />);
 }
+
